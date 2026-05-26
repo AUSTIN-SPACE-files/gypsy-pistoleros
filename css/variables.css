@@ -1,0 +1,173 @@
+/* Gypsy Pistoleros — variables.css */
+/* Part of the AUSTIN_SPACE build — May 2026 */
+/* DO NOT edit directly in Bandzoogle — always edit here first */
+
+
+:root {
+  /* ==========================================
+     BACKGROUNDS
+     ========================================== */
+  --color-bg-primary: #000000;
+  --color-bg-secondary: #111111;
+  --color-bg-elevated: #0f0f0f;
+
+  /* ==========================================
+     ACCENTS — pulled from Dark Faerie Tales vinyl artwork
+     ========================================== */
+
+  /* Neon green with black splatter vinyl */
+  --color-accent-green: #39ff14;
+  --color-accent-green-muted: #1a7a0a;
+  --color-accent-green-dark: #2dcc10;   /* ~20% darker than #39ff14 — flat button hover */
+
+  /* Neon purple with black splatter vinyl */
+  --color-accent-purple: #bf00ff;
+  --color-accent-purple-muted: #6b0099;
+
+  /* Blood red — gothic secondary */
+  --color-accent-red: #8b0000;
+  --color-accent-red-bright: #cc0000;
+
+  /* Gold — RETIRED for design-system roles. Retained for the yellow star rating
+     fill only (functional/semantic, not decorative). Do not use for new design work. */
+  --color-accent-gold: #c9a84c;
+
+  /* Silver — secondary button; mirrors gold primary structure in cool metal tone */
+  --color-silver: #c0c0c0;
+  --color-silver-dark: #909090;
+
+  /* Electric blue — high saturation neon accent; use for decorative hairline icons */
+  --color-accent-blue: #00bfff;
+
+  /* Hot pink — decorative accent on hairlines and hero divider feather */
+  --color-accent-pink: #ff2d92;
+  --color-accent-pink-muted: #d12579;
+
+  /* ==========================================
+     TEXT
+     ========================================== */
+  --color-text-primary: #e8e8e0;      /* off-white, not harsh */
+  --color-text-secondary: #a0a090;    /* muted for secondary content */
+  --color-text-accent: #39ff14;       /* green for links/highlights */
+
+  /* ==========================================
+     BORDERS
+     ========================================== */
+  --color-border-subtle: rgba(255, 255, 255, 0.08);
+  --color-border-accent: rgba(57, 255, 20, 0.3);
+
+  /* ==========================================
+     TYPOGRAPHY
+     ========================================== */
+
+  /* ---- Two-font system (Georgia display + Inter body) ---- */
+
+  /* Display — Georgia: all heading and display roles at any size */
+  --font-display: Georgia, 'Times New Roman', serif;
+
+  /* V2 BUNDLE TOKENS — Active for cult-membership.html via
+     gypsy-pistoleros.css (loads cult-gathering.css, cg-inscribed.css,
+     hero-v2.css, press-pasteup.css). NOT consumed by the v0 bundle
+     (active staging pages). When cult-membership deploys, these tokens
+     become production-active for that page. Do not delete without
+     verifying every consumer in BOTH bundles. */
+  --font-display-secondary: 'Cinzel', Georgia, serif;
+  --font-cinzel-min: 1.125rem;
+  --font-cinzel-max: 1.9375rem;
+  --font-display-tertiary: 'Cormorant Garamond', Georgia, serif;
+
+  /* Body / UI — Inter */
+  --font-body: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'Courier New', monospace;
+
+  /* Scale */
+  --text-xs:   0.75rem;    /*  12px */
+  --text-sm:   0.875rem;   /*  14px */
+  --text-base: 1rem;       /*  16px */
+  --text-lg:   1.125rem;   /*  18px */
+  --text-xl:   1.25rem;    /*  20px */
+  --text-2xl:  1.5rem;     /*  24px */
+  --text-3xl:  1.875rem;   /*  30px */
+  --text-4xl:  2.25rem;    /*  36px */
+  --text-5xl:  3rem;       /*  48px */
+  --text-6xl:  3.75rem;    /*  60px */
+
+  /* ==========================================
+     SPACING & LAYOUT
+     ========================================== */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-24: 6rem;
+
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+
+  --max-width:     1200px;
+  --content-width: 800px;
+}
+
+/* ==========================================
+   WEB AWESOME 3.7.0 — DESIGN TOKEN OVERRIDES
+   WA components read their own --wa-* tokens.
+   Overriding them here means wa-button, wa-icon etc.
+   automatically inherit our brand palette without
+   needing per-element style attributes.
+
+   Verify these names against WA docs if a component
+   isn't picking up the expected value — WA 3.x
+   introduced a revised token namespace.
+   ========================================== */
+:root {
+  /* Primary / brand colour → neon green (replaces purple for highlights/hover/focus) */
+  --wa-color-brand-600:      #39ff14;
+  --wa-color-brand-700:      #2dd610;   /* hover/active state */
+  --wa-color-brand-500:      #5fff3a;   /* lighter tint */
+  --wa-color-brand-50:       #001a00;   /* subtle tinted bg */
+
+  /* Neutral surface → our dark backgrounds */
+  --wa-color-neutral-0:      #0a0a0a;
+  --wa-color-neutral-50:     #111111;
+  --wa-color-neutral-100:    #1a1a1a;
+  --wa-color-neutral-200:    #2a2a2a;
+  --wa-color-neutral-700:    #a0a090;
+  --wa-color-neutral-900:    #e8e8e0;
+  --wa-color-neutral-950:    #f0f0e8;
+
+  /* Danger → blood red accent */
+  --wa-color-danger-600:     #cc0000;
+  --wa-color-danger-700:     #8b0000;
+
+  /* Border radius → matches our --radius-* scale */
+  --wa-border-radius-small:  2px;   /* = --radius-sm */
+  --wa-border-radius-medium: 4px;   /* = --radius-md */
+  --wa-border-radius-large:  8px;   /* = --radius-lg */
+  --wa-border-radius-x-large: 12px;
+
+  /* Typography → matches our --font-* values */
+  --wa-font-sans:  'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --wa-font-mono:  'Courier New', monospace;
+
+  /* Font size scale → matches our --text-* scale */
+  --wa-font-size-x-small:  0.75rem;    /* = --text-xs */
+  --wa-font-size-small:    0.875rem;   /* = --text-sm */
+  --wa-font-size-medium:   1rem;       /* = --text-base */
+  --wa-font-size-large:    1.125rem;   /* = --text-lg */
+  --wa-font-size-x-large:  1.25rem;    /* = --text-xl */
+  --wa-font-size-2x-large: 1.5rem;     /* = --text-2xl */
+
+  /* Focus ring → green to match our accent */
+  --wa-focus-ring-color:   rgba(57, 255, 20, 0.5);
+  --wa-focus-ring-width:   2px;
+}
+
+/* BUTTON HIERARCHY — strictly enforced (Pass 9d) */
+/* Neon pink (variant="brand"): primary conversion actions (join, buy, subscribe) */
+/* Neon green (variant="neutral"): secondary discovery actions (explore, learn more, see all) */
+/* Purple: text links and nav accent ONLY — never on buttons */

@@ -1,0 +1,333 @@
+/* ==========================================
+   shows.css — Tour date card and grid styles
+   Part of the AUSTIN_SPACE build — May 2026
+
+   v0 baseline only. No v2 styling flourishes.
+   Colour tokens from variables.css throughout.
+   No hardcoded colour values.
+
+   Pairs with js/shows.js (renderer) and
+   data/shows.json (dataset).
+
+   Cross-file dependencies:
+   - .section-live styles live in press-kit.css
+   ========================================== */
+
+
+/* ==========================================
+   GRID
+   ========================================== */
+
+.shows-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+
+
+/* ==========================================
+   SHOWS TABLE — proper <table> element,
+   rendered when data-shows-layout="table".
+   ========================================== */
+
+.shows-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: auto;
+  margin-top: var(--space-6);
+  font-family: var(--font-body);
+  color: var(--color-text-primary);
+}
+
+.shows-table thead th {
+  text-align: left;
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 2px solid var(--color-silver);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-silver);
+  white-space: nowrap;
+}
+
+.shows-table tbody tr {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  transition: background 0.15s ease;
+}
+
+.shows-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.shows-table tbody td {
+  padding: var(--space-4);
+  vertical-align: middle;
+  font-size: var(--text-base);
+  line-height: 1.5;
+}
+
+.shows-table__date {
+  white-space: nowrap;
+  color: var(--color-text-primary);
+  font-weight: 400;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  letter-spacing: 0.05em;
+}
+
+.shows-table__venue {
+  color: var(--color-text-primary);
+  font-weight: 500;
+}
+
+.shows-table__location {
+  color: var(--color-text-secondary);
+  font-size: var(--text-sm);
+  white-space: nowrap;
+}
+
+.shows-table__type {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-family: var(--font-body);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: rgba(160, 160, 144, 0.1);
+  color: var(--color-text-secondary);
+  border: 1px solid rgba(160, 160, 144, 0.3);
+}
+
+.shows-table__type--festival {
+  background: rgba(57, 255, 20, 0.15);
+  color: var(--color-accent-green);
+  border-color: rgba(57, 255, 20, 0.4);
+}
+
+.shows-table__type--club {
+  background: rgba(160, 160, 144, 0.1);
+  color: var(--color-text-secondary);
+  border-color: rgba(160, 160, 144, 0.3);
+}
+
+.shows-table__status {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  text-transform: none;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+.shows-table__status--past {
+  color: var(--color-text-secondary);
+}
+
+.shows-table__status--upcoming {
+  color: var(--color-text-primary);
+}
+
+.shows-table__tickets {
+  text-align: right;
+}
+
+/* Past rows dimmed at same 0.6 opacity as .show-card--past */
+.shows-table__row--past {
+  opacity: 0.6;
+}
+
+@media (max-width: 768px) {
+  .shows-table thead {
+    display: none;
+  }
+
+  .shows-table tbody tr {
+    display: block;
+    padding: var(--space-4);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .shows-table tbody td {
+    display: block;
+    padding: var(--space-1) 0;
+    border: none;
+  }
+
+  .shows-table tbody td::before {
+    content: attr(data-label) ': ';
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    margin-right: var(--space-2);
+  }
+
+  .shows-table__tickets {
+    text-align: left;
+  }
+}
+
+
+/* ==========================================
+   SECTION WRAPPERS — shows page sections
+   ========================================== */
+
+.section-shows-hero {
+  padding: var(--space-16) var(--space-6) var(--space-12);
+  text-align: center;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.section-shows-hero__inner {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.section-shows-hero__sigil {
+  max-width: 120px;
+  width: 100%;
+  height: auto;
+  display: block;
+  margin-bottom: var(--space-4);
+}
+
+/* #usersite-container prefix required to beat BZ's
+   `#usersite-container h1 { font-size: 25px }`.
+   See docs/css-quirks.md and homepage Pass 6d. clamp range
+   40px–64px — slightly larger than EPK hero (32–60px) since
+   this title is descriptive prose, not a bare name. */
+#usersite-container .section-shows-hero__title {
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  margin-bottom: 0;
+}
+
+.section-shows-hero__tagline {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.06em;
+  margin-bottom: 0;
+}
+
+.section-upcoming {
+  padding: var(--space-16) var(--space-6);
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.section-upcoming h2 {
+  margin-bottom: var(--space-2);
+}
+
+.section-upcoming__subhead {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  letter-spacing: 0.06em;
+  margin-bottom: var(--space-8);
+}
+
+.section-tba {
+  padding: var(--space-12) var(--space-6);
+  max-width: var(--content-width);
+  margin: 0 auto;
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.section-tba__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-6);
+  margin-top: var(--space-4);
+}
+
+.section-tba__links a {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+}
+
+.section-tba__links a:hover {
+  color: var(--color-text-primary);
+}
+
+.section-past {
+  padding: var(--space-16) var(--space-6);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.section-past__tagline {
+  font-family: var(--font-body);
+  font-style: normal;
+  font-size: var(--text-base);
+  color: var(--color-text-secondary);
+  margin-top: 0;
+  margin-bottom: var(--space-6);
+}
+
+.section-live-reviews {
+  padding: var(--space-16) var(--space-6);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+/* .section-live-reviews__heading inherits h2 from typography.css */
+
+.section-live-reviews__tagline {
+  font-family: var(--font-body);
+  font-style: normal;
+  font-size: var(--text-base);
+  color: var(--color-text-secondary);
+  margin-top: 0;
+  margin-bottom: var(--space-6);
+}
+
+.section-booking {
+  padding: var(--space-16) var(--space-6);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.section-booking__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-8);
+  margin-top: var(--space-8);
+}
+
+@media (max-width: 500px) {
+  .section-booking__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ==========================================
+   BOOKING SECTION — email link treatment
+   ========================================== */
+
+/* Booking emails inherit the same link treatment as contacts
+   blocks. Standalone selector needed because booking emails are
+   in .section-booking__grid, not .section-contacts. */
+.section-booking__grid a {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  word-break: break-word;
+}
+
+.section-booking__grid a:hover {
+  color: var(--color-text-primary);
+}

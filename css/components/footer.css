@@ -1,0 +1,71 @@
+/* ==========================================
+   footer.css — Brand footer styles
+
+   Pairs with staging/_brand-footer-feature-row.html.
+   The Feature Row block is DOM-portable and carries structure only;
+   all styling lives here.
+
+   This file styles the CUSTOM BRAND FOOTER only (band name, tagline,
+   social icons, AUSTIN_SPACE credit). Bandzoogle's INJECTED site-wide
+   footer (#site-wide-footer with the copyright text feature and member
+   nav) is a separate concern — its real selectors are documented in
+   docs/bandzoogle-injected-markup.md and will be styled during v2 work.
+   ========================================== */
+
+/* ==========================================
+   FOOTER WRAPPER
+   ========================================== */
+
+.site-footer {
+  padding: 48px 24px;
+  text-align: center;
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+/* ==========================================
+   BRAND BLOCK (name + tagline)
+   .site-footer__brand h3 is styled in typography.css
+   .site-tagline is styled in typography.css
+   ========================================== */
+
+.site-footer__brand {
+  margin-bottom: 24px;
+}
+
+/* ==========================================
+   SOCIAL ICON ROW
+   ========================================== */
+
+.site-footer__social {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+/* ==========================================
+   SOCIAL LINK ANCHORS
+   font-size set here so wa-icon (which inherits font-size
+   from its parent) renders at 24px
+   ========================================== */
+
+.footer-social-link {
+  color: var(--color-text-secondary);
+  font-size: 24px;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-social-link:hover {
+  color: var(--color-text-primary);
+}
+
+.footer-social-link:focus-visible {
+  outline: 2px solid var(--color-text-primary);
+  outline-offset: 2px;
+  border-radius: 2px;
+}

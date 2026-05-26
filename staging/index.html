@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gypsy Pistoleros — Official Site</title>
+  <meta name="description" content="The world's only Glam Punk Goth 'n' Roll outlaws. Dark Faerie Tales — out now on The New Church Records. Wild, dark, defiantly unclassifiable.">
+
+  <!-- Google Fonts: Inter (body/UI only — Georgia is a web-safe system font, no import needed)
+       BANDZOOGLE: add this link tag to Pages → Site-wide Settings → Headers & Metatags -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Web Awesome 3.7.0 — component and icon library
+       BANDZOOGLE: these four tags also go into Pages → Site-wide Settings → Headers & Metatags -->
+  <link rel="stylesheet" href="https://ka-f.webawesome.com/webawesome@3.7.0/styles/themes/default.css" />
+  <link rel="stylesheet" href="https://ka-f.webawesome.com/webawesome@3.7.0/styles/native.css" />
+  <link rel="stylesheet" href="https://ka-f.webawesome.com/webawesome@3.7.0/styles/utilities.css" />
+  <script type="module" src="https://ka-f.webawesome.com/webawesome@3.7.0/webawesome.loader.js"></script>
+
+  <!-- Font Awesome Pro Kit — unlocks Graphite, Duotone, Sharp, all Pro families -->
+  <script src="https://kit.fontawesome.com/6a400036f2.js" crossorigin="anonymous"></script>
+
+  <!-- v0 baseline stylesheet: variables, icons, typography, navigation, footer, reviews, homepage.
+       Bleeding Cowboys @font-face is declared inside typography.css (via this import chain).
+       No additional @font-face needed here. -->
+  <link rel="stylesheet" href="../css/v0.css">
+</head>
+<body>
+
+  <!--
+    ═══════════════════════════════════════════════════════════
+    BANDZOOGLE LAYOUT NOTE
+    ═══════════════════════════════════════════════════════════
+    Site-wide header, navigation, and footer are injected
+    automatically by Bandzoogle via the site template.
+
+    DO NOT add <header>, <nav>, or <footer> markup to this file.
+    This file is a content block only — Bandzoogle wraps it.
+
+    To update the nav or footer, edit the Bandzoogle template
+    directly in Pages → Site-wide Settings.
+    ═══════════════════════════════════════════════════════════
+  -->
+
+  <div class="page-content">
+
+    <!-- ==========================================
+         SECTION 1 — HERO
+         ========================================== -->
+    <section class="section-hero" aria-label="Band introduction">
+
+      <div class="section-hero__content">
+        <h1 class="section-hero__title">The world's only<br>
+        Glam Punk Goth 'n' Roll<br>
+        outlaws</h1>
+        <p class="section-hero__tagline">Death to Vanilla Rock</p>
+        <wa-button variant="brand" size="large" href="https://www.plastichead.com/artist/gypsy-pistoleros">
+          Hear Dark Faerie Tales
+        </wa-button>
+      </div>
+
+    </section>
+
+
+    <!-- ==========================================
+         SECTION 2 — ALBUM ANNOUNCEMENT
+         ========================================== -->
+    <section class="section-album" aria-labelledby="album-heading">
+
+      <div class="section-album__cover">
+        <img src="https://gypsypistoleros.com/files/1413344/gp-darkfaerietales-album.webp"
+             alt="Dark Faerie Tales — Gypsy Pistoleros album cover"
+             width="400"
+             loading="lazy">
+      </div>
+
+      <div class="section-album__copy">
+        <h2 id="album-heading">Dark Faerie Tales — Out Now</h2>
+
+        <p>Gypsy Pistoleros have returned with Dark Faerie Tales — their most daring and cinematic work to date. Blending Glam-punk ferocity with gothic drama and eclectic theatrical-kissed swagger, the Pistoleros forge a sound and vision entirely their own: wild, romantic, rebellious, and defiantly unclassifiable.</p>
+
+        <p>Out now on The New Church Records / Plastichead Distribution. Available worldwide on Neon Green with Black Splatter and Neon Purple with Black Splatter vinyl, deluxe gatefold digifile CD, and digital.</p>
+
+        <div class="section-album__buttons">
+          <wa-button variant="brand" href="https://www.plastichead.com/artist/gypsy-pistoleros">
+            Buy / Stream
+          </wa-button>
+          <wa-button variant="neutral" href="#tour-dates">
+            See Tour Dates
+          </wa-button>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ==========================================
+         SECTION 3 — PRESS QUOTE STRIP
+         ========================================== -->
+    <section class="section-press" aria-labelledby="press-heading">
+
+      <h2 id="press-heading">What the press are saying</h2>
+      <p class="section-press__subhead">From the Dark Faerie Tales reviews</p>
+
+      <!-- Reviews renderer populates this div.
+           tag="press-kit" → 17 Dark Faerie Tales reviews.
+           limit="5" → first 5 in JSON file order:
+             1. Classic Rock (Chris Lord) — 8/10
+             2. Powerplay (Steve Swift) — 10/10
+             3. The Punksite — 5/5
+             4. Maximum Volume Music (Andy Thorley) — 9/10
+             5. Fireworks Magazine (no score)
+             6. Evermetal (John Deaux) -->
+      <div class="reviews-grid"
+           data-reviews-ids="classic-rock-dark-faerie-tales,powerplay-dark-faerie-tales,punksite-dark-faerie-tales,maximum-volume-music-dark-faerie-tales,fireworks-magazine-dark-faerie-tales,evermetal-dark-faerie-tales"></div>
+
+      <a href="/press-kit-epk" class="section-press__more">Read all 24 reviews →</a>
+
+    </section>
+
+
+    <!-- ==========================================
+         SECTION 4 — TOUR DATES
+         ========================================== -->
+    <section class="section-tour" id="tour-dates" aria-labelledby="tour-heading">
+
+      <h2 id="tour-heading">UK Tour 2026</h2>
+
+      <!-- Shows renderer: filter="homepage" → 2 most recent past + next 3 upcoming + TBA row.
+           layout="table" → horizontal rows matching original table appearance. -->
+      <div class="shows-grid"
+           data-shows-filter="homepage"
+           data-shows-layout="table"></div>
+
+      <a href="shows.html" class="section-tour__see-all">See all dates →</a>
+
+    </section>
+
+
+    <!-- ==========================================
+         SECTION 5 — WATCH / LISTEN
+         ========================================== -->
+    <section class="section-watch" aria-labelledby="watch-heading">
+
+      <h2 id="watch-heading">Watch</h2>
+
+      <div class="section-watch__grid">
+
+        <div class="section-watch__item">
+          <!-- TODO: paste YouTube ID from live gypsypistoleros.com homepage embed markup -->
+          <div class="section-watch__embed">
+            <iframe
+              src="https://www.youtube.com/embed/fWLJ0zlAPOM?si=tQe7aWCTBMDO_GOj"
+              title="King of Almost Everything — official music video — Gypsy Pistoleros"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              loading="lazy">
+            </iframe>
+          </div>
+          <p class="section-watch__caption">King of Almost Everything</p>
+        </div>
+
+        <div class="section-watch__item">
+          <!-- TODO: paste YouTube ID from live gypsypistoleros.com homepage embed markup -->
+          <div class="section-watch__embed">
+            <iframe
+              src="https://www.youtube.com/embed/wZxkgyVdg6Y?si=Jkcow0_LeH8umMuw"
+              title="Dark Faerie Tales — official music video — Gypsy Pistoleros"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              loading="lazy">
+            </iframe>
+          </div>
+          <p class="section-watch__caption">Dark Faerie Tales</p>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ==========================================
+         SECTION 6 — ABOUT / STORY
+         ========================================== -->
+    <section class="section-about" aria-labelledby="about-heading">
+
+      <h2 id="about-heading">Who are Gypsy Pistoleros?</h2>
+
+      <p>The world's only Glam Punk Goth 'n' Roll outlaws. Gypsy Pistoleros are a cult sonic explosion, mixing swagger-drenched punk anthems, dark cabaret decadence, and apocalyptic energy. Renowned for explosive, theatrical live shows, the Pistoleros stand proudly outside every genre — a cult of outsiders keeping rock 'n' roll wild, dark and defiantly alive.</p>
+
+      <p>Born from the fires of their own mythology, Dark Faerie Tales drifts through haunted woods and neon dreams — where sleaze-drenched punk anthems meet gothic grandeur, and glam swagger burns with outlaw soul.</p>
+
+    </section>
+
+
+    <!-- ==========================================
+         SECTION 7 — JOIN THE CULT
+         ========================================== -->
+    <section class="section-join" aria-labelledby="join-heading">
+
+      <h2 id="join-heading">Join the cult of the Pistoleros</h2>
+
+      <p class="section-join__copy">Sign up for weekly guidance from the Pistoleros themselves — news, offers, blessings and sermons. Free download of the entire Duende a Go Go Loco album as your initiation.</p>
+
+      <wa-button variant="brand" size="large" href="/become-a-member-of-the-cult-of-the-pistoleros">
+        Join the Cult
+      </wa-button>
+
+      <a href="/the-high-order-of-the-cultof-the-pistoleros-area" class="section-join__more">Or join The High Order →</a>
+
+    </section>
+
+
+    <!-- ==========================================
+         SECTION 8 — PRESS & CONTACTS
+         ========================================== -->
+    <section class="section-contacts" aria-labelledby="contacts-heading">
+
+      <h2 id="contacts-heading">Press &amp; Contacts</h2>
+
+      <div class="section-contacts__grid">
+
+        <div class="section-contacts__block">
+          <span class="section-contacts__role">Press &amp; Inquiries</span>
+          <span class="section-contacts__name">BJF PR</span>
+          <a href="mailto:judith.f@hotmail.co.uk">judith.f@hotmail.co.uk</a>
+        </div>
+
+        <div class="section-contacts__block">
+          <span class="section-contacts__role">Management</span>
+          <span class="section-contacts__name">Jay Shredder, SLL Artists</span>
+          <a href="mailto:jayshreddermusic@gmail.com">jayshreddermusic@gmail.com</a>
+        </div>
+
+        <div class="section-contacts__block">
+          <span class="section-contacts__role">Booking</span>
+          <span class="section-contacts__name">Rebel Meets Rebel Live</span>
+          <a href="mailto:victoria@rebelmeetsrebellive.co.uk">victoria@rebelmeetsrebellive.co.uk</a>
+        </div>
+
+        <div class="section-contacts__block">
+          <span class="section-contacts__role">Label</span>
+          <span class="section-contacts__name">The New Church Records</span>
+          <a href="https://www.thenewchurchrecords.com" target="_blank" rel="noopener">www.thenewchurchrecords.com</a>
+        </div>
+
+      </div>
+
+    </section>
+
+  </div><!-- /.page-content -->
+
+  <!-- Reviews renderer — loads data/reviews.json and populates .reviews-grid elements.
+       BANDZOOGLE: host js/reviews.js via Bandzoogle Files and update the src path. -->
+  <script src="../js/reviews.js" defer></script>
+
+  <!-- Shows renderer — loads data/shows.json and populates .shows-grid elements.
+       BANDZOOGLE: host js/shows.js via Bandzoogle Files and update the src path. -->
+  <script src="../js/shows.js" defer></script>
+
+</body>
+</html>

@@ -1,0 +1,447 @@
+/* ORPHANED v2 component — not loaded in v0. See docs/v2-freeze.md */
+
+/* ============================================================
+   PF-Pasteup archetype — Section 5 v2 prototype
+   Used by: WHAT THEY'RE SAYING (and later: THE CULT IS GATHERING)
+   ============================================================ */
+
+/* Section reset for paste-up archetype.
+   Replaces the v1 .section--press (Archetype B) treatment. */
+.section--pf-pasteup {
+  position: relative;
+  overflow: visible; /* allow manifesto sticker to overlap top boundary */
+  background: var(--color-bg-primary);
+  padding: 80px 0 96px;
+  isolation: isolate; /* contains z-index stacking for the overlay */
+}
+
+/* The section-level photocopy degradation overlay.
+   Sits above the section background but below all content. */
+.section--pf-pasteup .section__photocopy-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: url('../../staging/assets/textures/photocopy-overlay.webp');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.35;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.section--pf-pasteup .section-inner {
+  position: relative;
+  z-index: 1; /* above the photocopy overlay */
+  max-width: var(--max-width, 1200px);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ============================================================
+   Section heading — punk-flyer register variant
+   Replaces the ceremonial section-heading--framed pattern for
+   this archetype. Bolder, less ornamented, ransom-note-adjacent.
+   ============================================================ */
+
+.section-heading--punk {
+  text-align: center;
+  margin-bottom: 64px;
+  position: relative;
+}
+
+.section--pf-pasteup .section-heading--punk .section-heading__label {
+  font-family: 'Anton', 'Bebas Neue', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin: 0 0 16px;
+  padding: 6px 14px;
+  display: inline-block;
+  color: var(--color-accent-pink, #ff2d92);
+}
+
+.section-heading--punk .section-heading__title {
+  font-family: 'Anton', 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--color-text-primary, #e8e8e0);
+  line-height: 0.95;
+  margin: 0 0 16px;
+  /* Slight imperfection — manual rotation breaks the centred axis */
+  display: inline-block;
+  transform: rotate(-0.5deg);
+}
+
+.section-heading--punk .section-heading__tagline {
+  font-family: var(--font-display-tertiary, 'Cormorant Garamond', serif);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--color-text-secondary, #a0a090);
+  margin: 0;
+}
+
+/* ============================================================
+   Paste-up cuttings layout
+   Asymmetric, overlapping, rotated. Not a grid.
+   ============================================================ */
+
+.pf-pasteup__cuttings {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  padding: 24px 0;
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 768px) {
+  .pf-pasteup__cuttings {
+    gap: 0;
+  }
+  .pf-pasteup__cuttings > .pf-pasteup__cutting:nth-child(2) {
+    margin-left: -28px !important;
+  }
+  .pf-pasteup__cuttings > .pf-pasteup__cutting:nth-child(3) {
+    margin-left: -20px !important;
+  }
+}
+
+/* ============================================================
+   Individual cutting — base styles + paper-stock modifiers
+   ============================================================ */
+
+.pf-pasteup__cutting {
+  position: relative;
+  flex: 0 0 320px;
+  min-height: 380px;
+  padding: 40px 32px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
+  transform-origin: center center;
+}
+
+/* Paper stock modifiers */
+.pf-pasteup__cutting--newsprint {
+  background-image: url('../../staging/assets/textures/paper-newsprint.png');
+  color: #2a2a20;
+  flex-basis: 420px;
+  min-height: 420px;
+}
+.pf-pasteup__cutting--kraft {
+  background-image: url('../../staging/assets/textures/paper-kraft.png');
+  color: #1a1208;
+  flex-basis: 360px;
+  min-height: 380px;
+  margin-top: 36px !important;
+}
+.pf-pasteup__cutting--photocopy {
+  background-image: url('../../staging/assets/textures/paper-photocopy.png');
+  color: #1a1a1a;
+  flex-basis: 400px;
+  min-height: 400px;
+  margin-top: -8px !important;
+}
+
+/* Rotation modifiers — more aggressive values for genuine paste-up disorder */
+.pf-pasteup__cutting--rot-pos2 { transform: rotate(-4deg); }
+.pf-pasteup__cutting--rot-neg1 { transform: rotate(4.5deg); }
+.pf-pasteup__cutting--rot-pos3 { transform: rotate(-1.5deg); }
+
+/* ============================================================
+   Tape strips — pseudo-asset overlays at cutting corners
+   ============================================================ */
+
+.pf-pasteup__tape {
+  position: absolute;
+  width: 80px;
+  height: 28px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  z-index: 2;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+.pf-pasteup__tape--masking {
+  background-image: url('../../staging/assets/textures/tape-masking.png');
+}
+.pf-pasteup__tape--scotch {
+  background-image: url('../../staging/assets/textures/tape-scotch.png');
+}
+.pf-pasteup__tape--gaffer {
+  background-image: url('../../staging/assets/textures/tape-gaffer.png');
+}
+
+.pf-pasteup__tape--top-left {
+  top: -10px;
+  left: -16px;
+  transform: rotate(-18deg);
+}
+.pf-pasteup__tape--top-right {
+  top: -10px;
+  right: -16px;
+  transform: rotate(22deg);
+}
+.pf-pasteup__tape--diagonal {
+  top: 12px;
+  left: -24px;
+  transform: rotate(-42deg);
+  width: 100px;
+}
+.pf-pasteup__tape--bottom-right {
+  bottom: -10px;
+  right: -16px;
+  transform: rotate(28deg);
+}
+
+/* ============================================================
+   Typography inside each cutting
+   ============================================================ */
+
+.section--pf-pasteup .pf-pasteup__publication {
+  font-family: 'Anton', 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin: 0 0 4px;
+  text-align: center;
+  color: var(--color-accent-pink, #ff2d92);
+  transform: rotate(-1deg);
+  display: inline-block;
+  max-width: 100%;
+}
+
+.section--pf-pasteup .pf-pasteup__publication.pf-pasteup__publication--green {
+  color: var(--color-accent-green, #39ff14);
+}
+
+.pf-pasteup__quote {
+  font-family: var(--font-display-tertiary, 'Cormorant Garamond', serif);
+  font-style: italic;
+  font-size: 18px;
+  line-height: 1.55;
+  margin: 0;
+  flex: 0 0 auto;
+  text-align: left;
+}
+
+/* Force quote text colour per paper stock.
+   Required because typography.css sets blockquote { color: var(--color-text-primary) }
+   at element-selector specificity, which beats the inherited dark cutting color. */
+.pf-pasteup__cutting--newsprint .pf-pasteup__quote {
+  color: #2a2a20;
+}
+.pf-pasteup__cutting--kraft .pf-pasteup__quote {
+  color: #1a1208;
+}
+.pf-pasteup__cutting--photocopy .pf-pasteup__quote {
+  color: #1a1a1a;
+}
+
+/* Override any global blockquote border-left treatment — no vertical bar in paste-up context */
+.section--pf-pasteup .pf-pasteup__quote {
+  border-left: none;
+  padding-left: 0;
+}
+
+/* Constrain flowing content to the cutting's internal width.
+   overflow: hidden on these children prevents rotated text or
+   long words from escaping into adjacent cuttings' territory.
+   Not applied to .pf-pasteup__cutting itself so tape strips and
+   score stamps (absolute-positioned, intentionally outside bounds) are unaffected. */
+.pf-pasteup__cutting > .pf-pasteup__publication,
+.pf-pasteup__cutting > .pf-pasteup__quote,
+.pf-pasteup__cutting > .pf-pasteup__rating {
+  max-width: calc(100% - 16px);
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pf-pasteup__rating {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin: 0;
+}
+
+.pf-pasteup__star {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.pf-pasteup__star--on {
+  color: #963138;
+  -webkit-text-stroke: 0.5px #4a1518;
+}
+
+.pf-pasteup__star--off {
+  color: rgba(150, 49, 56, 0.25);
+  -webkit-text-stroke: 0.5px rgba(74, 21, 24, 0.3);
+}
+
+.pf-pasteup__score {
+  position: relative;
+  font-family: 'Anton', 'Bebas Neue', sans-serif;
+  font-size: 30px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  margin: 0;
+  text-align: center;
+  align-self: center;
+  padding: 28px 32px;
+  background-image: url('../../staging/assets/textures/stamp-red-circle.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #963138;
+  -webkit-text-stroke: 1px #4a1518;
+  transform: rotate(-4deg);
+  width: 130px;
+  height: 110px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pf-pasteup__cutting--newsprint .pf-pasteup__score { transform: rotate(-6deg); }
+.pf-pasteup__cutting--kraft .pf-pasteup__score { transform: rotate(3deg); }
+.pf-pasteup__cutting--photocopy .pf-pasteup__score { transform: rotate(-2deg); }
+
+.pf-pasteup__score-divider {
+  font-size: 20px;
+  opacity: 0.7;
+  margin: 0 2px;
+}
+
+/* ============================================================
+   Manifesto sticker bleeding from above
+   ============================================================ */
+
+.man-sticker {
+  position: absolute;
+  font-family: 'Anton', 'Bebas Neue', sans-serif;
+  font-size: 16px;
+  line-height: 1.1;
+  letter-spacing: 0.05em;
+  text-align: center;
+  color: var(--color-text-primary, #e8e8e0);
+  padding: 12px 20px;
+  background-color: #0a0a0a;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.man-sticker--bridge {
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-3deg);
+}
+
+.man-sticker--nothing-safe {
+  background-image: url('../../staging/assets/textures/paper-newsprint.png');
+  background-size: cover;
+  background-position: center;
+  background-color: transparent;
+  color: var(--color-accent-red-bright, #cc0000);
+  border: none;
+  padding: 14px 24px 16px;
+  filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.6));
+  font-family: 'Anton', 'Bebas Neue', sans-serif;
+  font-size: 16px;
+  line-height: 1.1;
+  letter-spacing: 0.05em;
+  clip-path: polygon(
+    2% 8%, 14% 0%, 28% 6%, 46% 2%, 64% 9%, 82% 3%, 96% 7%, 100% 18%,
+    98% 36%, 100% 54%, 96% 72%, 100% 88%, 92% 100%, 76% 96%, 58% 100%,
+    40% 95%, 22% 100%, 6% 96%, 0% 84%, 2% 64%, 0% 42%, 4% 24%
+  );
+}
+
+@media (max-width: 600px) {
+  .man-sticker--bridge {
+    font-size: 13px;
+    padding: 10px 16px;
+  }
+}
+
+/* --- Manifesto sticker: pinned modifier ---
+   For stickers pinned to a specific element (e.g. a photograph) as
+   marginal annotation rather than puncturing a section layout.
+   Positioning is handled by the section's own component CSS. */
+.man-sticker--pinned {
+  display: inline-block;
+  pointer-events: none;
+}
+
+/* --- Visual variant: brave-beautiful ---
+   Handwritten ink note on cream torn-paper. Marginal annotation tone,
+   distinct from --nothing-safe's red-ink-stamp authority. */
+.man-sticker--brave-beautiful {
+  font-family: 'Reenie Beanie', cursive;
+  font-size: 1.4rem;
+  line-height: 1.05;
+  color: #1f2a35;
+  text-align: center;
+  padding: 16px 22px 14px;
+  background:
+    repeating-linear-gradient(
+      105deg,
+      rgba(140, 120, 95, 0.05) 0px,
+      rgba(140, 120, 95, 0.05) 1px,
+      transparent 1px,
+      transparent 3px
+    ),
+    linear-gradient(
+      135deg,
+      #f1e8d3 0%,
+      #ebe0c5 50%,
+      #e3d6b8 100%
+    );
+  clip-path: polygon(
+    0% 3%, 4% 0%, 97% 2%, 100% 0%,
+    98% 50%, 100% 97%, 96% 100%,
+    3% 98%, 0% 100%, 2% 50%
+  );
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.55),
+    0 1px 2px rgba(0, 0, 0, 0.35);
+  border: none;
+  letter-spacing: 0.01em;
+  max-width: 180px;
+}
+
+/* ============================================================
+   Responsive — mobile reset
+   ============================================================ */
+
+@media (max-width: 767px) {
+  .pf-pasteup__cuttings {
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .pf-pasteup__cutting--rot-pos2 { transform: rotate(1deg); }
+  .pf-pasteup__cutting--rot-neg1 { transform: rotate(-0.5deg); }
+  .pf-pasteup__cutting--rot-pos3 { transform: rotate(1.5deg); }
+
+  .pf-pasteup__cutting {
+    flex: 0 0 auto;
+    width: min(100%, 360px);
+  }
+}

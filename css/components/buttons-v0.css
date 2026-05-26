@@ -1,0 +1,98 @@
+/* ============================================================
+   buttons-v0.css — v0 button styling
+
+   Overrides Web Awesome's default wa-button visual treatment with
+   the Gypsy Pistoleros v0 button palette:
+
+     Primary (variant="brand")     — neon pink bg, white text
+     Secondary (variant="neutral") — neon green bg, black text
+
+   Both use Inter 14px weight 600 with subtle letter-spacing.
+
+   Flat buttons: 2px black border, colour-shift hover. No shadow,
+   no transform. The chunky 3D shadow pattern from Pass 6h/6i
+   was retired — see docs/design-system.md §8.
+
+   Applies site-wide. All v0 pages inherit these styles.
+
+   Web Awesome custom elements have shadow DOM — styling requires
+   ::part() selectors. See https://webawesome.com/docs/buttons for
+   the part anatomy.
+   ============================================================ */
+
+
+/* ===== Primary — neon pink ===== */
+wa-button[variant="brand"]::part(base) {
+  background-color: var(--color-accent-pink);
+  color: #ffffff;
+  border: 2px solid #000;
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-6);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  transition: background-color 0.15s ease;
+}
+
+wa-button[variant="brand"]:hover::part(base),
+wa-button[variant="brand"]:active::part(base) {
+  background-color: var(--color-accent-pink-muted);   /* #d12579 — ~18% darker */
+}
+
+
+/* ===== Secondary — neon green ===== */
+wa-button[variant="neutral"]::part(base) {
+  background-color: var(--color-accent-green);
+  color: #000000;
+  border: 2px solid #000;
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-6);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  transition: background-color 0.15s ease;
+}
+
+wa-button[variant="neutral"]:hover::part(base),
+wa-button[variant="neutral"]:active::part(base) {
+  background-color: var(--color-accent-green-dark);   /* #2dcc10 — ~20% darker */
+}
+
+
+/* ===== Label part — ensures Inter applies to the actual text ===== */
+wa-button[variant="brand"]::part(label),
+wa-button[variant="neutral"]::part(label) {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+
+/* ===== Disabled state — Pass 8c =====
+   WA's default disabled state on variant="brand" produces a
+   desaturated red that reads as "error". Override to a muted
+   neutral grey consistent with the dark theme.
+   Applies site-wide: homepage upcoming cards, shows page cards,
+   press-kit Full Press Bundle download button. */
+
+wa-button[variant="brand"][disabled]::part(base),
+wa-button[variant="neutral"][disabled]::part(base),
+wa-button[disabled]::part(base) {
+  background-color: var(--color-text-secondary);
+  color: var(--color-bg-primary);
+  border: 2px solid #000;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+wa-button[variant="brand"][disabled]:hover::part(base),
+wa-button[variant="brand"][disabled]:active::part(base),
+wa-button[variant="neutral"][disabled]:hover::part(base),
+wa-button[variant="neutral"][disabled]:active::part(base),
+wa-button[disabled]:hover::part(base),
+wa-button[disabled]:active::part(base) {
+  background-color: var(--color-text-secondary);
+}

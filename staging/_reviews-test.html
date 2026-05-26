@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reviews Renderer Test — Gypsy Pistoleros</title>
+  <meta name="description" content="Throwaway test page for the reviews renderer. Not for deployment.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=Reenie+Beanie&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://ka-f.webawesome.com/webawesome@3.7.0/styles/themes/default.css" />
+  <link rel="stylesheet" href="https://ka-f.webawesome.com/webawesome@3.7.0/styles/native.css" />
+  <link rel="stylesheet" href="https://ka-f.webawesome.com/webawesome@3.7.0/styles/utilities.css" />
+  <script type="module" src="https://ka-f.webawesome.com/webawesome@3.7.0/webawesome.loader.js"></script>
+
+  <script src="https://kit.fontawesome.com/6a400036f2.js" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="../css/v0.css">
+
+  <style>
+    body { background: var(--color-bg-primary); color: var(--color-text-primary); font-family: var(--font-body); padding: 40px 24px; }
+    .test-section { margin-bottom: 48px; }
+    .test-label { font-family: monospace; font-size: 11px; color: var(--color-text-secondary); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 16px; padding: 4px 8px; background: rgba(255,255,255,0.05); display: inline-block; }
+  </style>
+</head>
+<body>
+
+  <h1 style="font-family: var(--font-display-secondary); font-size: var(--text-2xl); margin-bottom: 32px;">Reviews Renderer Test</h1>
+
+  <!-- Test 1: no filter — should show all 3 reviews -->
+  <div class="test-section">
+    <p class="test-label">Test 1 — No filter (all reviews)</p>
+    <div class="reviews-grid"></div>
+  </div>
+
+  <!-- Test 2: tag filter — should show reviews tagged "featured" (all 3) -->
+  <div class="test-section">
+    <p class="test-label">Test 2 — data-reviews-tag="featured"</p>
+    <div class="reviews-grid" data-reviews-tag="featured"></div>
+  </div>
+
+  <!-- Test 3: IDs filter — should show only Powerplay, in specified order -->
+  <div class="test-section">
+    <p class="test-label">Test 3 — data-reviews-ids="powerplay-dark-faerie-tales"</p>
+    <div class="reviews-grid" data-reviews-ids="powerplay-dark-faerie-tales"></div>
+  </div>
+
+  <!-- Test 4: limit — should show 1 review only -->
+  <div class="test-section">
+    <p class="test-label">Test 4 — data-reviews-tag="featured" data-reviews-limit="1"</p>
+    <div class="reviews-grid" data-reviews-tag="featured" data-reviews-limit="1"></div>
+  </div>
+
+  <!-- Test 5: list layout -->
+  <div class="test-section">
+    <p class="test-label">Test 5 — data-reviews-layout="list"</p>
+    <div class="reviews-grid" data-reviews-layout="list"></div>
+  </div>
+
+  <!-- Test 6: historical tag — should show 6 Church of the Pistoleros reviews -->
+  <div class="test-section">
+    <p class="test-label">Test 6 — data-reviews-tag="historical" (expect 6)</p>
+    <div class="reviews-grid" data-reviews-tag="historical"></div>
+  </div>
+
+  <!-- Test 7: live tag — should show 1 review (Rock News, Nottingham gig) -->
+  <div class="test-section">
+    <p class="test-label">Test 7 — data-reviews-tag="live" (expect 1)</p>
+    <div class="reviews-grid" data-reviews-tag="live"></div>
+  </div>
+
+  <script src="../js/reviews.js" defer></script>
+</body>
+</html>

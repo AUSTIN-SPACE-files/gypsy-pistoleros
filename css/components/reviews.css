@@ -1,0 +1,259 @@
+/* ==========================================
+   reviews.css — Review card grid styles
+   Part of the AUSTIN_SPACE build — May 2026
+
+   v0 baseline only. No v2 styling flourishes —
+   no Bleeding Cowboys, no gold accents, no textures,
+   no Cinzel uppercase. All decoration deferred to v2.
+
+   Pairs with js/reviews.js (renderer) and
+   data/reviews.json (dataset).
+   ========================================== */
+
+/* ==========================================
+   GRID LAYOUT
+   ========================================== */
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-6);
+}
+
+@media (max-width: 600px) {
+  .reviews-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================
+   CARD
+   ========================================== */
+
+.review-card {
+  width: 100%;
+  background-color: var(--color-bg-primary) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  /* WA card internal dividers (header/body and body/footer borders).
+     Override both token approaches to match the outer card border. */
+  --wa-color-neutral-border-normal: rgba(255, 255, 255, 0.2);
+  --wa-color-neutral-border-quiet: rgba(255, 255, 255, 0.2);
+}
+
+/* Push card body to fill remaining height so footer always sits at bottom */
+.review-card::part(body) {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Fallback for WA token approach: set divider border-color directly on parts */
+.review-card::part(header),
+.review-card::part(footer) {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* ==========================================
+   CARD HEADER — publication logo or name
+   ========================================== */
+
+.review-card__header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  min-height: 48px;
+}
+
+.review-card__logo {
+  max-height: 40px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* Publication titles use --font-display (Bleeding Cowboys).
+   At 14px this is below the design system's 32px floor and may
+   render with some flourish collapse — accept this for v0.
+   The .woff files are currently NOT uploaded to Bandzoogle, so
+   this renders as the @font-face fallback (Georgia) until that
+   upload happens. */
+.review-card__publication {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: normal;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--color-text-primary);
+}
+
+/* ==========================================
+   CARD BODY — quote
+   ========================================== */
+
+/* margin !important — beats Bandzoogle's
+   #usersite-container blockquote { margin: 1em 0; } override.
+   See bandzoogle-overrides.css header.
+   border-inline-start/padding-inline-start — beats WA's native
+   blockquote { border-inline-start: ... } rule. Using logical properties
+   to match WA's own property names. Class selector (0,1,0) beats
+   WA-native element selector (0,0,1) — no !important needed. */
+.review-card__quote {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: var(--text-base);
+  line-height: 1.65;
+  color: var(--color-text-primary);
+  margin: 0 !important;
+  border-inline-start: none;
+  padding-inline-start: 0;
+}
+
+/* ==========================================
+   CARD FOOTER — rating + reviewer credit
+   ========================================== */
+
+.review-card__footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.review-card__rating {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.review-card__score {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+}
+
+.review-card__reviewer {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  font-style: normal;
+}
+
+/* Reserves a small amount of footer slot height for cards with
+   no rating/reviewer so the slot doesn't collapse entirely. Kept
+   intentionally smaller (16px) than typical real footer content
+   (~20px) so cards with actual footers drive the row height.
+   visibility: hidden keeps the element occupying space while
+   hiding visual presence. */
+.review-card__footer-placeholder {
+  display: inline-block;
+  min-height: 16px;
+  visibility: hidden;
+}
+
+
+/* ==========================================
+   TABLE MODE — used on press kit for press scannability.
+   See Pass 7e. Card mode is the default; this is opt-in via
+   data-reviews-render="table" on the reviews container.
+   ========================================== */
+
+.reviews-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: auto;
+  margin-top: var(--space-6);
+  font-family: var(--font-body);
+  color: var(--color-text-primary);
+}
+
+.reviews-table thead th {
+  text-align: left;
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 2px solid var(--color-silver);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-silver);
+}
+
+.reviews-table tbody tr {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  transition: background 0.15s ease;
+}
+
+.reviews-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.reviews-table tbody td {
+  padding: var(--space-4);
+  vertical-align: top;
+  font-size: var(--text-base);
+  line-height: 1.6;
+}
+
+.reviews-table__pub {
+  font-weight: 600;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}
+
+.reviews-table__reviewer {
+  color: var(--color-text-secondary);
+  font-size: var(--text-sm);
+  white-space: nowrap;
+}
+
+.reviews-table__quote {
+  font-family: var(--font-body);
+  font-style: italic;
+  color: var(--color-text-secondary);
+}
+
+.reviews-table__stars {
+  white-space: nowrap;
+  text-align: right;
+}
+
+.reviews-table__score {
+  white-space: nowrap;
+  font-family: var(--font-body);
+  font-weight: 600;
+  color: var(--color-silver);
+  text-align: right;
+}
+
+@media (max-width: 768px) {
+  .reviews-table thead {
+    display: none;
+  }
+
+  .reviews-table tbody tr {
+    display: block;
+    padding: var(--space-4);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .reviews-table tbody td {
+    display: block;
+    padding: var(--space-1) 0;
+    border: none;
+  }
+
+  .reviews-table tbody td:before {
+    content: attr(data-label) ': ';
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    margin-right: var(--space-2);
+  }
+}

@@ -1,0 +1,154 @@
+Gypsy Pistoleros AUSTIN_SPACE project — development journal
+============================================================
+
+### Homepage Pass 6 series (May 2026) — production-ready
+
+Full-bleed hero behind transparent BZ chrome, with cinematic
+fade-to-black at hero bottom, oversized Title Case headline,
+and chunky 3D buttons. Closed out on Pass 6i.
+
+Pass 6a — Negative-margin pull-up on .section-hero + width:100vw
+         breakout. BZ chrome transparency attempted with
+         convention-guess selectors.
+
+Pass 6b — Confirmed BZ chrome is bare `<header>` element.
+         Transparency rules updated. Hero photo successfully
+         extends behind nav.
+
+Pass 6c — Hero text doubled, fade-to-black gradient added.
+         Investigated 25px font-size override mystery.
+
+Pass 6d — Discovered BZ theme rule
+         `#usersite-container h1 { font-size: 25px }` (CORS-blocked
+         from JS, found via DevTools Elements panel). Fixed by
+         scoping our selector to `#usersite-container .section-hero__title`.
+
+Pass 6e — Dialled hero text back from 240px to 144px. Pixel-anchored
+         gradient stops for consistent fade distance.
+
+Pass 6f — User-iterated values wound into CSS:
+         font-size: 57px !important, text-transform: capitalize,
+         padding-bottom: 0. Fade gradient moved from ::before
+         (forced to z:-1 by section-rhythm rule) to ::after.
+         Multi-layer background-image on ::after combines flat
+         dimmer + gradient.
+
+Pass 6g — Hero image swapped from webp to higher-quality jpeg
+         (new BZ file ID 1413423).
+
+Pass 6h — Chunky 3D buttons: 4px hard-shadow offset + 2px black
+         border + press-down hover.
+
+Pass 6i — Faint white outline (rgba 0.15) on button shadows so
+         the chunk reads against the black page background.
+
+Architectural learnings (now in docs/css-quirks.md):
+- BZ assigns new file IDs per upload — changing extension in CSS
+  does not swap the underlying asset
+- Pseudo-element z-index can be forced negative by section-rhythm
+  rules — move to ::after if visibility is needed
+- wa-button uses shadow DOM with ::part(base); host:hover::part()
+  pattern, not part:hover
+- BZ theme h1 rule needs #usersite-container scoping to beat
+  (discovered via DevTools, CORS-hidden from JS)
+
+
+### Press kit Pass 7 series (May 2026) — production-ready
+
+EPK deployed to draft URL. Structurally distinct from homepage:
+document-style layout with At a Glance facts, biography, release
+metadata, reviews tables, charts, downloads, contacts.
+
+Pass 7a — Orientation audit. Identified the EPK hero h1 font-size
+         bug-in-waiting (same architectural mistake as homepage
+         Pass 6d — bare class selector vs BZ's
+         `#usersite-container h1 { 25px !important }`). Found
+         cover.webp 404 was solvable using the existing homepage
+         BZ URL (no separate upload needed). Flagged wa-card as
+         new territory.
+Pass 7b — Pre-deployment fixes: EPK hero h1 selector scoped with
+         #usersite-container prefix and clamp font-size. cover.webp
+         references swapped to BZ URL. download attributes added
+         to three active download anchors. gp_sigil.png placeholder
+         URL and shows.html link replaced with deferred-link
+         placeholder.
+Pass 7c — Real sigil URL swapped in (file ID 1413427).
+Pass 7d — wa-card dark theming attempt via ::part() selectors.
+         Genre row 'n' → 'N' to match homepage hero capitalisation.
+         ::part(base) approach failed on deploy.
+Pass 7e — Diagnostic revealed wa-card has NO [part="base"] in its
+         shadow DOM (unlike wa-button which does). Switched to
+         host-element styling + WA design token overrides
+         (--wa-color-surface-default, etc.). Reviews table render
+         mode added to reviews.js via data-reviews-render="table"
+         attribute. Press kit gets tables on both review sections;
+         homepage stays on card mode. Mobile stacked-cell fallback.
+
+Architectural learnings (now in docs/css-quirks.md):
+- wa-card has NO [part="base"] — style host element directly and
+  override WA design tokens for shadow DOM internals
+- wa-button HAS [part="base"] — different from wa-card
+- BZ HTML feature does not auto-sync with local staging/*.html
+  files. After CC edits HTML, the user must re-paste the file
+  content into the BZ HTML feature on the draft page. CSS bundle
+  and external JS files (reviews.js, shows.js) at stable URLs
+  DO update automatically when their content changes — only HTML
+  needs manual re-paste.
+- reviews.js now supports render modes — card (default) and table
+  (data-reviews-render="table"). Future pages can pick either.
+
+
+### Shows page Pass 8 series (May 2026) — production-ready
+
+Shows page deployed to draft URL. Document-style layout with
+Upcoming and Past Shows in dense scannable table format. Live
+Reviews promoted to its own section.
+
+Pass 8a — Orientation audit. Identified the EPK hero font-size
+         pattern recurring on shows. Found .section-shows-hero
+         missing from the section-rhythm exclusion list.
+         Cross-file dependency caught: .section-live styles live
+         in press-kit.css but used by shows.html.
+Pass 8b — Pre-deployment fixes: sigil URL swap to BZ-hosted
+         version, hero h1 renamed to 'Dark Faerie Tales UK Tour
+         2026', font-size with #usersite-container prefix added,
+         past shows hard-coded count removed, cult membership
+         link replaced with deferred placeholder, deployment.md
+         updated with renderer file IDs and shows page checklist,
+         booking section email link rule added.
+Pass 8c — Structural revision after first deploy: wa-details
+         removed from Past Shows (white default theme clashed
+         with dark theme; also poor UX hiding core content),
+         Past Shows renders inline like Upcoming, Live Reviews
+         promoted to its own section after Past Shows. Disabled
+         wa-button rules added site-wide to override WA's red
+         desaturated default with muted neutral grey.
+Pass 8d — Section-rhythm exclusion completed for
+         .section-shows-hero (3 selector locations updated).
+         Tagline copy fix — was duplicated with hero h1, now
+         reads 'Glam Punk Goth 'n' Roll outlaws' matching EPK
+         pattern.
+Pass 8e — Major styling pass: table layout enabled for both
+         Upcoming and Past Shows sections. shows.js renderer
+         updated to produce real <table> output (was previously
+         CSS-only grid mimicking a table). New 6-column layout:
+         Date, Venue, Location, Type, Status, Tickets. Type
+         rendered as colour-coded pill (festival neon green,
+         club neutral grey). Gold-accented column headers match
+         Pass 7e reviews-table pattern. Mobile stacked-cell
+         fallback with data-label prefixes. Homepage UK Tour
+         2026 section automatically inherits the new styling.
+
+Architectural learnings (now in docs/css-quirks.md):
+- wa-details default theme clashes with dark themes; remove
+  wherever possible rather than restyle (lots of internal CSS
+  to override; simpler to use inline rendering with optional
+  tagline prose)
+- Disabled wa-button variant="brand" renders desaturated red
+  that reads as 'error' — site-wide override to muted neutral
+  grey needed (Pass 8c)
+- Real <table> elements beat CSS-only grid-mimicking-tables
+  for accessibility, copy-paste, and semantic clarity
+- Cross-file CSS dependencies exist between pages —
+  .section-live lives in press-kit.css but used by shows.html
+  (Pass 8a; documented but not refactored — flagged for future)

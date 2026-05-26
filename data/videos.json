@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "albums": [
+    {
+      "id": "dark-faerie-tales",
+      "title": "Dark Faerie Tales",
+      "release_date": "2026",
+      "blurb": "Dark glam-punk goth 'n' roll anthems of power, ego, and crumbling crowns.",
+      "is_single": false,
+      "videos": [
+        {
+          "id": "dft-king-of-almost-everything",
+          "youtube_id": "fWLJ0zlAPOM",
+          "title": "King of Almost Everything"
+        },
+        {
+          "id": "dft-prince-of-the-damned",
+          "youtube_id": "fbKdxHlyLl4",
+          "title": "I'm The Prince of the Damned"
+        },
+        {
+          "id": "dft-title-track",
+          "youtube_id": "wZxkgyVdg6Y",
+          "title": "Dark Faerie Tales"
+        }
+      ]
+    },
+    {
+      "id": "church-of-the-pistoleros",
+      "title": "Church of the Pistoleros",
+      "release_date": "2024",
+      "blurb": "A rallying cry for society's outcasts — the lost, the strange, the unpigeonholable.",
+      "is_single": false,
+      "videos": [
+        {
+          "id": "cotp-last-train-to-nowhere",
+          "youtube_id": "G0dyFxa0x48",
+          "title": "Last Train To Nowhere"
+        },
+        {
+          "id": "cotp-whatever-happened-to-the-old-town",
+          "youtube_id": "YN-szQ9_lxM",
+          "title": "Whatever Happened To The Old Town"
+        },
+        {
+          "id": "cotp-shadow-walker",
+          "youtube_id": "lOWfaXoqmB4",
+          "title": "Shadow Walker"
+        },
+        {
+          "id": "cotp-title-track",
+          "youtube_id": "HFXHNXwnP2U",
+          "title": "Church Of The Pistoleros"
+        }
+      ]
+    },
+    {
+      "id": "duende-a-go-go-loco",
+      "title": "Duende a Go Go Loco",
+      "release_date": "2023",
+      "blurb": "Flamenco in a head-on collision with punk riffs, pounding bass, and thrashing drums.",
+      "is_single": false,
+      "videos": [
+        {
+          "id": "daggl-tommy-shelby",
+          "youtube_id": "BL8iy9zHTis",
+          "title": "The Ballad of Tommy Shelby"
+        },
+        {
+          "id": "daggl-revolution",
+          "youtube_id": "1XG0PJp_0zs",
+          "title": "Revolution"
+        },
+        {
+          "id": "daggl-ill-remember-you",
+          "youtube_id": "gHhuP6Ecf18",
+          "title": "I'll Remember You"
+        },
+        {
+          "id": "daggl-like-tears-in-the-rain",
+          "youtube_id": "qRP0JEUxeR4",
+          "title": "Like Tears In The Rain"
+        }
+      ]
+    },
+    {
+      "id": "come-on-eileen",
+      "title": "Come On Eileen",
+      "release_date": "2023",
+      "blurb": "The greatest rock cover version since Smooth Criminal — Dexys, rewritten in Pistoleros blood.",
+      "is_single": true,
+      "videos": [
+        {
+          "id": "eileen-cover",
+          "youtube_id": "9RvnOuErQkg",
+          "title": "Come On Eileen"
+        }
+      ]
+    }
+  ]
+}

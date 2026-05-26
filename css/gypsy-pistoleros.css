@@ -1,0 +1,52 @@
+/* ============================================================
+   ORPHANED v2 BUNDLE — NOT LOADED IN v0
+   ============================================================
+   This file is the v2 master stylesheet. It is no longer
+   loaded by any active staging page.
+
+   Active pages use css/v0.css instead.
+   v2 component files in css/components/ are also frozen.
+   See: docs/v2-freeze.md
+
+   DO NOT add @import lines from this file to v0.css.
+   DO NOT reference these selectors in new v0 component CSS.
+   ============================================================ */
+
+/*
+ * Gypsy Pistoleros — Custom CSS
+ * Built by AUSTIN_SPACE (austinspace.co.uk)
+ * Bandzoogle Pro — gypsypistoleros.com
+ * Build started: May 2026
+ *
+ * IMPORTANT: This file is pasted into Bandzoogle > Edit Theme > Customize CSS
+ * Always edit source files locally first, then update Bandzoogle
+ * CSS will be wiped if Bandzoogle template is changed — keep this file safe
+ *
+ * NOTE: @import rules work for local staging only.
+ * When pasting into Bandzoogle, inline all component CSS into this file —
+ * Bandzoogle's Customize CSS field does not resolve @import paths.
+ */
+
+@import 'variables.css';
+@import 'components/icons.css';
+@import 'components/typography.css';
+@import 'components/navigation.css';
+@import 'components/header.css';
+@import 'components/merch-store.css';
+@import 'components/membership.css';
+@import 'components/footer.css';
+@import 'components/grain.css';
+@import 'components/hero-v2.css';
+@import 'components/join-v2.css';
+@import 'components/cg-inscribed.css';
+@import 'components/press-pasteup.css';
+@import 'components/cult-gathering.css';
+
+/* ============================================
+   BANDZOOGLE TEMPLATE OVERRIDES
+   Class names confirmed via browser inspector
+   on gypsypistoleros.com
+   ============================================ */
+
+/* To be populated once we've inspected the live site */
+/* See docs/bandzoogle-classes.md for inspection checklist */

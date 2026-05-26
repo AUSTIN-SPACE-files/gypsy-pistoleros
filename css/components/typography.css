@@ -1,0 +1,264 @@
+/* Gypsy Pistoleros — typography.css */
+/* Part of the AUSTIN_SPACE build — May 2026 */
+/* DO NOT edit directly in Bandzoogle — always edit here first */
+
+/* ==========================================
+   FONT LOADING
+   ========================================== */
+
+/* Tier 1 — Bleeding Cowboys (≥ 32px / 2rem) */
+/* Local staging: paths relative to css/components/ */
+/* Bandzoogle: swap src to url('/files/Bleeding_Cowboys.woff2') etc. */
+@font-face {
+  font-family: 'BleedingCowboys';
+  src: url('../../staging/assets/fonts/Bleeding_Cowboys.woff2') format('woff2'),
+       url('../../staging/assets/fonts/Bleeding_Cowboys.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Tier 2 — Cinzel (18px–31px / 1.125rem–1.9375rem)
+   Tier 3 — Cormorant Garamond (editorial italic, quotes, descriptions)
+   Both loaded via Google Fonts <link> in <head>.
+   For Bandzoogle: add the same Google Fonts link to Headers & Metatags */
+
+/* ==========================================
+   THREE-TIER FONT THRESHOLD SYSTEM
+
+   ≥ 32px (2rem)             → --font-display       (Bleeding Cowboys)
+   18px–31px (1.125–1.9375rem) → --font-display-secondary (Cinzel)
+   < 18px                    → --font-body           (Inter)
+
+   Cormorant Garamond (--font-display-tertiary) is an editorial/accent
+   font used at any size for quotes, press text, and product descriptions.
+   It is always italic in this build.
+   ========================================== */
+
+/* ==========================================
+   BASE
+   ========================================== */
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ==========================================
+   H1–H2: Bleeding Cowboys (≥ 32px / 2rem)
+   clamp() guarantees the 2rem floor
+   ========================================== */
+
+h1, h2 {
+  font-family: var(--font-display);
+  color: var(--color-text-primary);
+  line-height: 1.05;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  margin-top: 0;
+  margin-bottom: var(--space-4);
+}
+
+/* h1: hero/page title — 60px cap, 2rem floor */
+h1 { font-size: clamp(2rem, 6vw, var(--text-6xl)); }
+
+/* h2: section heading — 32px floor, 48px cap */
+h2 { font-size: clamp(2rem, 4vw, 2.5rem); }
+
+/* ==========================================
+   H3: Georgia, display tier, sub-section role
+   H4–H5: Inter, label tier
+   ========================================== */
+
+/* h3 — Georgia, display tier, sub-section role */
+h3 {
+  font-family: var(--font-display);
+  color: var(--color-text-primary);
+  line-height: 1.2;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: clamp(1.125rem, 2.5vw, var(--text-3xl));
+  margin-top: 0;
+  margin-bottom: var(--space-3);
+}
+
+/* h4 — Inter, label tier */
+h4 {
+  font-family: var(--font-body);
+  color: var(--color-text-primary);
+  line-height: 1.2;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: var(--text-xl);
+  margin-top: 0;
+  margin-bottom: var(--space-3);
+}
+
+/* h5 — Inter, label tier, smaller */
+h5 {
+  font-family: var(--font-body);
+  color: var(--color-text-primary);
+  line-height: 1.2;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 1.125rem;
+  margin-top: 0;
+  margin-bottom: var(--space-3);
+}
+
+/* ==========================================
+   H6: Inter (below 18px threshold)
+   ========================================== */
+
+h6 {
+  font-family: var(--font-body);
+  font-size: var(--text-base); /* 16px */
+  font-weight: 600;
+  color: var(--color-text-primary);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  line-height: 1.4;
+  margin-top: 0;
+  margin-bottom: var(--space-2);
+}
+
+/* ==========================================
+   BODY TEXT
+   ========================================== */
+
+p {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+  margin-top: 0;
+  margin-bottom: var(--space-4);
+}
+
+p:last-child { margin-bottom: 0; }
+
+strong, b { font-weight: 600; color: var(--color-text-primary); }
+em, i     { font-style: italic; }
+
+small {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+/* ==========================================
+   LINKS
+   ========================================== */
+
+a {
+  color: var(--color-text-accent);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover { color: var(--color-accent-green); }
+
+/* ==========================================
+   SITE HEADER / BAND NAME
+   Bleeding Cowboys — well above 2rem floor
+   ========================================== */
+
+.site-header {
+  padding: var(--space-12) var(--space-8);
+  text-align: center;
+  background-color: var(--color-bg-primary);
+}
+
+.site-header h1,
+.site-title h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 9vw, var(--text-6xl));
+  color: var(--color-text-primary);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-2);
+}
+
+.site-tagline {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 300;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  margin-bottom: 0;
+}
+
+/* ==========================================
+   NAVIGATION LINKS — Inter, UI chrome
+   1.5rem = 24px desktop
+   ========================================== */
+
+.nav-link {
+  font-family: var(--font-body);
+  font-size: var(--text-2xl);  /* 1.5rem / 24px */
+  font-weight: 400;
+  color: var(--color-text-primary);
+  text-decoration: none;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: color 0.2s ease;
+}
+
+.nav-link:hover { color: var(--color-accent-purple); }
+
+/* ==========================================
+   PRESS QUOTES / EDITORIAL
+   ========================================== */
+
+.text-quote,
+blockquote {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: var(--text-2xl); /* 24px — editorial weight */
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+blockquote cite,
+.text-quote-source {
+  font-family: var(--font-body);
+  font-style: normal;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  display: block;
+  margin-top: var(--space-3);
+}
+
+/* ==========================================
+   FOOTER BRAND NAME — Bleeding Cowboys (≥ 2rem)
+   ========================================== */
+
+.site-footer__brand h3 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.5vw, var(--text-3xl));
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-2);
+}
+

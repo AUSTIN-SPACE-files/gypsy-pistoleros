@@ -1,0 +1,142 @@
+/* ORPHANED v2 component — not loaded in v0. See docs/v2-freeze.md */
+
+/* ============================================================
+   JOIN THE HIGH ORDER V2 — Section 2
+   CG-Editorial archetype: two-column 60/40 copy + image split.
+   Copy left, image right. Left-aligned ceremonial heading,
+   teal-bordered image with marginalia sticker, bottom gradient
+   bridges into Section 3's forest texture below.
+   ============================================================ */
+
+.section--cg-editorial {
+  position: relative;
+  background: var(--color-bg-primary);
+  padding: 72px 0 64px;
+  isolation: isolate;
+  overflow: visible;
+}
+
+/* Bottom gradient: solid black at top, fades to deep teal-black at bottom edge.
+   The bottom colour matches the upper-edge tone of the Section 3 forest texture
+   so the two sections meet without a hard horizontal cut. */
+.join-v2__bottom-fade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 75%,
+    rgba(22, 32, 42, 0.45) 90%,
+    rgba(24, 35, 46, 0.75) 100%
+  );
+}
+
+/* All direct children sit above the gradient */
+.section--cg-editorial > .section-inner {
+  position: relative;
+  z-index: 1;
+}
+
+/* --- Grid layout: 60/40 copy/image, copy left, image right --- */
+.join-v2__grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 64px;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+@media (max-width: 880px) {
+  .join-v2__grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+/* --- Copy column --- */
+.join-v2__copy-col {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.section--cg-editorial .section-heading--left {
+  text-align: left;
+  margin-bottom: 0;
+}
+
+.join-v2__copy {
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  line-height: 1.75;
+  color: var(--color-text-primary);
+}
+
+.join-v2__copy p {
+  margin: 0 0 18px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.join-v2__copy p:last-child {
+  margin-bottom: 0;
+}
+
+.join-v2__cta {
+  margin-top: 12px;
+}
+
+/* --- Image column --- */
+.join-v2__image-col {
+  position: relative;
+  margin-right: -28px;
+}
+
+@media (max-width: 880px) {
+  .join-v2__image-col {
+    margin-right: 0;
+  }
+}
+
+.join-v2__image-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.join-v2__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.55));
+}
+
+/* Deep teal accent border: offset down-and-right of the image */
+.join-v2__image-border {
+  position: absolute;
+  inset: 8px -8px -8px 8px;
+  border: 1.5px solid rgba(45, 95, 105, 0.85);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Sticker placement relative to the image-wrap.
+   Visual styling (font, colour, paper) lives in press-pasteup.css. */
+.join-v2__image-wrap .man-sticker--brave-beautiful {
+  position: absolute;
+  top: -12px;
+  left: -28px;
+  z-index: 5;
+  transform: rotate(-6deg);
+}
+
+@media (max-width: 880px) {
+  .join-v2__image-wrap .man-sticker--brave-beautiful {
+    top: -10px;
+    left: -16px;
+    transform: rotate(-5deg) scale(0.9);
+  }
+}

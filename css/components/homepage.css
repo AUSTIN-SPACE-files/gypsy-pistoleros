@@ -1,0 +1,415 @@
+/* ==========================================
+   homepage.css — Homepage section styles
+   Part of the AUSTIN_SPACE build — May 2026
+
+   v0 baseline only. No v2 styling flourishes.
+   Colour tokens from variables.css throughout.
+   No hardcoded colour values except gradient
+   overlays (rgba black) which are computed
+   overlay values, not brand colours.
+
+   NOTE — hero background image path:
+   Resolved relative to this CSS file for local
+   staging. For Bandzoogle deployment, replace
+   with the absolute hosted URL, e.g.:
+   url('https://gypsypistoleros.com/files/1413423/gp-arches-promo.jpeg')
+   ========================================== */
+
+
+/* ==========================================
+   SECTION 1 — HERO
+   ========================================== */
+
+/* Hero full-bleed + behind-chrome treatment.
+   Hero pulls UP via negative top margin so it extends behind
+   Bandzoogle's auto-injected header (band name, nav, strap).
+   padding-top compensates so hero content sits below the
+   chrome. Width: 100vw + left calc creates the horizontal
+   edge-to-edge effect.
+
+   The BZ chrome elements are made transparent via the
+   section-rhythm.css override rules (see below). */
+
+/* Hero background — Bandzoogle-hosted asset.
+   For local preview, swap to url('../../staging/assets/images/Dark-fae.png'). */
+/* display: flex !important — beats Bandzoogle's
+   #usersite-container section { display: block; } override.
+   See bandzoogle-overrides.css header for the pattern. */
+.section-hero {
+  position: relative;
+  z-index: 0;
+  min-height: 80vh;
+  background-image: url('https://gypsypistoleros.com/files/1413423/gp-arches-promo.jpeg');
+  background-size: cover;
+  /* Pinned to top so band heads stay in frame on all viewports.
+     Bottom of photo extends or crops depending on aspect; the
+     fade gradient covers that zone. */
+  background-position: top center;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  /* Pull-up: hero extends behind the BZ chrome.
+     250px covers typical BZ header height (band name + nav + strap). */
+  margin-top: -250px;
+  padding-top: calc(250px + var(--space-8));
+
+  /* Full-bleed: edge-to-edge breakout from Bandzoogle's content container */
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+}
+
+/* ::before gradient stripped in Pass 6f — section-rhythm.css's
+   higher-specificity rule sets z-index: -1 on this pseudo-element,
+   putting any background BEHIND the photo (invisible). Gradient
+   moved to ::after which sits at z:1. Layout props (width, left)
+   are provided by section-rhythm.css and not set here. */
+.section-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Pass 6f: fade gradient moved from ::before (z:-1, behind the
+   photo, invisible) to ::after (z:1, between photo and text).
+   Combined with the flat 35% dimmer via multi-layer background-image.
+   Layer 1 (top): flat dimmer over whole hero.
+   Layer 2 (bottom): pixel-anchored fade-to-black at the base.
+   Bottom 80px solid black, 240px fade up to transparent. */
+.section-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)),
+    linear-gradient(to top, #000000 0px, #000000 80px, rgba(0, 0, 0, 0) 320px);
+  background-color: transparent;
+}
+
+.section-hero__content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: var(--space-16) var(--space-6);
+  max-width: var(--max-width);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+/* #usersite-container prefix required to beat the BZ theme's
+   `#usersite-container h1 { font-size: 25px }` rule (specificity 1,0,1).
+   Without the prefix our class selector (0,1,0) loses the cascade.
+   See docs/css-quirks.md and transcript Pass 6d. */
+/* Pass 6f: user iterated to 57px fixed (from clamp). Casing controlled
+   in HTML (no text-transform applied). padding-bottom: 0 overrides BZ's
+   5px h1 default. !important required because BZ's theme also uses
+   !important on #usersite-container h1. */
+#usersite-container .section-hero__title {
+  font-size: clamp(2.5rem, 9vw, 5rem) !important;
+  text-transform: none !important;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+.section-hero__tagline {
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  margin-bottom: 0;
+}
+
+
+/* ==========================================
+   SECTION 2 — ALBUM
+   ========================================== */
+
+/* display: grid !important — beats Bandzoogle's
+   #usersite-container section { display: block; } override.
+   See bandzoogle-overrides.css header for the pattern. */
+.section-album {
+  padding: var(--space-16) var(--space-6);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: grid !important;
+  grid-template-columns: 1fr 1.5fr;
+  gap: var(--space-12);
+  align-items: start;
+}
+
+.section-album__cover {
+  width: 100%;
+}
+
+.section-album__cover img {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.section-album__copy h2 {
+  margin-bottom: var(--space-6);
+}
+
+.section-album__buttons {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  margin-top: var(--space-6);
+}
+
+@media (max-width: 700px) {
+  .section-album {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  .section-album__cover {
+    text-align: center;
+  }
+
+  .section-album__cover img {
+    margin: 0 auto;
+    max-width: 260px;
+  }
+}
+
+
+/* ==========================================
+   SECTION 3 — PRESS
+   ========================================== */
+
+.section-press {
+  padding: var(--space-16) var(--space-6);
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.section-press h2 {
+  margin-bottom: var(--space-2);
+}
+
+.section-press__subhead {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  letter-spacing: 0.06em;
+  margin-bottom: var(--space-8);
+}
+
+.section-press__more {
+  display: inline-block;
+  margin-top: var(--space-8);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+}
+
+.section-press__more:hover {
+  color: var(--color-text-primary);
+}
+
+
+/* ==========================================
+   SECTION 4 — TOUR
+   ========================================== */
+
+.section-tour {
+  padding: var(--space-16) var(--space-6);
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+
+.section-tour__see-all {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+}
+
+.section-tour__see-all:hover {
+  color: var(--color-text-primary);
+}
+
+
+/* ==========================================
+   SECTION 5 — WATCH
+   ========================================== */
+
+.section-watch {
+  padding: var(--space-16) var(--space-6);
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.section-watch__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-8);
+  margin-top: var(--space-8);
+}
+
+/* Responsive 16:9 iframe wrapper */
+.section-watch__embed {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  background: var(--color-bg-secondary);
+}
+
+.section-watch__embed iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.section-watch__caption {
+  margin-top: var(--space-3);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  letter-spacing: 0.06em;
+}
+
+@media (max-width: 700px) {
+  .section-watch__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ==========================================
+   SECTION 6 — ABOUT
+   ========================================== */
+
+.section-about {
+  padding: var(--space-16) var(--space-6);
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
+.section-about p {
+  font-size: var(--text-base);
+  line-height: 1.8;
+}
+
+
+/* ==========================================
+   SECTION 7 — JOIN THE CULT
+   ========================================== */
+
+.section-join {
+  padding: var(--space-16) var(--space-6);
+  text-align: center;
+  border-top: 1px solid var(--color-border-subtle);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.section-join h2 {
+  margin-bottom: var(--space-6);
+}
+
+/* margin auto !important — beats Bandzoogle's
+   #usersite-container p { margin: 1em 0; } override.
+   See bandzoogle-overrides.css header. */
+.section-join__copy {
+  max-width: var(--content-width);
+  margin: 0 auto var(--space-8) !important;
+  font-size: var(--text-base);
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+}
+
+.section-join__more {
+  display: block;
+  margin-top: var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+}
+
+.section-join__more:hover {
+  color: var(--color-text-primary);
+}
+
+
+/* ==========================================
+   SECTION 8 — PRESS & CONTACTS
+   ========================================== */
+
+.section-contacts {
+  padding: var(--space-16) var(--space-6);
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.section-contacts__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-8);
+  margin-top: var(--space-8);
+}
+
+.section-contacts__block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.section-contacts__role {
+  display: block;
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-2);
+}
+
+.section-contacts__name {
+  display: block;
+  font-size: var(--text-sm);
+  color: var(--color-text-primary);
+  font-weight: 500;
+  margin-bottom: var(--space-1);
+}
+
+.section-contacts a {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  word-break: break-word;
+}
+
+.section-contacts a:hover {
+  color: var(--color-text-primary);
+}
+
+@media (max-width: 700px) {
+  .section-contacts__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6);
+  }
+}
+
+@media (max-width: 400px) {
+  .section-contacts__grid {
+    grid-template-columns: 1fr;
+  }
+}

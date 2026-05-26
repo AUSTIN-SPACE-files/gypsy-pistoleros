@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shows — Gypsy Pistoleros</title>
+  <meta name="description" content="Gypsy Pistoleros live shows — Dark Faerie Tales UK Tour 2026. Upcoming dates, ticket links, and full tour history.">
+
+  <!-- Google Fonts: Cinzel (nav/UI) + Cormorant Garamond (editorial italic) + Inter (body)
+       Anton, Bebas Neue, Reenie Beanie also loaded for full type palette availability.
+       BANDZOOGLE: add this link tag to Pages → Site-wide Settings → Headers & Metatags -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Web Awesome 3.7.0 — component and icon library
+       BANDZOOGLE: these four tags also go into Pages → Site-wide Settings → Headers & Metatags -->
+  <link rel="stylesheet" href="https://ka-f.webawesome.com/webawesome@3.7.0/styles/themes/default.css" />
+  <link rel="stylesheet" href="https://ka-f.webawesome.com/webawesome@3.7.0/styles/native.css" />
+  <link rel="stylesheet" href="https://ka-f.webawesome.com/webawesome@3.7.0/styles/utilities.css" />
+  <script type="module" src="https://ka-f.webawesome.com/webawesome@3.7.0/webawesome.loader.js"></script>
+
+  <!-- Font Awesome Pro Kit — unlocks Graphite, Duotone, Sharp, all Pro families -->
+  <script src="https://kit.fontawesome.com/6a400036f2.js" crossorigin="anonymous"></script>
+
+  <!-- v0 baseline stylesheet: variables, icons, typography, navigation, footer, reviews,
+       homepage, press-kit, shows. Bleeding Cowboys @font-face declared inside typography.css. -->
+  <link rel="stylesheet" href="../css/v0.css">
+</head>
+<body>
+
+  <!--
+    ═══════════════════════════════════════════════════════════
+    BANDZOOGLE LAYOUT NOTE
+    ═══════════════════════════════════════════════════════════
+    Site-wide header, navigation, and footer are injected
+    automatically by Bandzoogle via the site template.
+
+    DO NOT add <header>, <nav>, or <footer> markup to this file.
+    This file is a content block only — Bandzoogle wraps it.
+
+    To update the nav or footer, edit the Bandzoogle template
+    directly in Pages → Site-wide Settings.
+    ═══════════════════════════════════════════════════════════
+  -->
+
+  <div class="page-content">
+
+    <!-- ==========================================
+         SECTION 1 — HERO
+         ========================================== -->
+    <section class="section-shows-hero" aria-label="Shows page header">
+      <div class="section-shows-hero__inner">
+        <img class="section-shows-hero__sigil"
+             src="https://gypsypistoleros.com/files/1413427/gp-sigil.png"
+             alt="Gypsy Pistoleros sigil"
+             width="120"
+             loading="eager">
+        <h1 class="section-shows-hero__title">Dark Faerie Tales UK Tour 2026</h1>
+        <p class="section-shows-hero__tagline">Glam Punk Goth 'n' Roll outlaws</p>
+      </div>
+    </section>
+
+
+    <!-- ==========================================
+         SECTION 2 — UPCOMING SHOWS
+         ========================================== -->
+    <section class="section-upcoming" aria-labelledby="upcoming-heading">
+
+      <h2 id="upcoming-heading">Upcoming</h2>
+      <p class="section-upcoming__subhead">Confirmed dates</p>
+
+      <!-- Shows renderer: filter="upcoming" → status=upcoming shows only.
+           sort="date-asc" → chronological order.
+           include-tba="false" → TBA row excluded (shown in section 3 below). -->
+      <div class="shows-grid"
+           data-shows-filter="upcoming"
+           data-shows-sort="date-asc"
+           data-shows-include-tba="false"
+           data-shows-layout="table"></div>
+
+    </section>
+
+
+    <!-- ==========================================
+         SECTION 3 — MORE DATES TBA
+         ========================================== -->
+    <section class="section-tba" aria-label="More tour dates to be announced">
+
+      <p>Many more dates and festivals to come. Follow on social for announcements, or join the cult for early notice.</p>
+
+      <p class="section-tba__links">
+        <a href="#"
+           data-pending-url="cult-membership-page"
+           aria-label="Cult membership page link — pending deployment">Join the cult →</a>
+        <a href="https://instagram.com/gypsypistoleros">Follow on Instagram →</a>
+      </p>
+
+    </section>
+
+
+    <!-- ==========================================
+         SECTION 4 — PAST SHOWS
+         ========================================== -->
+    <section class="section-past" aria-labelledby="past-heading">
+
+      <h2 id="past-heading" class="section-past__heading">Past Shows</h2>
+      <p class="section-past__tagline">Past dates from this tour</p>
+
+      <!-- Shows renderer: filter="past" → status=past shows only.
+           sort="date-desc" → most recent first. -->
+      <div class="shows-grid"
+           data-shows-filter="past"
+           data-shows-sort="date-desc"
+           data-shows-layout="table"></div>
+
+    </section>
+
+
+    <!-- ==========================================
+         SECTION 5 — LIVE REVIEWS
+         ========================================== -->
+    <section class="section-live-reviews" aria-labelledby="live-reviews-heading">
+
+      <h2 id="live-reviews-heading" class="section-live-reviews__heading">Live Reviews</h2>
+      <p class="section-live-reviews__tagline">What the press are saying about our shows</p>
+
+      <!-- Reviews renderer: tag="live" → live show reviews.
+           Renders all matched reviews automatically as more are added. -->
+      <div class="reviews-grid"
+           data-reviews-tag="live"
+           data-reviews-sort="manual"></div>
+
+    </section>
+
+
+    <!-- ==========================================
+         SECTION 6 — LIVE EXPERIENCE
+         ========================================== -->
+    <section class="section-live" aria-labelledby="live-exp-heading">
+      <div class="section-live__inner">
+
+        <h2 id="live-exp-heading">The Cult Lives On</h2>
+
+        <p>Gypsy Pistoleros' live shows are gothic theatre, glam-punk ritual, and unmissable rock spectacle. From Rebellion to Planet Rockstock, the band's UK headline runs blend sleaze-drenched punk anthems with gothic theatrics — part gothic carnival, part rock 'n' roll ritual.</p>
+
+      </div>
+    </section>
+
+
+    <!-- ==========================================
+         SECTION 7 — BOOKING
+         ========================================== -->
+    <section class="section-booking" aria-labelledby="booking-heading">
+
+      <h2 id="booking-heading">Booking</h2>
+
+      <div class="section-booking__grid">
+
+        <div class="section-contacts__block">
+          <span class="section-contacts__role">Booking</span>
+          <span class="section-contacts__name">Rebel Meets Rebel Live</span>
+          <span class="section-contacts__desc">Live booking, festivals, and touring inquiries.</span>
+          <a href="mailto:victoria@rebelmeetsrebellive.co.uk">victoria@rebelmeetsrebellive.co.uk</a>
+        </div>
+
+        <div class="section-contacts__block">
+          <span class="section-contacts__role">Management</span>
+          <span class="section-contacts__name">Jay Shredder — SLL Artists</span>
+          <span class="section-contacts__desc">Band management and partnerships.</span>
+          <a href="mailto:jayshreddermusic@gmail.com">jayshreddermusic@gmail.com</a>
+        </div>
+
+      </div>
+
+    </section>
+
+  </div><!-- /.page-content -->
+
+  <!-- Reviews renderer — loads data/reviews.json and populates .reviews-grid elements.
+       BANDZOOGLE: host js/reviews.js via Bandzoogle Files and update the src path. -->
+  <script src="../js/reviews.js" defer></script>
+
+  <!-- Shows renderer — loads data/shows.json and populates .shows-grid elements.
+       BANDZOOGLE: host js/shows.js via Bandzoogle Files and update the src path. -->
+  <script src="../js/shows.js" defer></script>
+
+</body>
+</html>

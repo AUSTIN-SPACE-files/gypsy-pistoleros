@@ -1,0 +1,12 @@
+.page-grain-overlay {
+  position: fixed;
+  inset: 0;
+  background-image: url('../../staging/assets/textures/grain-layer.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  opacity: 0.12;
+  mix-blend-mode: screen;
+  z-index: 100;
+}

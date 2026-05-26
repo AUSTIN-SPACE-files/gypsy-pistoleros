@@ -1,0 +1,70 @@
+<!--
+  ═══════════════════════════════════════════════════════════════
+  _brand-footer-feature-row.html
+  Gypsy Pistoleros — Custom Brand Footer Feature Row
+  AUSTIN_SPACE build — May 2026
+  ═══════════════════════════════════════════════════════════════
+
+  THIS IS NOT A STANDALONE PAGE.
+
+  This file contains HTML to be pasted into a Bandzoogle Feature
+  Row content block via Bandzoogle's content editor, using the
+  "Custom HTML" feature type.
+
+  PLACEMENT:
+  Add the Feature Row in Bandzoogle's site-wide footer area
+  (Pages → Site-wide Settings → Footer), placing it above or
+  below Bandzoogle's default footer block (which outputs the
+  copyright text and member login nav at #page-footer).
+
+  STYLING:
+  Styled entirely by css/components/footer.css. This block must
+  be pasted into Bandzoogle with v0-bundle.css loaded site-wide
+  via Design → Customize CSS, or the footer will render unstyled.
+
+  DOM PORTABILITY:
+  This block is DOM-portable. It can be pasted into any
+  Bandzoogle Feature Row column without CSS adjustments, as long
+  as v0-bundle.css is loaded site-wide. It does not depend on
+  any surrounding Bandzoogle column ID, Feature Row ID, or page
+  chrome selector.
+
+  CSS CLASSES USED BY THIS BLOCK:
+    .site-footer          — outer wrapper (footer.css)
+    .site-footer__brand   — band name + tagline container (footer.css)
+    .site-footer__brand h3 — Bleeding Cowboys band name (typography.css)
+    .site-tagline         — tagline paragraph (typography.css)
+    .site-footer__social  — social icon link row (footer.css)
+    .footer-social-link   — individual social anchor (footer.css)
+  All 6 selectors are covered in v0-bundle.css.
+  ═══════════════════════════════════════════════════════════════
+-->
+
+<footer class="site-footer">
+
+  <div class="site-footer__brand">
+    <h3>GYPSY PISTOLEROS</h3>
+    <p class="site-tagline" style="margin-top: 4px;">The World's Only Glam Punk Goth 'n' Roll Outlaws</p>
+  </div>
+
+  <div class="site-footer__social">
+    <a href="https://facebook.com/GPistoleros" class="footer-social-link">
+      <wa-icon name="facebook" family="brands" label="Facebook"></wa-icon> Facebook
+    </a>
+    <a href="https://instagram.com/gypsypistoleros" class="footer-social-link">
+      <wa-icon name="instagram" family="brands" label="Instagram"></wa-icon> Instagram
+    </a>
+    <a href="https://youtube.com/@OfficialGypsyPistoleros" class="footer-social-link">
+      <wa-icon name="youtube" family="brands" label="YouTube"></wa-icon> YouTube
+    </a>
+    <a href="https://tiktok.com/@gypsypistolerosofficial" class="footer-social-link">
+      <wa-icon name="tiktok" family="brands" label="TikTok"></wa-icon> TikTok
+    </a>
+    <a href="https://open.spotify.com/artist/0Waa1UXmRMFxUG3E8eyCZu" class="footer-social-link">
+      <wa-icon name="spotify" family="brands" label="Spotify"></wa-icon> Spotify
+    </a>
+  </div>
+
+  <p style="font-size: var(--text-xs); color: var(--color-text-secondary); opacity: 0.5;">© 2026 Gypsy Pistoleros. Site by AUSTIN_SPACE.</p>
+
+</footer>

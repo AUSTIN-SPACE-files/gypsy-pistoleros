@@ -1,0 +1,238 @@
+/* ORPHANED v2 component — not loaded in v0. See docs/v2-freeze.md */
+
+/* ============================================================
+   CG-Inscribed archetype — Section 3 (WHY YOUR SUPPORT MATTERS)
+   Ceremonial Gothic register. Full-bleed atmospheric backdrop,
+   symmetric 2×2 panel grid, sigil as carved bullet mark,
+   manifesto stamp punctures the geometric centre.
+   ============================================================ */
+
+.section--cg-inscribed {
+  position: relative;
+  overflow: visible; /* allow stamp to rotate beyond panel bounds */
+  background: var(--color-bg-primary);
+  padding: 64px 0 72px;
+  isolation: isolate;
+}
+
+/* Bottom vignette — closing paragraph sits clean against lower forest detail */
+.section--cg-inscribed::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 65%,
+    rgba(8, 14, 14, 0.55) 90%,
+    rgba(8, 14, 14, 0.7) 100%
+  );
+}
+
+/* --- Atmospheric background: Bauer-style forest --- */
+/* Asset: staging/assets/images/forest-bauer.webp
+   Painterly ink-wash, deep teal-blue nocturne, wide luminous column through centre.
+   CSS path relative to css/components/cg-inscribed.css. */
+.cg-inscribed__bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: url('../../staging/assets/images/forest-bauer.webp') center center / cover no-repeat;
+}
+
+/* Radial darken behind the heading title zone — knocks back forest detail
+   where BleedingCowboys letterforms overlay the luminous mid-ground. */
+.cg-inscribed__bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 60% 25% at 50% 18%,
+    rgba(8, 14, 14, 0.55) 0%,
+    rgba(8, 14, 14, 0.25) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+/* Ceremonial seal at bottom-right of section */
+.cg-inscribed__seal {
+  position: absolute;
+  bottom: 32px;
+  right: 32px;
+  width: 80px;
+  height: auto;
+  opacity: 0.10;
+  z-index: 3;
+  pointer-events: none;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.6));
+}
+
+/* All direct children sit above background and bottom vignette */
+.section--cg-inscribed > .section-inner {
+  position: relative;
+  z-index: 2;
+}
+
+/* --- Intro paragraph --- */
+.cg-inscribed__intro {
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  line-height: 1.75;
+  color: var(--color-text-primary);
+  max-width: 680px;
+  margin: 0 auto 40px;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+/* --- Closing paragraph --- */
+.cg-inscribed__closing {
+  margin-top: 40px;
+  margin-bottom: 0;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: var(--font-display-tertiary);
+  font-style: italic;
+  font-size: 1.3rem;
+  color: var(--color-text-primary);
+  line-height: 1.75;
+  max-width: 720px;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+/* --- Panels container: clean 2×2 grid --- */
+/* v2.3 reverts the 12-col staggered layout to a uniform grid.
+   The stamp (nth-child(3), position: absolute) is out of flow
+   and auto-placement puts all four panels cleanly in 2 columns. */
+.cg-inscribed__panels {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px 36px;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 16px 0;
+}
+
+/* Per-panel asymmetric corner wear — distinct silhouette per panel */
+.cg-inscribed__panel:nth-child(1) { border-radius: 6px 10px 4px 8px;  }
+.cg-inscribed__panel:nth-child(2) { border-radius: 10px 4px 10px 6px; }
+.cg-inscribed__panel:nth-child(4) { border-radius: 10px 6px 8px 4px;  }
+.cg-inscribed__panel:nth-child(5) { border-radius: 4px 8px 10px 10px; }
+
+/* --- Individual panel: light cool stone tablet --- */
+/* Simpler two-layer gradient (base + single mottled radial overlay).
+   v2.2's multi-layer blend-mode chain didn't render visible mottling — dropped. */
+.cg-inscribed__panel {
+  position: relative;
+  padding: 22px 26px 22px 64px;
+
+  /* Light cool-stone — sits in the forest's tonal family but bright enough
+     to read as lit surfaces. Single radial overlay gives gentle surface variation. */
+  background:
+    radial-gradient(
+      ellipse 65% 50% at 30% 35%,
+      rgba(255, 255, 255, 0.18) 0%,
+      transparent 70%
+    ),
+    linear-gradient(
+      135deg,
+      #d8dcdc 0%,
+      #c8cccc 50%,
+      #b8bcbc 100%
+    );
+
+  /* Default border-radius — overridden per-panel above */
+  border-radius: 6px 10px 4px 8px;
+
+  /* Cool mid-grey border */
+  border: 1px solid rgba(80, 85, 88, 0.45);
+
+  /* Shadow: "object sitting in mist" — not UI card elevation,
+     not contact-only mud shadow. No top-edge gloss highlight. */
+  box-shadow:
+    0 4px 10px rgba(0, 0, 0, 0.4),
+    0 1px 2px rgba(0, 0, 0, 0.5),
+    inset 0 -1px 3px rgba(40, 45, 48, 0.18);
+
+  transition: transform 0.25s ease;
+}
+
+/* Rotation: under 1° — reads as handmade objects, not deliberately tilted */
+.cg-inscribed__panel--rot-neg1 { transform: rotate(-0.6deg); }  /* was -1deg   */
+.cg-inscribed__panel--rot-pos1 { transform: rotate(0.8deg);  }  /* was 1.2deg  */
+.cg-inscribed__panel--rot-pos2 { transform: rotate(0.4deg);  }  /* was 0.8deg  */
+.cg-inscribed__panel--rot-neg2 { transform: rotate(-0.9deg); }  /* was -1.4deg */
+
+/* Hover: stone settles flat momentarily */
+.cg-inscribed__panel:hover {
+  transform: translateY(-2px) rotate(0deg);
+}
+
+/* --- Sigil bullet: carved into lighter stone ---
+   brightness(0.4) replaces v2.2's 0.32 — slightly less black on lighter base,
+   reads as weathered carved mark rather than printed ink. */
+.cg-inscribed__sigil-bullet {
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+  width: 36px;
+  height: auto;
+  opacity: 0.7;          /* was 0.78 */
+  filter:
+    invert(1)
+    brightness(0.4)      /* was 0.32 */
+    drop-shadow(0 1px 0 rgba(255, 255, 255, 0.3));
+  pointer-events: none;
+}
+
+/* --- Panel text: dark on cool-light stone, Cinzel ceremonial register --- */
+.cg-inscribed__panel-text {
+  font-family: var(--font-display-secondary); /* Cinzel */
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  line-height: 1.5;
+  color: #25282a;  /* was #1a1d1d — slightly lifted, slightly warmer */
+  margin: 0;
+  text-transform: none;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+/* --- Manifesto stamp: punctures the geometric centre of the 2×2 grid ---
+   With a symmetric grid the stamp disrupts ceremonial order more precisely
+   than filling asymmetric negative space. Visual styling stays in press-pasteup.css. */
+.man-sticker--stamp.man-sticker--nothing-safe {
+  position: absolute;
+  top: 50%;             /* was 48% — now exactly the grid crosshair */
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-7deg);
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* --- Mobile: collapse to single column --- */
+@media (max-width: 720px) {
+  .cg-inscribed__panels {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    max-width: 460px;
+  }
+
+  /* Mobile rotation values — redundant at <1° desktop but harmless */
+  .cg-inscribed__panel--rot-neg1 { transform: rotate(-1deg);  }
+  .cg-inscribed__panel--rot-pos1 { transform: rotate(1.2deg); }
+  .cg-inscribed__panel--rot-pos2 { transform: rotate(0.8deg); }
+  .cg-inscribed__panel--rot-neg2 { transform: rotate(-1.4deg);}
+
+  .man-sticker--stamp.man-sticker--nothing-safe {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-5deg) scale(0.85);
+  }
+}

@@ -1,0 +1,296 @@
+/* ==========================================
+   cult-membership.css — Cult membership page styles
+   Part of the AUSTIN_SPACE build — May 2026
+
+   v0 baseline only. No v2 styling flourishes.
+   Colour tokens from variables.css throughout.
+   ========================================== */
+
+
+/* ==========================================
+   SECTION 1 — HERO
+   ========================================== */
+
+.section-cult-hero {
+  padding: var(--space-16) var(--space-6);
+  text-align: center;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.section-cult-hero__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
+.section-cult-hero__sigil {
+  width: 80px;
+  height: auto;
+  max-width: 120px;
+  opacity: 0.85;
+}
+
+.section-cult-hero__label {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.section-cult-hero__title {
+  font-size: clamp(2rem, 7vw, var(--text-5xl));
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+
+.section-cult-hero__tagline {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-text-secondary);
+  max-width: 480px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+
+/* ==========================================
+   SECTION 2 — SUPPORT
+   ========================================== */
+
+.section-support {
+  padding: var(--space-16) var(--space-6);
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.section-support h2 {
+  margin-bottom: var(--space-4);
+}
+
+.section-support__intro {
+  font-size: var(--text-base);
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  max-width: var(--content-width);
+  margin-bottom: var(--space-10);
+}
+
+.cult-benefits-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4) var(--space-8);
+}
+
+.cult-benefit {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-base);
+  color: var(--color-text-primary);
+}
+
+.cult-benefit wa-icon {
+  font-size: 1.25rem;
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+  .cult-benefits-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ==========================================
+   SECTION 3 — JOIN TIERS
+   ========================================== */
+
+.section-join-tiers {
+  padding: var(--space-16) var(--space-6);
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
+.section-join-tiers h2 {
+  margin-bottom: var(--space-2);
+}
+
+.section-join-tiers__subhead {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  letter-spacing: 0.06em;
+  margin-bottom: var(--space-6);
+}
+
+.section-join-tiers p {
+  font-size: var(--text-base);
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-4);
+}
+
+.section-join-tiers p:last-child {
+  margin-bottom: 0;
+}
+
+
+/* ==========================================
+   SECTION 4 — PRIVILEGES TABLE
+   ========================================== */
+
+.section-privileges {
+  padding: var(--space-16) var(--space-6);
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.section-privileges h2 {
+  margin-bottom: var(--space-2);
+}
+
+.section-privileges__subhead {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  letter-spacing: 0.06em;
+  margin-bottom: var(--space-8);
+}
+
+.privileges-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.privileges-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 520px;
+}
+
+.privileges-table th,
+.privileges-table td {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-border-subtle);
+  text-align: left;
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  vertical-align: middle;
+}
+
+.privileges-table thead th {
+  color: var(--color-text-primary);
+  padding-bottom: var(--space-4);
+  vertical-align: bottom;
+}
+
+.privileges-table td:first-child {
+  color: var(--color-text-primary);
+}
+
+.tier-header {
+  text-align: center;
+  min-width: 120px;
+}
+
+.tier-header--high-order {
+  border-top: 2px solid var(--color-border-accent);
+}
+
+.tier-header__name {
+  display: block;
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-1);
+}
+
+.tier-header__price {
+  display: block;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--color-text-secondary);
+}
+
+.privileges-table td.tick,
+.privileges-table td.cross {
+  text-align: center;
+}
+
+.privileges-table td.tick wa-icon {
+  color: var(--color-text-primary);
+}
+
+.privileges-table td.cross wa-icon {
+  color: var(--color-border-subtle);
+  opacity: 0.6;
+}
+
+.privileges-table .privileges-table__cta-row td {
+  padding-top: var(--space-5);
+  border-bottom: none;
+  text-align: center;
+}
+
+.privileges-table .privileges-table__cta-row td:first-child {
+  text-align: left;
+}
+
+
+/* ==========================================
+   SECTION 5 — PRESS (membership variant)
+   Base .section-press and .section-press__subhead
+   styles come from homepage.css.
+   ========================================== */
+
+.section-press--membership {
+  background: var(--color-bg-secondary);
+}
+
+
+/* ==========================================
+   SECTION 6 — JOIN CTA
+   .section-join styles from homepage.css apply.
+   No overrides needed.
+   ========================================== */
+
+
+/* ==========================================
+   SECTION 7 — FAQ
+   ========================================== */
+
+.section-faq {
+  padding: var(--space-16) var(--space-6);
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
+.section-faq h2 {
+  margin-bottom: var(--space-2);
+}
+
+.section-faq__subhead {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  letter-spacing: 0.06em;
+  margin-bottom: var(--space-8);
+}
+
+.section-faq__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.section-faq__list wa-details {
+  border-bottom: 1px solid var(--color-border-subtle);
+}

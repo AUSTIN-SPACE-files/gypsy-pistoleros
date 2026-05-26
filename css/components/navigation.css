@@ -1,0 +1,167 @@
+/* Gypsy Pistoleros — navigation.css */
+/* Part of the AUSTIN_SPACE build — May 2026 */
+/* DO NOT edit directly in Bandzoogle — always edit here first */
+
+/* ==========================================
+   NAV STRUCTURE
+   HTML order inside <nav class="site-nav">:
+   1. <input type="checkbox" class="nav-toggle-input">  ← hidden, state only
+   2. <label class="nav-toggle-label">                  ← hamburger icon
+   3. <ul class="nav-list">                             ← actual links
+   CSS sibling selector (~) requires this order.
+   ========================================== */
+
+/* ---- Checkbox — visually hidden, state only ---- */
+.nav-toggle-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---- Hamburger label — desktop: hidden ---- */
+.nav-toggle-label {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  padding: 14px 20px;
+  min-width: 44px; /* touch target */
+  min-height: 44px;
+  margin-left: auto; /* push to right edge */
+  user-select: none;
+}
+
+.nav-toggle-bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background-color: var(--color-text-primary);
+  border-radius: 1px;
+  transition: transform 0.25s ease, opacity 0.2s ease;
+}
+
+/* Hamburger → X when open */
+.nav-toggle-input:checked ~ .nav-toggle-label .nav-toggle-bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.nav-toggle-input:checked ~ .nav-toggle-label .nav-toggle-bar:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.nav-toggle-input:checked ~ .nav-toggle-label .nav-toggle-bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ---- Nav container ---- */
+.site-nav {
+  background-color: var(--color-bg-secondary);
+  border-top: 1px solid var(--color-border-subtle);
+  border-bottom: 1px solid var(--color-border-subtle);
+  position: relative;
+}
+
+/* ---- Desktop: horizontal list ---- */
+.nav-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-list li {
+  display: flex;
+}
+
+/* Nav link: Cinzel at exactly the Cinzel-min threshold (1.5rem = 24px, within 18–31px range) */
+/* Styling is in typography.css — only layout here */
+.nav-link {
+  display: block;
+  padding: var(--space-3) var(--space-4);
+  white-space: nowrap;
+}
+
+/* ---- "Join The Cult" — always purple, all breakpoints ---- */
+.nav-link--cta {
+  color: var(--color-accent-purple) !important;
+  border-left: 1px solid var(--color-border-subtle);
+}
+
+.nav-link--cta:hover {
+  color: var(--color-accent-green) !important;
+}
+
+/* ==========================================
+   MOBILE — 768px and below
+   ========================================== */
+@media (max-width: 768px) {
+
+  /* Nav container becomes a column */
+  .site-nav {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Show hamburger label */
+  .nav-toggle-label {
+    display: flex;
+    align-self: flex-end;
+  }
+
+  /* Nav list: hidden by default, full-width column when open */
+  .nav-list {
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    background-color: var(--color-bg-secondary);
+    border-top: 1px solid var(--color-border-subtle);
+    padding: var(--space-3) 0;
+    gap: 0;
+  }
+
+  /* Show nav list when checkbox is checked */
+  .nav-toggle-input:checked ~ .nav-list {
+    display: flex;
+  }
+
+  /* Stack items full-width, centred text */
+  .nav-list li {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .nav-link {
+    width: 100%;
+    text-align: center;
+    padding: var(--space-3) var(--space-8);
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+
+  .nav-list li:last-child .nav-link {
+    border-bottom: none;
+  }
+
+  /* CTA link loses left-border treatment on mobile (it's stacked) */
+  .nav-link--cta {
+    border-left: none;
+  }
+}
+
+/* ==========================================
+   NARROW MOBILE — 375px
+   ========================================== */
+@media (max-width: 375px) {
+  .nav-link {
+    padding: var(--space-3) var(--space-4);
+    font-size: 1.125rem; /* hold at 18px minimum (literal 1.125rem after token retirement) */
+  }
+}

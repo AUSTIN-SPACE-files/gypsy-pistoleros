@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{PAGE_TITLE}} — Gypsy Pistoleros</title>
+  <meta name="description" content="{{META_DESCRIPTION}}">
+
+  <!-- Google Fonts: Cinzel (nav/UI) + Cormorant Garamond (editorial italic) + Inter (body)
+       Anton, Bebas Neue, Reenie Beanie also loaded for full type palette availability.
+       BANDZOOGLE: add this link tag to Pages → Site-wide Settings → Headers & Metatags -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=Reenie+Beanie&display=swap" rel="stylesheet">
+
+  <!-- Web Awesome 3.7.0 — component and icon library
+       BANDZOOGLE: these four tags also go into Pages → Site-wide Settings → Headers & Metatags -->
+  <link rel="stylesheet" href="https://ka-f.webawesome.com/webawesome@3.7.0/styles/themes/default.css" />
+  <link rel="stylesheet" href="https://ka-f.webawesome.com/webawesome@3.7.0/styles/native.css" />
+  <link rel="stylesheet" href="https://ka-f.webawesome.com/webawesome@3.7.0/styles/utilities.css" />
+  <script type="module" src="https://ka-f.webawesome.com/webawesome@3.7.0/webawesome.loader.js"></script>
+
+  <!-- Font Awesome Pro Kit — unlocks Graphite, Duotone, Sharp, all Pro families -->
+  <script src="https://kit.fontawesome.com/6a400036f2.js" crossorigin="anonymous"></script>
+
+  <!-- v0 baseline stylesheet: variables, icons, typography, navigation, grain.
+       Bleeding Cowboys @font-face is declared inside typography.css (via this import chain).
+       No additional @font-face needed here. -->
+  <link rel="stylesheet" href="../css/v0.css">
+</head>
+<body>
+
+  <!--
+    ═══════════════════════════════════════════════════════════
+    BANDZOOGLE LAYOUT NOTE
+    ═══════════════════════════════════════════════════════════
+    Site-wide header, navigation, and footer are injected
+    automatically by Bandzoogle via the site template.
+
+    DO NOT add <header>, <nav>, or <footer> markup to this file.
+    This file is a content block only — Bandzoogle wraps it.
+
+    To update the nav or footer, edit the Bandzoogle template
+    directly in Pages → Site-wide Settings.
+    ═══════════════════════════════════════════════════════════
+  -->
+
+  <div class="page-content">
+    <!-- Page content goes here -->
+  </div>
+
+  <!--
+    Local development renderer scripts. These load js/reviews.js and
+    js/shows.js for local preview.
+
+    In production (Bandzoogle), the renderers load site-wide via
+    Headers & Metatags <script> tags and do NOT need to be in
+    individual page HTML. When deploying a page to Bandzoogle, these
+    two <script> tags can be removed from the pasted HTML (or left
+    in — they'll 404 in production but won't break anything because
+    the site-wide renderers will have already loaded by the time
+    the per-page tags fail).
+
+    See docs/deployment.md.
+  -->
+  <script src="../js/reviews.js" defer></script>
+  <script src="../js/shows.js" defer></script>
+</body>
+</html>

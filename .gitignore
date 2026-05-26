@@ -1,0 +1,12 @@
+# OS
+.DS_Store
+**/.DS_Store
+
+# Editor
+.vscode/
+
+# Project working notes (not for public repo)
+BRIEF.md
+STAGING_SETUP_PROMPT.md
+# Archived/historical work
+archive/

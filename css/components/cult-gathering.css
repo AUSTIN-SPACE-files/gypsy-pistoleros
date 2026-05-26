@@ -1,0 +1,321 @@
+/* ORPHANED v2 component — not loaded in v0. See docs/v2-freeze.md */
+
+/* ============================================================
+   CULT GATHERING — Section 6
+   Derivative of PF-Pasteup archetype. Inherits all rules from
+   press-pasteup.css. This file adds Section 6-specific overrides only.
+   ============================================================ */
+
+.section--cult-gathering {
+  position: relative;
+  overflow: hidden;
+  clip-path: inset(0);
+  background: var(--color-bg-primary);
+  padding: var(--space-24) 0;
+}
+
+/* Grain is applied globally via .page-grain-overlay (position: fixed) in grain.css.
+   No per-section ::before needed. */
+
+.section--cult-gathering .section-inner {
+  padding: 0 24px;
+  overflow: visible;
+}
+
+/* ============================================================
+   Section heading — punk-flyer register
+   Label: Cinzel tracked uppercase (same register as Section 5)
+   Title: Anton — bold condensed, not BleedingCowboys
+   Tagline: Cormorant Garamond italic (same as Section 5)
+   ============================================================ */
+
+.cult-gathering__heading {
+  text-align: center;
+  margin-bottom: var(--space-12);
+  position: relative;
+  z-index: 2;
+}
+
+.cult-gathering__label {
+  display: block;
+  font-family: var(--font-display-secondary); /* Cinzel */
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--color-text-muted, #a0a090);
+  margin-bottom: 12px;
+  text-shadow:
+    -1px -1px 0 var(--color-bg-primary),
+     1px -1px 0 var(--color-bg-primary),
+    -1px  1px 0 var(--color-bg-primary),
+     1px  1px 0 var(--color-bg-primary);
+}
+
+.cult-gathering__title {
+  font-family: 'Anton', 'Impact', 'Helvetica Neue', Arial, sans-serif;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--color-text-primary);
+  line-height: 0.95;
+  margin: 0 0 12px 0;
+}
+
+.cult-gathering__tagline {
+  font-family: var(--font-display-tertiary); /* Cormorant Garamond */
+  font-style: italic;
+  font-size: 18px;
+  color: var(--color-text-muted, #a0a090);
+  margin: 0 0 var(--space-8) 0;
+}
+
+/* ============================================================
+   Stage — main composition area
+   ============================================================ */
+
+.cult-gathering__stage {
+  position: relative;
+  max-width: 1300px;
+  margin: 0 auto;
+  min-height: 500px;
+}
+
+/* ============================================================
+   Photo cuttings
+   Photos reuse .pf-pasteup__cutting for drop-shadow and tape,
+   but not for paper-stock backgrounds or text padding.
+   ============================================================ */
+
+.cult-gathering__photos {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 0;
+  position: relative;
+  z-index: 1;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+/* Override pf-pasteup__cutting base: no text padding, block layout, flex-basis auto */
+.cult-gathering__photo.pf-pasteup__cutting {
+  flex: 0 0 auto;
+  padding: 0;
+  display: block;
+  background-image: none; /* no paper stock — images supply the surface */
+}
+
+.cult-gathering__photo-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Full colour — live energy, no atmospheric filter */
+}
+
+/* Photo 1 — portrait, slight ccw rotation */
+.cult-gathering__photo--1 {
+  width: 380px;
+  height: 480px;
+  transform: rotate(-3deg);
+  margin-right: -32px;
+  z-index: 2;
+}
+
+/* Photo 2 — wider, slight cw rotation */
+.cult-gathering__photo--2 {
+  width: 460px;
+  height: 420px;
+  transform: rotate(2deg);
+  z-index: 1;
+  margin-right: -28px;
+}
+
+/* Photo 3 — portrait, stronger cw rotation */
+.cult-gathering__photo--3 {
+  width: 400px;
+  height: 460px;
+  transform: rotate(4deg);
+  z-index: 2;
+}
+
+/* ============================================================
+   Paraphernalia layer
+   Absolutely positioned over the stage. All artefacts are
+   position: absolute within .cult-gathering__paraphernalia.
+   ============================================================ */
+
+.cult-gathering__paraphernalia {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.cult-para {
+  position: absolute;
+  pointer-events: none;
+}
+
+/* Welcome stamp — top left, slight ccw rotation */
+.stamp-welcome {
+  width: 100px;
+  top: 20px;
+  left: 40px;
+  transform: rotate(-8deg);
+  opacity: 0.92;
+}
+
+/* Number stamp 1 — overlap of photo 1/2 join, cw rotation */
+.stamp-number--1 {
+  width: 80px;
+  top: 180px;
+  left: 320px;
+  transform: rotate(12deg);
+  opacity: 0.88;
+}
+
+/* Number stamp 2 — lower right area, ccw rotation */
+.stamp-number--2 {
+  width: 80px;
+  bottom: 60px;
+  right: 120px;
+  transform: rotate(-6deg);
+  opacity: 0.88;
+}
+
+/* Cult seal — prominent, lower left, slight cw rotation */
+.seal-cult {
+  width: 130px;
+  bottom: 40px;
+  left: 160px;
+  transform: rotate(5deg);
+  opacity: 0.90;
+}
+
+/* HIGH ORDER card — above stamps in z-order */
+.membership-card--high-order {
+  width: 220px;
+  bottom: 30px;
+  right: 280px;
+  transform: rotate(-4deg);
+  opacity: 0.95;
+  z-index: 11;
+}
+
+/* THE CHOSEN card */
+.membership-card--chosen {
+  width: 200px;
+  bottom: 60px;
+  right: 60px;
+  transform: rotate(6deg);
+  opacity: 0.95;
+  z-index: 11;
+}
+
+/* ============================================================
+   Placeholder shapes — missing Photopea assets
+   Applied to the img elements so layout renders correctly
+   before final asset files exist in staging/assets/textures/.
+   Remove each rule once the corresponding .png is added.
+   ============================================================ */
+
+.stamp-welcome {
+  display: block;
+  background: rgba(150, 49, 56, 0.35);
+  border-radius: 50%;
+  min-height: 100px;
+}
+
+.stamp-number--1,
+.stamp-number--2 {
+  display: block;
+  background: rgba(150, 49, 56, 0.25);
+  border-radius: 4px;
+  min-height: 80px;
+}
+
+.seal-cult {
+  display: block;
+  background: rgba(201, 168, 76, 0.25);
+  border-radius: 50%;
+  min-height: 130px;
+}
+
+.membership-card--high-order {
+  display: block;
+  background: rgba(201, 168, 76, 0.2);
+  border-radius: 8px;
+  min-height: 140px;
+}
+
+.membership-card--chosen {
+  display: block;
+  background: rgba(160, 160, 144, 0.2);
+  border-radius: 8px;
+  min-height: 128px;
+}
+
+/* ============================================================
+   Manifesto sticker
+   Bleeds up over the bottom of the photo stage.
+   ============================================================ */
+
+.cult-gathering__manifesto {
+  position: relative;
+  z-index: 20;
+  text-align: center;
+  margin-top: -60px;
+  margin-bottom: 0;
+}
+
+.cult-gathering__manifesto-sticker {
+  width: 280px;
+  transform: rotate(-2deg);
+  display: inline-block;
+  /* Placeholder: green tinted circle until sticker-green-blank-A.png is ready */
+  background: rgba(57, 255, 20, 0.15);
+  border-radius: 50%;
+  min-height: 180px;
+}
+
+/* ============================================================
+   Responsive — mobile
+   Photos stack vertically; paraphernalia positions are
+   desktop-only so artefacts are hidden below 768px.
+   ============================================================ */
+
+@media (max-width: 767px) {
+  .cult-gathering__photos {
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .cult-gathering__photo--1,
+  .cult-gathering__photo--2,
+  .cult-gathering__photo--3 {
+    width: min(100%, 360px);
+    height: auto;
+    min-height: 300px;
+    margin-right: 0;
+    transform: none;
+  }
+
+  .cult-gathering__paraphernalia {
+    display: none;
+  }
+
+  .cult-gathering__stage {
+    min-height: unset;
+  }
+
+  .cult-gathering__manifesto {
+    margin-top: 24px;
+  }
+}

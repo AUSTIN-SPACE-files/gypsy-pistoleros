@@ -1,0 +1,302 @@
+/* ==========================================
+   videos.css — Video gallery styles
+   Part of the AUSTIN_SPACE build — May 2026
+
+   v0 baseline only. No v2 styling flourishes.
+   Colour tokens from variables.css throughout.
+
+   Pairs with js/videos.js (renderer) and
+   data/videos.json (dataset).
+
+   Also contains .section-videos-* page layout
+   helpers used only on the videos page.
+   ========================================== */
+
+
+/* ==========================================
+   VIDEOS PAGE LAYOUT — section-level wrappers
+   Named following the .section-{page}-* convention
+   used across all other v0 pages.
+   ========================================== */
+
+/* Hero — text-only, no full-bleed photo.
+   Section-rhythm exclusion lives in section-rhythm.css
+   alongside the other hero exclusions. */
+.section-videos-hero {
+  text-align: center;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.section-videos-hero__inner {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: var(--space-12) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* #usersite-container prefix required to beat BZ's
+   `#usersite-container h1 { font-size: 25px !important }` rule.
+   clamp range: 32px–60px — consistent with EPK hero. */
+#usersite-container .section-videos-hero__title {
+  font-size: clamp(2rem, 6vw, var(--text-6xl));
+  margin-bottom: 0;
+}
+
+.section-videos-hero__tagline {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.04em;
+  margin-bottom: 0;
+}
+
+/* Content section inner wrapper — max-width container */
+.section-videos__inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--space-16) var(--space-6);
+}
+
+
+/* ==========================================
+   VIDEO ALBUM — album-level section wrapper
+   ========================================== */
+
+.video-album {
+  padding: var(--space-16) 0;
+}
+
+.video-album__header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+/* #usersite-container prefix required to beat BZ h2 overrides */
+#usersite-container .video-album__title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--color-silver);
+  margin-bottom: var(--space-2);
+}
+
+@media (max-width: 720px) {
+  #usersite-container .video-album__title {
+    font-size: 1.25rem;
+  }
+}
+
+.video-album__meta {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.video-album__year {
+  font-weight: 400;
+}
+
+.video-album__sep {
+  color: var(--color-text-secondary);
+  opacity: 0.5;
+}
+
+.video-album__blurb {
+  font-family: var(--font-body);
+  font-style: normal;
+}
+
+
+/* ==========================================
+   VIDEO ALBUM GRID
+   ========================================== */
+
+.video-album__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Single releases — always one column, centred */
+.video-album--single .video-album__grid {
+  grid-template-columns: 1fr;
+  max-width: 600px;
+}
+
+@media (max-width: 720px) {
+  .video-album__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ==========================================
+   VIDEO CARD
+   ========================================== */
+
+.video-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+
+/* ==========================================
+   FACADE — thumbnail + play button overlay
+   ========================================== */
+
+.video-card__facade {
+  background: #0a0a0a;
+  border: 1px solid rgba(192, 192, 192, 0.2);
+  border-radius: var(--radius-md);
+  padding: 0;
+  cursor: pointer;
+  /* Layout */
+  position: relative;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  overflow: hidden;
+  display: block;
+  /* Interaction */
+  transition: transform 200ms ease, border-color 200ms ease;
+}
+
+.video-card__facade:hover,
+.video-card__facade:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(192, 192, 192, 0.5);
+  outline: none;
+}
+
+.video-card__facade:focus-visible {
+  outline: 2px solid var(--color-accent-pink);
+  outline-offset: 2px;
+}
+
+.video-card__thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+
+/* ==========================================
+   PLAY BUTTON OVERLAY
+   ========================================== */
+
+.video-card__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--color-silver);
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  pointer-events: none;
+  transition: transform 200ms ease;
+}
+
+.video-card__facade:hover .video-card__play,
+.video-card__facade:focus-visible .video-card__play {
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+@media (max-width: 720px) {
+  .video-card__play {
+    width: 48px;
+    height: 48px;
+    font-size: 1rem;
+  }
+}
+
+
+/* ==========================================
+   IFRAME — replaces facade after play click
+   ========================================== */
+
+.video-card__iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: none;
+  display: block;
+  border-radius: var(--radius-md);
+}
+
+
+/* ==========================================
+   CARD TITLE
+   ========================================== */
+
+/* #usersite-container prefix required to beat BZ p/heading resets */
+#usersite-container .video-card__title {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-primary);
+  margin: 0;
+  text-align: center;
+}
+
+
+/* ==========================================
+   STATE MESSAGES
+   ========================================== */
+
+.video-loading,
+.video-error {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--color-text-secondary);
+}
+
+.video-loading {
+  font-family: var(--font-body);
+  font-style: normal;
+}
+
+.video-error {
+  font-family: var(--font-body);
+}
+
+
+/* ==========================================
+   CTA ROW SECTION
+   ========================================== */
+
+.section-videos--cta-row {
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.section-videos__inner--cta-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  padding: 3rem var(--space-6);
+}
+
+
