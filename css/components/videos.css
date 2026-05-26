@@ -39,9 +39,11 @@
 
 /* #usersite-container prefix required to beat BZ's
    `#usersite-container h1 { font-size: 25px !important }` rule.
-   clamp range: 32px–60px — consistent with EPK hero. */
+   Locked hero scale: clamp(2.5rem, 9vw, 5rem) = 40px–80px. */
 #usersite-container .section-videos-hero__title {
-  font-size: clamp(2rem, 6vw, var(--text-6xl));
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 9vw, 5rem);
+  text-transform: none;
   margin-bottom: 0;
 }
 
@@ -71,25 +73,17 @@
 }
 
 .video-album__header {
-  text-align: center;
+  text-align: left;
   margin-bottom: 2.5rem;
 }
 
 /* #usersite-container prefix required to beat BZ h2 overrides */
 #usersite-container .video-album__title {
   font-family: var(--font-display);
-  font-size: 2rem;
+  font-size: clamp(2rem, 4vw, 2.5rem);
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: var(--color-silver);
+  color: var(--color-text-primary);
   margin-bottom: var(--space-2);
-}
-
-@media (max-width: 720px) {
-  #usersite-container .video-album__title {
-    font-size: 1.25rem;
-  }
 }
 
 .video-album__meta {
@@ -98,7 +92,7 @@
   color: var(--color-text-secondary);
   margin: 0;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   gap: var(--space-2);
   flex-wrap: wrap;
@@ -161,7 +155,6 @@
 
 .video-card__facade {
   background: #0a0a0a;
-  border: 1px solid rgba(192, 192, 192, 0.2);
   border-radius: var(--radius-md);
   padding: 0;
   cursor: pointer;
@@ -172,13 +165,12 @@
   overflow: hidden;
   display: block;
   /* Interaction */
-  transition: transform 200ms ease, border-color 200ms ease;
+  transition: transform 200ms ease;
 }
 
 .video-card__facade:hover,
 .video-card__facade:focus-visible {
   transform: translateY(-2px);
-  border-color: rgba(192, 192, 192, 0.5);
   outline: none;
 }
 
@@ -251,13 +243,12 @@
 /* #usersite-container prefix required to beat BZ p/heading resets */
 #usersite-container .video-card__title {
   font-family: var(--font-body);
-  font-size: 0.95rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--color-text-primary);
+  font-size: var(--text-xs);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--color-text-secondary);
   margin: 0;
-  text-align: center;
+  text-align: left;
 }
 
 
@@ -267,7 +258,7 @@
 
 .video-loading,
 .video-error {
-  text-align: center;
+  text-align: left;
   padding: 3rem 1rem;
   color: var(--color-text-secondary);
 }
@@ -279,6 +270,7 @@
 
 .video-error {
   font-family: var(--font-body);
+  font-style: normal;
 }
 
 

@@ -18,6 +18,33 @@ predictable URLs in the format `/files/{file-id}/{filename}`.
 
 Note: file ID 1413345 is the old `.webp` upload of the same hero photo — unreferenced, can be deleted from BZ Files.
 
+## CSS deployment
+
+The compiled stylesheet is hosted on GitHub Pages, not in Bandzoogle.
+
+**Bundle source:** `scripts/build-v0-bundle.sh` → `dist/v0-bundle.css`
+
+**Hosted at:** `https://austin-space-files.github.io/gypsy-pistoleros/dist/v0-bundle.css`
+(repo: `github.com/AUSTIN-SPACE-files/gypsy-pistoleros`)
+
+**Loaded via** a `<link>` tag in Bandzoogle → Pages → Site-wide Settings → Headers & Metatags:
+
+```html
+<link rel="stylesheet" href="https://austin-space-files.github.io/gypsy-pistoleros/dist/v0-bundle.css">
+```
+
+**Update workflow:**
+1. Edit source CSS files
+2. Run `./scripts/build-v0-bundle.sh`
+3. `git add dist/v0-bundle.css && git commit && git push`
+4. GitHub Pages deploys in ~30 seconds — hard-refresh to verify
+
+**⚠️ BZ Custom CSS field must stay empty.** Do not paste CSS into
+Bandzoogle → Design → Customize CSS. All styles are loaded through
+the `<link>` tag above.
+
+---
+
 ## Runtime configuration
 
 The renderers (reviews.js, shows.js) check for a global config
@@ -166,8 +193,8 @@ No configuration needed for local preview to work.
 
 When ready to make the homepage live:
 
-1. Verify `dist/v0-bundle.css` is uploaded to Bandzoogle Files and
-   the CSS URL is set in Headers & Metatags
+1. Verify the `<link>` tag for `https://austin-space-files.github.io/gypsy-pistoleros/dist/v0-bundle.css`
+   is present in BZ Headers & Metatags (see [CSS deployment](#css-deployment))
 2. Copy contents of `<div class="page-content">` from `staging/index.html`
 3. Paste into Bandzoogle → Pages → Home → Edit → Custom HTML block
 4. Save and hard-refresh `gypsypistoleros.com`
@@ -257,9 +284,12 @@ When ready to deploy the shows page to Bandzoogle:
    data-videos-src="https://gypsypistoleros.com/files/[NEW-ID]/videos.json"
    ```
 
-7. **Paste new bundle into BZ Customize CSS**
-   Rebuild first: `./scripts/build-v0-bundle.sh`
-   Paste `dist/v0-bundle.css` into Bandzoogle → Design → Customize CSS.
+7. **Rebuild and push the CSS bundle**
+   ```
+   ./scripts/build-v0-bundle.sh
+   git add dist/v0-bundle.css && git commit -m "rebuild bundle" && git push
+   ```
+   GitHub Pages deploys in ~30s. Do NOT paste CSS into BZ Customize CSS — see [CSS deployment](#css-deployment).
 
 8. **Create BZ page `/v0-videos-draft`**
    - Bandzoogle → Pages → Add Page → Custom HTML

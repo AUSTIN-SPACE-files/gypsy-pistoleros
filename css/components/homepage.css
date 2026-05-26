@@ -309,6 +309,38 @@
   line-height: 1.8;
 }
 
+.section-about__heading-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  margin-bottom: var(--space-6);
+}
+
+.section-about__heading-row h2 {
+  margin-bottom: 0;
+  flex-shrink: 0;
+}
+
+.section-about__sigil {
+  width: 60px;
+  height: auto;
+  opacity: 0.7;
+  flex-shrink: 0;
+}
+
+.section-about__sigil--left {}
+
+.section-about__sigil--right {}
+
+@media (max-width: 600px) {
+  .section-about__sigil {
+    display: none;
+  }
+  .section-about__heading-row {
+    margin-bottom: var(--space-4);
+  }
+}
+
 
 /* ==========================================
    SECTION 7 — JOIN THE CULT
