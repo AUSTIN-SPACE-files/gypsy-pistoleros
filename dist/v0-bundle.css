@@ -1209,7 +1209,7 @@ wa-button[disabled]:active::part(base) {
    5px h1 default. !important required because BZ's theme also uses
    !important on #usersite-container h1. */
 #usersite-container .section-hero__title {
-  font-size: clamp(2.5rem, 9vw, 5rem) !important;
+  font-size: clamp(2.5rem, 9vw, 4rem) !important;
   text-transform: none !important;
   padding-bottom: 0;
   margin-bottom: 0;
