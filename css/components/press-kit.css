@@ -13,12 +13,37 @@
    ========================================== */
 
 .section-epk-hero {
-  padding: var(--space-16) var(--space-6) var(--space-12);
-  text-align: center;
-  border-bottom: 1px solid var(--color-border-subtle);
+  position: relative;
+  z-index: 0;
+  min-height: 80vh;
+  background-image: url('https://gypsypistoleros.com/files/1413809/gp-crowd-close.webp');
+  background-size: cover;
+  background-position: top center;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-top: -250px;
+  padding-top: calc(250px + var(--space-8));
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+}
+
+.section-epk-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)),
+    linear-gradient(to top, #000000 0px, #000000 80px, rgba(0, 0, 0, 0) 320px);
+  background-color: transparent;
 }
 
 .section-epk-hero__inner {
+  position: relative;
+  z-index: 2;
   max-width: var(--content-width);
   margin: 0 auto;
   display: flex;
