@@ -39,22 +39,38 @@
    PARTNER LOGOS
    Logo images inside .section-contacts__block,
    between the contact name and blurb.
-   No blanket opacity — logos are content, not
-   decorative marks.
+
+   Root cause of stretching: .section-contacts__block is
+   display:flex / flex-direction:column (homepage.css:402),
+   which applies align-self:stretch to every child by default.
+   That overrides width:auto at layout level — specificity
+   cannot fix it. align-self:flex-start on the img is the
+   correct escape: it tells flex to size the box to the
+   element's content rather than stretching it.
    ========================================== */
 
 .section-contacts__partner-logo {
   display: block;
-  height: 40px;
+  align-self: flex-start;    /* escape flex column stretch — see note above */
+  height: 56px;              /* fallback / SLL Artists badge height */
   width: auto;
+  max-width: 100%;           /* safety cap for very wide intrinsic sizes */
+  border-radius: 0;          /* reset Web Awesome native.css img border-radius */
   margin-top: var(--space-4);
   margin-bottom: var(--space-2);
 }
 
-/* White-background logo plate — apply to BJF PR img only.
-   Prevents the white-bg logo clashing against the black
-   section background. --plate overrides height to 32px since
-   the logo mark is smaller when padded inside the cell. */
+/* The New Church Records — square seal with fine detail;
+   needs more height than a badge to be legible. */
+.section-contacts__partner-logo--seal {
+  height: 72px;
+}
+
+/* BJF PR — wide wordmark on white background.
+   White padded plate so the logo reads on the black section.
+   align-self:flex-start (inherited from base) keeps the plate
+   box-sized to the logo's natural width — it will not stretch
+   to a full-width white bar. */
 .section-contacts__partner-logo--plate {
   background: #fff;
   padding: var(--space-2) var(--space-3);
