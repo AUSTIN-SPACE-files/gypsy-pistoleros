@@ -186,7 +186,7 @@ No configuration needed for local preview to work.
 | Press Kit (EPK) | `staging/press-kit.html` | ✅ **Production-ready** | `/v0-press-kit-draft` | Pass 7e complete. |
 | Shows | `staging/shows.html` | ✅ **Production-ready** | `/v0-shows-draft` | Pass 8e complete. |
 | Videos | `staging/videos.html` | 🟡 Pending deploy | `/v0-videos-draft` | Pass 9a complete. BZ file IDs needed — see below. |
-| Cult Membership | `staging/cult-membership.html` | 🟡 Pending deploy | — | Staging only. |
+| Cult Membership | `staging/cult-membership-v0.html` | 🟡 Pending deploy | — | Staging only. |
 | Merch Store | — | ⚙️ BZ-managed | — | Bandzoogle native store — no v0 work. |
 
 ### Homepage promotion checklist

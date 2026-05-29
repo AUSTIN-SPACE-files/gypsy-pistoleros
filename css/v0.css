@@ -3,13 +3,13 @@
    AUSTIN_SPACE build — May 2026
    ============================================================
 
-   This is the baseline bundle loaded by all pages EXCEPT
-   cult-membership.html.
+   This is the baseline bundle loaded by all active staging pages,
+   including cult-membership-v0.html.
 
-   cult-membership.html continues to use gypsy-pistoleros.css,
-   which carries the full v2 component bundle (hero-v2, join-v2,
-   cg-inscribed, press-pasteup, cult-gathering). Those page-
-   specific stylesheets are intentionally excluded here.
+   The v2 prototype (archive/v2/cult-membership.html) uses
+   gypsy-pistoleros.css, which carries the full v2 component bundle
+   (hero-v2, join-v2, cg-inscribed, press-pasteup, cult-gathering).
+   Those page-specific stylesheets are intentionally excluded here.
 
    When v2 styling work resumes on a new page, add that page's
    component CSS as an additional @import below this block,
@@ -38,6 +38,5 @@
 @import 'components/contact.css';
 @import 'components/shows.css';
 @import 'components/videos.css';
-/* cult-membership.css excluded from v0 bundle — per v0 header comment, this bundle is for
-   "all pages EXCEPT cult-membership.html". Re-add when the membership page deploys. */
+@import 'components/cult-membership.css';
 @import 'components/section-rhythm.css';

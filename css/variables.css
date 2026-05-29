@@ -65,12 +65,11 @@
   /* Display — Georgia: all heading and display roles at any size */
   --font-display: Georgia, 'Times New Roman', serif;
 
-  /* V2 BUNDLE TOKENS — Active for cult-membership.html via
+  /* V2 BUNDLE TOKENS — Active for archive/v2/cult-membership.html via
      gypsy-pistoleros.css (loads cult-gathering.css, cg-inscribed.css,
      hero-v2.css, press-pasteup.css). NOT consumed by the v0 bundle
-     (active staging pages). When cult-membership deploys, these tokens
-     become production-active for that page. Do not delete without
-     verifying every consumer in BOTH bundles. */
+     (active staging pages). Do not delete without verifying every
+     consumer in BOTH bundles. */
   --font-display-secondary: 'Cinzel', Georgia, serif;
   --font-cinzel-min: 1.125rem;
   --font-cinzel-max: 1.9375rem;
