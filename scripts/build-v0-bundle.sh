@@ -23,6 +23,7 @@ SOURCES=(
   "css/components/buttons-v0.css"
   "css/components/homepage.css"
   "css/components/press-kit.css"
+  "css/components/contact.css"
   "css/components/shows.css"
   "css/components/videos.css"
   "css/components/section-rhythm.css"

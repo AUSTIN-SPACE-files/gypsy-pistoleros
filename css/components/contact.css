@@ -1,0 +1,63 @@
+/* ==========================================
+   contact.css — Contact & Booking page styles
+   Part of the AUSTIN_SPACE build — May 2026
+
+   v0 baseline only. No v2 styling flourishes.
+   Reuses .section-epk-hero (press-kit.css) and
+   .section-contacts (homepage.css) as-is.
+   Adds stacked block layout and partner logo sizing.
+   ========================================== */
+
+
+/* ==========================================
+   STACKED BLOCK LAYOUT
+   Used on the Contact & Booking page in place of
+   .section-contacts__grid (4-col equal cells).
+   The existing grid class is untouched — index and
+   press-kit continue to use it unchanged.
+   ========================================== */
+
+.section-contacts__stack {
+  margin-top: var(--space-8);
+}
+
+.section-contacts__stack .section-contacts__block {
+  padding: var(--space-8) 0;
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.section-contacts__stack .section-contacts__block:last-child {
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.section-contacts__stack .section-contacts__desc {
+  max-width: 52ch;
+}
+
+
+/* ==========================================
+   PARTNER LOGOS
+   Logo images inside .section-contacts__block,
+   between the contact name and blurb.
+   No blanket opacity — logos are content, not
+   decorative marks.
+   ========================================== */
+
+.section-contacts__partner-logo {
+  display: block;
+  height: 40px;
+  width: auto;
+  margin-top: var(--space-4);
+  margin-bottom: var(--space-2);
+}
+
+/* White-background logo plate — apply to BJF PR img only.
+   Prevents the white-bg logo clashing against the black
+   section background. --plate overrides height to 32px since
+   the logo mark is smaller when padded inside the cell. */
+.section-contacts__partner-logo--plate {
+  background: #fff;
+  padding: var(--space-2) var(--space-3);
+  border-radius: 3px;
+  height: 32px;
+}

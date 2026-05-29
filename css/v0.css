@@ -35,6 +35,7 @@
 @import 'components/buttons-v0.css';
 @import 'components/homepage.css';
 @import 'components/press-kit.css';
+@import 'components/contact.css';
 @import 'components/shows.css';
 @import 'components/videos.css';
 /* cult-membership.css excluded from v0 bundle — per v0 header comment, this bundle is for
