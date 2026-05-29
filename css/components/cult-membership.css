@@ -250,11 +250,9 @@
    SECTION 5 — PRESS (membership variant)
    Base .section-press and .section-press__subhead
    styles come from homepage.css.
+   No background override — section sits flush on page base
+   so review cards (bg-primary) don't create a box-in-a-box.
    ========================================== */
-
-.section-press--membership {
-  background: var(--color-bg-secondary);
-}
 
 
 /* ==========================================
@@ -291,6 +289,33 @@
   gap: var(--space-3);
 }
 
-.section-faq__list wa-details {
-  border-bottom: 1px solid var(--color-border-subtle);
+.section-faq__list wa-details::part(base) {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+}
+
+.section-faq__list wa-details::part(header),
+.section-faq__list wa-details::part(summary) {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.section-faq__list wa-details::part(expand-icon),
+.section-faq__list wa-details::part(summary-icon) {
+  color: var(--color-text-secondary);
+}
+
+.section-faq__list wa-details::part(content),
+.section-faq__list wa-details::part(body) {
+  padding-top: 0;
+  padding-bottom: var(--space-4);
+}
+
+.section-faq__list wa-details p {
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  margin: 0;
 }
