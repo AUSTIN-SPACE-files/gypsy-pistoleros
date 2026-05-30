@@ -26,7 +26,7 @@
   overflow: hidden;
   margin-top: -250px;
   padding-top: calc(250px + var(--space-8));
-  padding-bottom: var(--space-12);
+  padding-bottom: 38px;
   padding-left: calc(50vw - 50%);
   width: 100vw;
   margin-left: calc(50% - 50vw);
