@@ -36,7 +36,7 @@
   z-index: 1;
   pointer-events: none;
   background-image:
-    linear-gradient(to bottom, #000000 0px, #000000 300px, rgba(0, 0, 0, 0) 480px),
+    linear-gradient(to bottom, #000000 0px, #000000 150px, rgba(0, 0, 0, 0) 330px),
     linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)),
     linear-gradient(to top, #000000 0px, #000000 80px, rgba(0, 0, 0, 0) 320px);
   background-color: transparent;
