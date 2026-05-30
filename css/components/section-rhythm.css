@@ -26,7 +26,7 @@
    is subtle to the point of subliminal. The hairline divider
    does the actual work of section separation.
 
-   Hero sections (.section-hero, .section-epk-hero, .section-shows-hero) are excluded.
+   Hero sections (.section-hero, .section-page-hero, .section-shows-hero) are excluded.
    The first content section after the hero gets the colour but
    not the hairline at its top edge.
 
@@ -64,7 +64,7 @@
   background-color: #080808;
 }
 
-#usersite-container .page-content > section:not(.section-hero):not(.section-epk-hero):not(.section-shows-hero):not(.section-videos-hero) > * {
+#usersite-container .page-content > section:not(.section-hero):not(.section-page-hero):not(.section-shows-hero):not(.section-videos-hero) > * {
   position: relative;
   z-index: 0;
 }
@@ -74,14 +74,14 @@
    Added .section-shows-hero in Pass 8d after audit flagged the gap.
    Added .section-videos-hero in Pass 9b. */
 #usersite-container .page-content > section.section-hero::before,
-#usersite-container .page-content > section.section-epk-hero::before,
+#usersite-container .page-content > section.section-page-hero::before,
 #usersite-container .page-content > section.section-shows-hero::before,
 #usersite-container .page-content > section.section-videos-hero::before {
   display: none;
 }
 
 #usersite-container .page-content > section.section-hero + section::before,
-#usersite-container .page-content > section.section-epk-hero + section::before,
+#usersite-container .page-content > section.section-page-hero + section::before,
 #usersite-container .page-content > section.section-shows-hero + section::before,
 #usersite-container .page-content > section.section-videos-hero + section::before {
   border-top: none;

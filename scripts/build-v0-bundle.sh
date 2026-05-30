@@ -22,6 +22,7 @@ SOURCES=(
   "css/components/reviews.css"
   "css/components/buttons-v0.css"
   "css/components/homepage.css"
+  "css/components/page-hero.css"
   "css/components/press-kit.css"
   "css/components/contact.css"
   "css/components/shows.css"
