@@ -246,10 +246,14 @@
    COMMENT LINK — "Leave a comment"
    BZ renders this as a plain <a>, NOT a Web Awesome element.
    Direct element selector — no ::part() needed.
-   #usersite-container prefix beats BZ's #usersite-container .button rule
-   (1,0,1) and any #usersite-container .button-secondary rule.
-   Our rule resolves to (1,2,1). Hover explicitly keeps color: #000 and
-   text-decoration: none to block BZ's .button:hover white-flip.
+   Our rule resolves to (1,2,1).
+   !important on padding + font-size: beats BZ's
+     #usersite-container .post-single .meta .blog-actions > li .button
+     (1,4,1) which forces 4px/12px on those two properties.
+   !important on hover properties: beats BZ's
+     .no-touchevents .not-intro-page #usersite-container .button-secondary:hover
+     (1,4,0) which flips bg/border/color to white-on-black.
+   Only contested properties carry !important — all others win cleanly.
    Maps to v0 secondary (green) button look from buttons-v0.css.
    ========================================== */
 
@@ -259,9 +263,9 @@
   color: #000000;
   border: 2px solid #000;
   border-radius: var(--radius-md);
-  padding: var(--space-3) var(--space-6);
+  padding: var(--space-3) var(--space-6) !important;
   font-family: var(--font-body);
-  font-size: 14px;
+  font-size: 14px !important;
   font-weight: 600;
   letter-spacing: 0.05em;
   text-decoration: none;
@@ -270,9 +274,10 @@
 }
 
 #usersite-container .blog_feature a.comment-link:hover {
-  background-color: var(--color-accent-green-dark);
-  color: #000000;
-  text-decoration: none;
+  background-color: var(--color-accent-green-dark) !important;
+  border-color: #000 !important;
+  color: #000000 !important;
+  text-decoration: none !important;
 }
 
 
