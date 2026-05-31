@@ -28,6 +28,7 @@ SOURCES=(
   "css/components/contact.css"
   "css/components/shows.css"
   "css/components/videos.css"
+  "css/components/blog.css"
   "css/components/cult-membership.css"
   "css/components/section-rhythm.css"
 )
