@@ -71,10 +71,14 @@
   position: relative;
   z-index: 0;
   box-sizing: border-box;
-  min-height: 80vh;
-  background-image: url('https://gypsypistoleros.com/files/1414306/gp-collage.webp');
+  /* !important on background-image + min-height beats Bandzoogle's
+     #usersite-container section { background: none; min-height: 0; }
+     high-specificity theme reset. Same pattern as display:flex below. */
+  min-height: 80vh !important;
+  background-image: url('https://gypsypistoleros.com/files/1414306/gp-collage.webp') !important;
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
   display: flex !important;
   align-items: flex-end;
   justify-content: flex-start;
@@ -158,30 +162,30 @@
 
 /* sa — press-kit (0% 0%) */
 .section-page-hero--press {
-  background-size: 200%;
-  background-position: 0% 0%;
+  background-size: 200% !important;
+  background-position: 0% 0% !important;
 }
 
 /* sb — contact-booking (100% 0%) */
 .section-page-hero--contact {
-  background-size: 200%;
-  background-position: 100% 0%;
+  background-size: 200% !important;
+  background-position: 100% 0% !important;
 }
 
 /* sc — cult-membership-v0 (0% 33.333%) */
 .section-page-hero--cult {
-  background-size: 200%;
-  background-position: 0% 33.333%;
+  background-size: 200% !important;
+  background-position: 0% 33.333% !important;
 }
 
 /* sd — shows (100% 33.333%) */
 .section-page-hero--shows {
-  background-size: 200%;
-  background-position: 100% 33.333%;
+  background-size: 200% !important;
+  background-position: 100% 33.333% !important;
 }
 
 /* se — videos (0% 66.667%) */
 .section-page-hero--videos {
-  background-size: 200%;
-  background-position: 0% 66.667%;
+  background-size: 200% !important;
+  background-position: 0% 66.667% !important;
 }
