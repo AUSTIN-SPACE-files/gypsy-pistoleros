@@ -35,6 +35,23 @@
   margin-bottom: var(--space-4);
 }
 
+/* Single-post title — scoped size lock for .post-single context.
+   BZ's single-post view has rules that beat the general .heading-blog
+   rule above; this restores the correct h2 size.
+   !important on font-size: beats BZ's .text-main / context-specific
+   override that enlarges the heading in single-post view.
+   !important on font-family: beats BZ's .alt-font assignment. */
+#usersite-container .blog_feature .post-single .heading-blog {
+  font-family: var(--font-display) !important;
+  font-size: clamp(2rem, 4vw, 2.5rem) !important;
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  line-height: 1.05;
+  margin-top: 0;
+  margin-bottom: var(--space-4);
+}
+
 /* List view: title is a link — primary colour, not accent green.
    #usersite-container prefix beats BZ's #usersite-container a { color: ... } rule. */
 #usersite-container .blog_feature .heading-blog a {
