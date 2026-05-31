@@ -35,14 +35,15 @@
   margin-bottom: var(--space-4);
 }
 
-/* List view: title is a link — primary colour, not accent green */
-.blog_feature .heading-blog a {
+/* List view: title is a link — primary colour, not accent green.
+   #usersite-container prefix beats BZ's #usersite-container a { color: ... } rule. */
+#usersite-container .blog_feature .heading-blog a {
   color: var(--color-text-primary);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
-.blog_feature .heading-blog a:hover {
+#usersite-container .blog_feature .heading-blog a:hover {
   color: var(--color-text-accent);
 }
 
@@ -337,6 +338,15 @@
   margin-bottom: var(--space-6);
 }
 
+/* BZ's .count class adds a badge pseudoelement (::after carrying a comment counter).
+   When the count is zero it renders as a stray empty bordered box beside the heading.
+   Suppress both pseudoelements to remove the artifact entirely. */
+#usersite-container .blog_feature .comments-title h4.count::before,
+#usersite-container .blog_feature .comments-title h4.count::after {
+  content: none;
+  display: none;
+}
+
 
 /* ==========================================
    COMMENT LIST
@@ -424,9 +434,10 @@
   text-decoration: none;
 }
 
-/* Text inputs (name, location, email) */
-.blog_feature .add-comment input[type="text"],
-.blog_feature .add-comment input[type="email"] {
+/* Text inputs (name, location, email)
+   #usersite-container prefix beats BZ's ID-scoped input rule (specificity 1,0,1). */
+#usersite-container .blog_feature .add-comment input[type="text"],
+#usersite-container .blog_feature .add-comment input[type="email"] {
   display: block;
   width: 100%;
   box-sizing: border-box;
@@ -440,8 +451,9 @@
   transition: border-color 0.2s ease;
 }
 
-/* Textarea (comment body) */
-.blog_feature .add-comment textarea {
+/* Textarea (comment body)
+   #usersite-container prefix beats BZ's ID-scoped textarea rule (specificity 1,0,1). */
+#usersite-container .blog_feature .add-comment textarea {
   display: block;
   width: 100%;
   box-sizing: border-box;
@@ -458,9 +470,9 @@
 }
 
 /* Focus state */
-.blog_feature .add-comment input[type="text"]:focus,
-.blog_feature .add-comment input[type="email"]:focus,
-.blog_feature .add-comment textarea:focus {
+#usersite-container .blog_feature .add-comment input[type="text"]:focus,
+#usersite-container .blog_feature .add-comment input[type="email"]:focus,
+#usersite-container .blog_feature .add-comment textarea:focus {
   outline: none;
   border-color: var(--color-text-accent);
 }
@@ -472,8 +484,9 @@
 
 /* "Add comment" submit — BZ plain HTML button.button.positive.
    Not a Web Awesome element — direct element selector.
+   #usersite-container prefix beats BZ's ID-scoped button rule (specificity 1,0,1).
    Maps to v0 primary (pink) button look from buttons-v0.css. */
-.blog_feature .add-comment button.button.positive {
+#usersite-container .blog_feature .add-comment button.button.positive {
   display: inline-block;
   background-color: var(--color-accent-pink);
   color: #ffffff;
@@ -490,7 +503,7 @@
   transition: background-color 0.15s ease;
 }
 
-.blog_feature .add-comment button.button.positive:hover {
+#usersite-container .blog_feature .add-comment button.button.positive:hover {
   background-color: var(--color-accent-pink-muted);
 }
 
