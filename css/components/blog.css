@@ -246,10 +246,14 @@
    COMMENT LINK — "Leave a comment"
    BZ renders this as a plain <a>, NOT a Web Awesome element.
    Direct element selector — no ::part() needed.
+   #usersite-container prefix beats BZ's #usersite-container .button rule
+   (1,0,1) and any #usersite-container .button-secondary rule.
+   Our rule resolves to (1,2,1). Hover explicitly keeps color: #000 and
+   text-decoration: none to block BZ's .button:hover white-flip.
    Maps to v0 secondary (green) button look from buttons-v0.css.
    ========================================== */
 
-.blog_feature a.comment-link {
+#usersite-container .blog_feature a.comment-link {
   display: inline-block;
   background-color: var(--color-accent-green);
   color: #000000;
@@ -265,9 +269,10 @@
   transition: background-color 0.15s ease;
 }
 
-.blog_feature a.comment-link:hover {
+#usersite-container .blog_feature a.comment-link:hover {
   background-color: var(--color-accent-green-dark);
   color: #000000;
+  text-decoration: none;
 }
 
 
