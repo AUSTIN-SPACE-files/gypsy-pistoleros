@@ -319,7 +319,277 @@
 
 
     <!-- ==========================================
-         SECTION 10 — DOWNLOADS
+         SECTION 10 — PRESS PHOTOS
+         ========================================== -->
+    <section class="section-press-photos" aria-labelledby="press-photos-heading">
+
+      <!--
+        ══════════════════════════════════════════════════════════════════
+        PRESS PHOTOS — find-and-replace block
+        Replace all PHOTO_NN_ tokens before deployment.
+        Search each prefix (e.g. PHOTO_01_) to swap all three values
+        for that photo in one pass.
+        NOTE: thumb and full URL may be the same if no separate
+        lower-resolution thumbnail exists — use the full URL for both.
+        ══════════════════════════════════════════════════════════════════
+        Photo 01 — thumb: PHOTO_01_THUMB_URL | full: PHOTO_01_FULL_URL | caption: PHOTO_01_CAPTION
+        Photo 02 — thumb: PHOTO_02_THUMB_URL | full: PHOTO_02_FULL_URL | caption: PHOTO_02_CAPTION
+        Photo 03 — thumb: PHOTO_03_THUMB_URL | full: PHOTO_03_FULL_URL | caption: PHOTO_03_CAPTION
+        Photo 04 — thumb: PHOTO_04_THUMB_URL | full: PHOTO_04_FULL_URL | caption: PHOTO_04_CAPTION
+        Photo 05 — thumb: PHOTO_05_THUMB_URL | full: PHOTO_05_FULL_URL | caption: PHOTO_05_CAPTION
+        Photo 06 — thumb: PHOTO_06_THUMB_URL | full: PHOTO_06_FULL_URL | caption: PHOTO_06_CAPTION
+        Photo 07 — thumb: PHOTO_07_THUMB_URL | full: PHOTO_07_FULL_URL | caption: PHOTO_07_CAPTION
+        Photo 08 — thumb: PHOTO_08_THUMB_URL | full: PHOTO_08_FULL_URL | caption: PHOTO_08_CAPTION
+        Photo 09 — thumb: PHOTO_09_THUMB_URL | full: PHOTO_09_FULL_URL | caption: PHOTO_09_CAPTION
+        Photo 10 — thumb: PHOTO_10_THUMB_URL | full: PHOTO_10_FULL_URL | caption: PHOTO_10_CAPTION
+        Photo 11 — thumb: PHOTO_11_THUMB_URL | full: PHOTO_11_FULL_URL | caption: PHOTO_11_CAPTION
+        Photo 12 — thumb: PHOTO_12_THUMB_URL | full: PHOTO_12_FULL_URL | caption: PHOTO_12_CAPTION
+        Photo 13 — thumb: PHOTO_13_THUMB_URL | full: PHOTO_13_FULL_URL | caption: PHOTO_13_CAPTION
+        Photo 14 — thumb: PHOTO_14_THUMB_URL | full: PHOTO_14_FULL_URL | caption: PHOTO_14_CAPTION
+        Photo 15 — thumb: PHOTO_15_THUMB_URL | full: PHOTO_15_FULL_URL | caption: PHOTO_15_CAPTION
+        ══════════════════════════════════════════════════════════════════
+      -->
+
+      <h2 id="press-photos-heading">Press Photos</h2>
+
+      <!-- Thumbnail grid: 3-across desktop, 2 tablet, 1 mobile.
+           Each button carries data-index matching the carousel slide order. -->
+      <ul class="press-photos__grid">
+
+        <li>
+          <button class="press-photos__thumb" type="button" data-index="0">
+            <img src="PHOTO_01_THUMB_URL" alt="PHOTO_01_CAPTION" loading="lazy">
+          </button>
+        </li>
+
+        <li>
+          <button class="press-photos__thumb" type="button" data-index="1">
+            <img src="PHOTO_02_THUMB_URL" alt="PHOTO_02_CAPTION" loading="lazy">
+          </button>
+        </li>
+
+        <li>
+          <button class="press-photos__thumb" type="button" data-index="2">
+            <img src="PHOTO_03_THUMB_URL" alt="PHOTO_03_CAPTION" loading="lazy">
+          </button>
+        </li>
+
+        <li>
+          <button class="press-photos__thumb" type="button" data-index="3">
+            <img src="PHOTO_04_THUMB_URL" alt="PHOTO_04_CAPTION" loading="lazy">
+          </button>
+        </li>
+
+        <li>
+          <button class="press-photos__thumb" type="button" data-index="4">
+            <img src="PHOTO_05_THUMB_URL" alt="PHOTO_05_CAPTION" loading="lazy">
+          </button>
+        </li>
+
+        <li>
+          <button class="press-photos__thumb" type="button" data-index="5">
+            <img src="PHOTO_06_THUMB_URL" alt="PHOTO_06_CAPTION" loading="lazy">
+          </button>
+        </li>
+
+        <li>
+          <button class="press-photos__thumb" type="button" data-index="6">
+            <img src="PHOTO_07_THUMB_URL" alt="PHOTO_07_CAPTION" loading="lazy">
+          </button>
+        </li>
+
+        <li>
+          <button class="press-photos__thumb" type="button" data-index="7">
+            <img src="PHOTO_08_THUMB_URL" alt="PHOTO_08_CAPTION" loading="lazy">
+          </button>
+        </li>
+
+        <li>
+          <button class="press-photos__thumb" type="button" data-index="8">
+            <img src="PHOTO_09_THUMB_URL" alt="PHOTO_09_CAPTION" loading="lazy">
+          </button>
+        </li>
+
+        <li>
+          <button class="press-photos__thumb" type="button" data-index="9">
+            <img src="PHOTO_10_THUMB_URL" alt="PHOTO_10_CAPTION" loading="lazy">
+          </button>
+        </li>
+
+        <li>
+          <button class="press-photos__thumb" type="button" data-index="10">
+            <img src="PHOTO_11_THUMB_URL" alt="PHOTO_11_CAPTION" loading="lazy">
+          </button>
+        </li>
+
+        <li>
+          <button class="press-photos__thumb" type="button" data-index="11">
+            <img src="PHOTO_12_THUMB_URL" alt="PHOTO_12_CAPTION" loading="lazy">
+          </button>
+        </li>
+
+        <li>
+          <button class="press-photos__thumb" type="button" data-index="12">
+            <img src="PHOTO_13_THUMB_URL" alt="PHOTO_13_CAPTION" loading="lazy">
+          </button>
+        </li>
+
+        <li>
+          <button class="press-photos__thumb" type="button" data-index="13">
+            <img src="PHOTO_14_THUMB_URL" alt="PHOTO_14_CAPTION" loading="lazy">
+          </button>
+        </li>
+
+        <li>
+          <button class="press-photos__thumb" type="button" data-index="14">
+            <img src="PHOTO_15_THUMB_URL" alt="PHOTO_15_CAPTION" loading="lazy">
+          </button>
+        </li>
+
+      </ul>
+
+      <!-- Lightbox: wa-dialog contains a single wa-carousel.
+           No loop attribute — prevents spurious wa-slide-change events from clone initialisation.
+           mouse-dragging enables desktop click-drag; native touch handles swipe on mobile. -->
+      <wa-dialog id="press-photos-lightbox" label="Press Photos">
+
+        <wa-carousel id="press-photos-carousel" navigation mouse-dragging>
+
+          <wa-carousel-item>
+            <figure class="press-photos__figure">
+              <img src="PHOTO_01_FULL_URL" alt="PHOTO_01_CAPTION" loading="lazy">
+              <figcaption class="press-photos__caption">PHOTO_01_CAPTION</figcaption>
+            </figure>
+          </wa-carousel-item>
+
+          <wa-carousel-item>
+            <figure class="press-photos__figure">
+              <img src="PHOTO_02_FULL_URL" alt="PHOTO_02_CAPTION" loading="lazy">
+              <figcaption class="press-photos__caption">PHOTO_02_CAPTION</figcaption>
+            </figure>
+          </wa-carousel-item>
+
+          <wa-carousel-item>
+            <figure class="press-photos__figure">
+              <img src="PHOTO_03_FULL_URL" alt="PHOTO_03_CAPTION" loading="lazy">
+              <figcaption class="press-photos__caption">PHOTO_03_CAPTION</figcaption>
+            </figure>
+          </wa-carousel-item>
+
+          <wa-carousel-item>
+            <figure class="press-photos__figure">
+              <img src="PHOTO_04_FULL_URL" alt="PHOTO_04_CAPTION" loading="lazy">
+              <figcaption class="press-photos__caption">PHOTO_04_CAPTION</figcaption>
+            </figure>
+          </wa-carousel-item>
+
+          <wa-carousel-item>
+            <figure class="press-photos__figure">
+              <img src="PHOTO_05_FULL_URL" alt="PHOTO_05_CAPTION" loading="lazy">
+              <figcaption class="press-photos__caption">PHOTO_05_CAPTION</figcaption>
+            </figure>
+          </wa-carousel-item>
+
+          <wa-carousel-item>
+            <figure class="press-photos__figure">
+              <img src="PHOTO_06_FULL_URL" alt="PHOTO_06_CAPTION" loading="lazy">
+              <figcaption class="press-photos__caption">PHOTO_06_CAPTION</figcaption>
+            </figure>
+          </wa-carousel-item>
+
+          <wa-carousel-item>
+            <figure class="press-photos__figure">
+              <img src="PHOTO_07_FULL_URL" alt="PHOTO_07_CAPTION" loading="lazy">
+              <figcaption class="press-photos__caption">PHOTO_07_CAPTION</figcaption>
+            </figure>
+          </wa-carousel-item>
+
+          <wa-carousel-item>
+            <figure class="press-photos__figure">
+              <img src="PHOTO_08_FULL_URL" alt="PHOTO_08_CAPTION" loading="lazy">
+              <figcaption class="press-photos__caption">PHOTO_08_CAPTION</figcaption>
+            </figure>
+          </wa-carousel-item>
+
+          <wa-carousel-item>
+            <figure class="press-photos__figure">
+              <img src="PHOTO_09_FULL_URL" alt="PHOTO_09_CAPTION" loading="lazy">
+              <figcaption class="press-photos__caption">PHOTO_09_CAPTION</figcaption>
+            </figure>
+          </wa-carousel-item>
+
+          <wa-carousel-item>
+            <figure class="press-photos__figure">
+              <img src="PHOTO_10_FULL_URL" alt="PHOTO_10_CAPTION" loading="lazy">
+              <figcaption class="press-photos__caption">PHOTO_10_CAPTION</figcaption>
+            </figure>
+          </wa-carousel-item>
+
+          <wa-carousel-item>
+            <figure class="press-photos__figure">
+              <img src="PHOTO_11_FULL_URL" alt="PHOTO_11_CAPTION" loading="lazy">
+              <figcaption class="press-photos__caption">PHOTO_11_CAPTION</figcaption>
+            </figure>
+          </wa-carousel-item>
+
+          <wa-carousel-item>
+            <figure class="press-photos__figure">
+              <img src="PHOTO_12_FULL_URL" alt="PHOTO_12_CAPTION" loading="lazy">
+              <figcaption class="press-photos__caption">PHOTO_12_CAPTION</figcaption>
+            </figure>
+          </wa-carousel-item>
+
+          <wa-carousel-item>
+            <figure class="press-photos__figure">
+              <img src="PHOTO_13_FULL_URL" alt="PHOTO_13_CAPTION" loading="lazy">
+              <figcaption class="press-photos__caption">PHOTO_13_CAPTION</figcaption>
+            </figure>
+          </wa-carousel-item>
+
+          <wa-carousel-item>
+            <figure class="press-photos__figure">
+              <img src="PHOTO_14_FULL_URL" alt="PHOTO_14_CAPTION" loading="lazy">
+              <figcaption class="press-photos__caption">PHOTO_14_CAPTION</figcaption>
+            </figure>
+          </wa-carousel-item>
+
+          <wa-carousel-item>
+            <figure class="press-photos__figure">
+              <img src="PHOTO_15_FULL_URL" alt="PHOTO_15_CAPTION" loading="lazy">
+              <figcaption class="press-photos__caption">PHOTO_15_CAPTION</figcaption>
+            </figure>
+          </wa-carousel-item>
+
+        </wa-carousel>
+
+      </wa-dialog>
+
+      <script>
+        (function () {
+          var dialog   = document.getElementById('press-photos-lightbox');
+          var carousel = document.getElementById('press-photos-carousel');
+          var targetIndex = 0;
+
+          document.querySelectorAll('.press-photos__thumb').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+              targetIndex = parseInt(btn.dataset.index, 10);
+              dialog.show();
+            });
+          });
+
+          /* goToSlide() called inside wa-after-show — carousel must be
+             visible and laid out before scroll position is set. */
+          dialog.addEventListener('wa-after-show', function () {
+            carousel.goToSlide(targetIndex);
+          });
+        }());
+      </script>
+
+    </section>
+
+
+    <!-- ==========================================
+         SECTION 11 — DOWNLOADS
          ========================================== -->
     <section class="section-downloads" aria-labelledby="downloads-heading">
 
@@ -380,7 +650,7 @@
 
 
     <!-- ==========================================
-         SECTION 11 — CONTACTS
+         SECTION 12 — CONTACTS
          ========================================== -->
     <section class="section-contacts" aria-labelledby="contacts-epk-heading">
 

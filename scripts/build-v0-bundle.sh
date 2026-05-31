@@ -24,6 +24,7 @@ SOURCES=(
   "css/components/homepage.css"
   "css/components/page-hero.css"
   "css/components/press-kit.css"
+  "css/components/press-photos.css"
   "css/components/contact.css"
   "css/components/shows.css"
   "css/components/videos.css"

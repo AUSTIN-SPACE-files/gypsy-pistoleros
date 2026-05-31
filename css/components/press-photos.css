@@ -1,0 +1,190 @@
+/* ==========================================
+   press-photos.css — Press Photos gallery + lightbox
+   Part of the AUSTIN_SPACE build — May 2026
+
+   v0 baseline only. No v2 styling flourishes.
+   Colour tokens from variables.css throughout.
+   No hardcoded colour values.
+
+   Namespace: .section-press-photos / .press-photos__*
+   No collision with: .section-watch__grid, .video-album__grid,
+   .section-downloads__grid, .section-latest-release__grid.
+
+   Lightbox wired to #press-photos-lightbox (wa-dialog) and
+   #press-photos-carousel (wa-carousel) via inline JS in the
+   press-kit.html section. goToSlide() called inside wa-after-show
+   — validated in _poc-lightbox.html before this file was written.
+   ========================================== */
+
+
+/* ==========================================
+   SECTION CONTAINER
+   ========================================== */
+
+.section-press-photos {
+  padding: var(--space-16) var(--space-6);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+
+/* ==========================================
+   THUMBNAIL GRID
+   ========================================== */
+
+/* 3-across desktop. Gap matches .section-downloads__grid (var(--space-6)).
+   List reset prevents ul/li default browser chrome. */
+.press-photos__grid {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-8) 0 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+}
+
+/* li items are grid children — no extra styling needed */
+.press-photos__grid li {
+  display: block;
+}
+
+
+/* ==========================================
+   THUMBNAIL BUTTON
+   ========================================== */
+
+/* Full-width button; no browser chrome.
+   aspect-ratio enforces 4:3; overflow:hidden clips the cover image. */
+.press-photos__thumb {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  /* Hover idiom: translateY(-2px) — matches .video-card__facade in videos.css */
+  transition: transform 200ms ease;
+}
+
+.press-photos__thumb:hover {
+  transform: translateY(-2px);
+}
+
+/* Focus ring: matches .video-card__facade:focus-visible in videos.css */
+.press-photos__thumb:focus-visible {
+  outline: 2px solid var(--color-accent-pink);
+  outline-offset: 2px;
+}
+
+/* Thumbnail image — cover fill; object-fit:cover is correct here (thumbs only).
+   Full-size images in the lightbox use object-fit:contain (see below). */
+.press-photos__thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+/* ==========================================
+   LIGHTBOX — wa-dialog
+   ========================================== */
+
+#press-photos-lightbox {
+  --width: min(900px, 92vw);
+}
+
+#press-photos-lightbox::part(panel) {
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-subtle);
+}
+
+#press-photos-lightbox::part(title) {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+#press-photos-lightbox::part(close-button) {
+  color: var(--color-text-secondary);
+}
+
+/* Zero body padding so carousel sits flush against the panel edges */
+#press-photos-lightbox::part(body) {
+  padding: 0;
+  overflow: hidden;
+}
+
+
+/* ==========================================
+   LIGHTBOX — wa-carousel
+   ========================================== */
+
+#press-photos-carousel {
+  width: 100%;
+}
+
+
+/* ==========================================
+   LIGHTBOX — figure + full-size image
+   ========================================== */
+
+.press-photos__figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: 0;
+}
+
+/* object-fit:contain — never crops; full image always visible.
+   Cover is for thumbnails only. max-height prevents tall portrait
+   shots from overflowing the viewport. */
+.press-photos__figure img {
+  display: block;
+  width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+}
+
+
+/* ==========================================
+   LIGHTBOX — caption
+   ========================================== */
+
+.press-photos__caption {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  text-align: center;
+  padding: var(--space-3) var(--space-6);
+  margin: 0;
+}
+
+
+/* ==========================================
+   RESPONSIVE
+   Breakpoints match existing v0 files:
+   720px — videos.css (.video-album__grid)
+   500px — press-kit.css (.section-downloads__grid)
+   ========================================== */
+
+/* Tablet: 3 → 2 columns */
+@media (max-width: 720px) {
+  .press-photos__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile: 2 → 1 column */
+@media (max-width: 500px) {
+  .press-photos__grid {
+    grid-template-columns: 1fr;
+  }
+}
