@@ -1,6 +1,233 @@
-/* Gypsy Pistoleros — merch-store.css */
-/* Part of the AUSTIN_SPACE build — May 2026 */
-/* DO NOT edit directly in Bandzoogle — always edit here first */
+/* Gypsy Pistoleros — merch-store.css
+   v0 bridge restyle for Bandzoogle store grid.
+   CSS only — no JS, no markup edits.
+   BZ generates all store HTML server-side; we restyle only.
+   Ships to Shopify in ~6 months — keep contained. */
 
-/* Populated once Bandzoogle class names are confirmed via browser inspector */
-/* See docs/bandzoogle-classes.md for inspection checklist */
+/* ── Grid ── */
+
+.store-wrapper.store-layout-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-6);
+}
+
+@media (max-width: 1100px) {
+  .store-wrapper.store-layout-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .store-wrapper.store-layout-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .store-wrapper.store-layout-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Card ── */
+
+article.store.store-item {
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: border-color .2s ease;
+}
+
+article.store.store-item:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+/* ── Image area ── */
+
+.image-area-wrapper,
+figure.image-area {
+  margin: 0;
+  background: #000;
+}
+
+.main-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.image-thumbnails {
+  display: flex;
+  flex-direction: row;
+  gap: var(--space-2);
+  padding: var(--space-2);
+}
+
+.image-thumbnails img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+}
+
+/* ── Product details ── */
+
+.product-details {
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  flex: 1;
+}
+
+h1.text-main.alt-font.heading-tertiary,
+h1.text-main.alt-font.heading-tertiary a.store-grid-link {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--color-text-primary);
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+h1.text-main.alt-font.heading-tertiary a.store-grid-link {
+  text-decoration: none;
+}
+
+h1.text-main.alt-font.heading-tertiary a.store-grid-link:hover {
+  color: var(--color-accent-green);
+}
+
+.description p {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── Price + sale ── */
+
+.item-price {
+  font-family: var(--font-body);
+  font-size: var(--text-xl);
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.old-price {
+  color: var(--color-text-secondary);
+  text-decoration: line-through;
+  font-size: var(--text-sm);
+}
+
+.sale-red,
+.item-sale-text {
+  color: var(--color-accent-red);
+}
+
+.sale-tag,
+.sale-tag-text {
+  color: var(--color-accent-red);
+}
+
+.sale-tag {
+  background: var(--color-accent-red);
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.product-price {
+  margin: 0;
+}
+
+/* ── Add-to-cart (native <button> — prefixed to beat BZ ID specificity) ── */
+
+#usersite-container .store-item button.add-to-cart {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--color-accent-green);
+  color: #000;
+  border: none;
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  width: 100%;
+  cursor: pointer;
+  transition: background .2s ease;
+}
+
+#usersite-container .store-item button.add-to-cart:hover {
+  background: var(--color-accent-green-muted);
+  color: #000;
+}
+
+/* In-cart state */
+#usersite-container .store-item .button.if-in-cart {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: transparent;
+  border: 1px solid var(--color-accent-green);
+  color: var(--color-text-primary);
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  width: 100%;
+}
+
+/* Sold-out / unavailable states */
+.unless-available,
+.if-out-of-stock {
+  color: var(--color-text-secondary);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+}
+
+/* ── Size dropdown (prefixed to beat BZ ID specificity) ── */
+
+.item-options {
+  width: 100%;
+  margin: 0 0 var(--space-2);
+}
+
+.item-options h3 {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  margin: 0 0 4px;
+}
+
+#usersite-container .item-option-select select {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  padding: 8px 10px;
+  background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+}
+
+/* ── Hide share dialog (off-brand, heavy markup) ── */
+
+.store-item .social {
+  display: none;
+}

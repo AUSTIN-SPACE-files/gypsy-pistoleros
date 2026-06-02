@@ -17,7 +17,7 @@
    imports v0.css first.
 
    Stub files (header.css, buttons.css, membership.css,
-   merch-store.css) are excluded until they have real content.
+   merch-store.css previously excluded — now populated and imported below.
 
    grain.css is excluded from v0 — it is a v2 styling flourish,
    not a baseline concern. It will return when v2 work resumes,
@@ -43,3 +43,4 @@
 @import 'components/blog.css';
 @import 'components/cult-membership.css';
 @import 'components/section-rhythm.css';
+@import 'components/merch-store.css';
