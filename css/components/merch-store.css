@@ -91,7 +91,13 @@ body #usersite-container div.store-wrapper.store-layout-grid figure.image-area {
   position: relative;
 }
 
-body #usersite-container div.store-wrapper.store-layout-grid .main-image,
+/* display:block on .main-image in case BZ renders it as <a> (inline by default —
+   inline elements ignore width:100%, so the image stays narrow without this). */
+body #usersite-container div.store-wrapper.store-layout-grid .main-image {
+  display: block;
+  width: 100%;
+}
+
 body #usersite-container div.store-wrapper.store-layout-grid .main-image img {
   width: 100%;
 }
@@ -184,18 +190,16 @@ body #usersite-container div.store-wrapper.store-layout-grid .sale-tag {
 
 /* ── Price block ── */
 
-/* Two separate jobs handled cleanly:
-   (1) TIGHT STACK — justify-content:flex-start + gap:2px glues the three
-       lines (old-price / SAVE% / live-price) together as one unit. No min-height.
-   (2) BOTTOM ANCHOR — margin-top:auto pushes the whole tight block to the
-       card bottom within the flex column. Live price is the last line in every
-       stack (sale and non-sale alike), so its bottom edge aligns naturally
-       across all cards. No min-height reservation needed. */
-.store-item .product-price {
+/* Full grid-scoped selector (1,3,1) beats any BZ .product-price rule.
+   min-height:0 explicitly kills any BZ reservation so non-sale cards have
+   no dead air above the live price. margin-top:auto bottom-anchors the tight
+   stack within the card's flex column. */
+body #usersite-container div.store-wrapper.store-layout-grid .product-price {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   gap: 2px;
+  min-height: 0;
   margin-top: auto;
   margin-bottom: 0;
   text-align: left;
