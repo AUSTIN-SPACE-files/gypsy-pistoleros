@@ -204,55 +204,50 @@ body #usersite-container div.store-wrapper.store-layout-grid .sale-tag {
   text-align: left;
 }
 
-/* ── Price block ── */
+/* ── Price block — Option A: inline was/now ──
+   DOM: .product-price > span.item-sale-text > [span.old-price + span.sale-red]
+                        > div.item-price
+   sale-red hidden; old-price inline to the left of the bold live price.
+   Scoped strictly to .product-price so the duplicate .old-price inside the
+   add-to-cart button is not touched. All important flags required — BZ defends
+   these properties. */
 
-/* Full grid-scoped selector (1,3,1) beats any BZ .product-price rule.
-   min-height:0 explicitly kills any BZ reservation so non-sale cards have
-   no dead air above the live price. margin-top:auto bottom-anchors the tight
-   stack within the card's flex column. */
-body #usersite-container div.store-wrapper.store-layout-grid .product-price {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  gap: 2px;
-  min-height: 0;
-  margin-top: auto;
-  margin-bottom: 0;
-  text-align: left;
+body #usersite-container div.store-wrapper.store-layout-grid article .product-price {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: baseline !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+  margin-top: auto !important;
 }
 
-/* Live price: dominant line — largest and brightest. */
-.store-item .item-price {
-  font-family: var(--font-body);
-  font-size: var(--text-xl);
-  font-weight: 600;
-  line-height: 1.2;
-  color: var(--color-text-primary);
-  text-align: left;
-  margin: 0;
+body #usersite-container div.store-wrapper.store-layout-grid article .product-price .item-sale-text {
+  display: inline !important;
+  order: 1 !important;
 }
 
-/* Old/crossed price: clearly secondary — xs, muted, struck. */
-.store-item .old-price {
-  font-family: var(--font-body);
-  font-size: var(--text-xs);
-  line-height: 1.2;
-  color: var(--color-text-secondary);
-  text-decoration: line-through;
-  text-align: left;
-  margin: 0;
+body #usersite-container div.store-wrapper.store-layout-grid article .product-price .item-sale-text .sale-red {
+  display: none !important;
 }
 
-/* SAVE % label: xs, blood-red, quiet supporting label — not a headline. */
-.store-item .sale-red,
-.store-item .item-sale-text {
-  font-family: var(--font-body);
-  font-size: var(--text-xs);
-  line-height: 1.2;
-  font-weight: 600;
-  color: var(--color-accent-red);
-  text-align: left;
-  margin: 0;
+body #usersite-container div.store-wrapper.store-layout-grid article .product-price .item-sale-text .old-price {
+  display: inline !important;
+  font-family: var(--font-body) !important;
+  font-size: var(--text-sm) !important;
+  color: var(--color-text-secondary) !important;
+  text-decoration: line-through !important;
+  margin: 0 !important;
+  line-height: 1.2 !important;
+}
+
+body #usersite-container div.store-wrapper.store-layout-grid article .product-price .item-price {
+  order: 2 !important;
+  font-family: var(--font-body) !important;
+  font-size: var(--text-xl) !important;
+  font-weight: 600 !important;
+  color: var(--color-text-primary) !important;
+  margin: 0 !important;
+  line-height: 1.2 !important;
 }
 
 /* ── Add-to-cart (native <button> — prefixed to beat BZ ID specificity) ── */
