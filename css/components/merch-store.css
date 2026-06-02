@@ -60,27 +60,37 @@ article.store.store-item:hover {
 }
 
 /* Specificity (1,2,2): `body` prefix beats BZ's (1,2,1) article rule regardless
-   of load order. Overrides BZ's text-align:center and align-items:center. */
+   of load order. Overrides BZ's text-align:center and align-items:center.
+   width:100% / max-width:none clears BZ's --store-large-thumb-size width pin (~200px)
+   so the card fills its full grid track (~291px). min-width:0 allows flex shrink. */
 body #usersite-container div.store-wrapper.store-layout-grid article {
   text-align: left;
   align-items: stretch;
+  width: 100%;
+  max-width: none;
+  min-width: 0;
 }
 
 /* ── Image area ── */
 
-/* .image-area-wrapper: outer shell — no padding, no interference. */
-.image-area-wrapper {
+/* .image-area-wrapper: outer shell — width:100%/max-width:none clears BZ's
+   --store-large-thumb-size width if applied here. body prefix beats BZ at (1,1,0). */
+body #usersite-container .image-area-wrapper {
   margin: 0;
   background: #000;
+  width: 100%;
+  max-width: none;
 }
 
-/* figure.image-area: the padded inset frame.
+/* figure.image-area: padded inset frame — same width override.
    box-sizing:border-box keeps outer dimensions stable so padding shrinks
    the content box inward on all four sides rather than expanding the element.
    position:relative anchors the .sale-tag badge. */
-figure.image-area {
+body #usersite-container figure.image-area {
   margin: 0;
   background: #000;
+  width: 100%;
+  max-width: none;
   padding: 8px;
   box-sizing: border-box;
   position: relative;
