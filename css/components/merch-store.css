@@ -73,31 +73,30 @@ body #usersite-container div.store-wrapper.store-layout-grid article {
 
 /* ── Image area ── */
 
-/* .image-area-wrapper: outer shell — width:100%/max-width:none clears BZ's
-   --store-large-thumb-size width if applied here. body prefix beats BZ at (1,1,0). */
-body #usersite-container .image-area-wrapper {
-  margin: 0;
-  background: #000;
+/* Full grid-scoped selector (specificity ~1,3,2) beats any BZ rule on these
+   elements using shorter paths. Clears --store-large-thumb-size width pin. */
+body #usersite-container div.store-wrapper.store-layout-grid .image-area-wrapper,
+body #usersite-container div.store-wrapper.store-layout-grid figure.image-area {
   width: 100%;
   max-width: none;
+  margin: 0;
+  background: #000;
 }
 
-/* figure.image-area: padded inset frame — same width override.
-   box-sizing:border-box keeps outer dimensions stable so padding shrinks
-   the content box inward on all four sides rather than expanding the element.
-   position:relative anchors the .sale-tag badge. */
-body #usersite-container figure.image-area {
-  margin: 0;
-  background: #000;
-  width: 100%;
-  max-width: none;
+/* figure.image-area: padded inset frame. box-sizing:border-box folds padding
+   inside the declared width so all four sides inset equally. */
+body #usersite-container div.store-wrapper.store-layout-grid figure.image-area {
   padding: 8px;
   box-sizing: border-box;
   position: relative;
 }
 
-.main-image img {
+body #usersite-container div.store-wrapper.store-layout-grid .main-image,
+body #usersite-container div.store-wrapper.store-layout-grid .main-image img {
   width: 100%;
+}
+
+.main-image img {
   height: auto;
   display: block;
   aspect-ratio: 1 / 1;
@@ -119,8 +118,9 @@ body #usersite-container figure.image-area {
 
 /* ── SALE tag overlay ── */
 
-/* Offset matches image padding so badge sits at the image corner, not card edge. */
-.sale-tag {
+/* Full grid-scoped selector to beat BZ's .sale-tag rule which loads after us.
+   top/right 8px aligns badge to the image corner inside the 8px padding inset. */
+body #usersite-container div.store-wrapper.store-layout-grid .sale-tag {
   position: absolute;
   top: 8px;
   right: 8px;
@@ -184,22 +184,29 @@ body #usersite-container figure.image-area {
 
 /* ── Price block ── */
 
-/* margin-top:auto pushes the price block to the card bottom so prices align
-   across a row regardless of title length. */
+/* Baseline alignment strategy:
+   min-height reserves space for the full 3-line sale layout (old price +
+   SAVE% + live price ≈ 4rem at current sizes). justify-content:flex-end
+   bottom-aligns all content, so non-sale cards (1 line) and sale cards (3
+   lines) share the same live-price baseline at the bottom of the block.
+   margin-top:auto pushes the block to the card bottom within the flex column. */
 .store-item .product-price {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  justify-content: flex-end;
+  gap: 4px;
+  min-height: 4rem;
   margin-top: auto;
   margin-bottom: 0;
   text-align: left;
 }
 
-/* Live price: most prominent line. */
+/* Live price: dominant line — largest and brightest. */
 .store-item .item-price {
   font-family: var(--font-body);
   font-size: var(--text-xl);
   font-weight: 600;
+  line-height: 1.2;
   color: var(--color-text-primary);
   text-align: left;
   margin: 0;
@@ -209,17 +216,20 @@ body #usersite-container figure.image-area {
 .store-item .old-price {
   font-family: var(--font-body);
   font-size: var(--text-xs);
+  line-height: 1.2;
   color: var(--color-text-secondary);
   text-decoration: line-through;
   text-align: left;
   margin: 0;
 }
 
-/* SAVE % label: small, red, supporting detail — not a headline. */
+/* SAVE % label: xs, blood-red, quiet supporting label — not a headline. */
 .store-item .sale-red,
 .store-item .item-sale-text {
   font-family: var(--font-body);
   font-size: var(--text-xs);
+  line-height: 1.2;
+  font-weight: 600;
   color: var(--color-accent-red);
   text-align: left;
   margin: 0;
