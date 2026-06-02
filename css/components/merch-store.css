@@ -6,28 +6,31 @@
 
 /* ── Grid ── */
 
-/* #usersite-container prefix raises specificity to (1,2,0) to beat BZ's
-   own grid rules which fire at (1,0,1) via #usersite-container element selectors. */
-#usersite-container .store-wrapper.store-layout-grid {
+/* Specificity (1,0,3): matches BZ's exact selector shape
+   (#usersite-container div.store-wrapper.store-layout-grid) so we win on
+   source order — our bundle loads after BZ's stylesheet via Headers & Metatags. */
+#usersite-container div.store-wrapper.store-layout-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: var(--space-6);
+  justify-items: stretch;
+  justify-content: stretch;
 }
 
 @media (max-width: 1100px) {
-  #usersite-container .store-wrapper.store-layout-grid {
+  #usersite-container div.store-wrapper.store-layout-grid {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
 @media (max-width: 768px) {
-  #usersite-container .store-wrapper.store-layout-grid {
+  #usersite-container div.store-wrapper.store-layout-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 480px) {
-  #usersite-container .store-wrapper.store-layout-grid {
+  #usersite-container div.store-wrapper.store-layout-grid {
     grid-template-columns: 1fr;
   }
 }
@@ -46,6 +49,13 @@ article.store.store-item {
 
 article.store.store-item:hover {
   border-color: rgba(255, 255, 255, 0.18);
+}
+
+/* Specificity (1,0,3): matches BZ's article rule shape — wins on source order.
+   Overrides BZ's text-align:center and justify-items:center on the flex column. */
+#usersite-container div.store-wrapper.store-layout-grid article {
+  text-align: left;
+  align-items: stretch;
 }
 
 /* ── Image area ── */
