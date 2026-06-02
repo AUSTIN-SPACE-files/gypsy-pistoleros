@@ -20,8 +20,7 @@ body #usersite-container div.store-wrapper {
 body #usersite-container div.store-wrapper.store-layout-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  column-gap: var(--space-6);
-  row-gap: var(--space-4);
+  gap: var(--space-3);
   justify-items: stretch;
   justify-content: stretch;
 }
@@ -69,13 +68,21 @@ body #usersite-container div.store-wrapper.store-layout-grid article {
 
 /* ── Image area ── */
 
-/* padding 8px insets the image from the card edge.
+/* .image-area-wrapper: outer shell — no padding, no interference. */
+.image-area-wrapper {
+  margin: 0;
+  background: #000;
+}
+
+/* figure.image-area: the padded inset frame.
+   box-sizing:border-box keeps outer dimensions stable so padding shrinks
+   the content box inward on all four sides rather than expanding the element.
    position:relative anchors the .sale-tag badge. */
-.image-area-wrapper,
 figure.image-area {
   margin: 0;
   background: #000;
   padding: 8px;
+  box-sizing: border-box;
   position: relative;
 }
 
@@ -134,13 +141,13 @@ figure.image-area {
   align-items: flex-start;
 }
 
-/* Titles: Inter (not Georgia), 600 weight, tighter line-height for two-liners. */
+/* Titles: Inter, halved to --text-sm (0.875rem), 600 weight. */
 .store-item h1.text-main.alt-font.heading-tertiary,
 .store-item h1.text-main.alt-font.heading-tertiary a.store-grid-link {
   font-family: var(--font-body);
-  font-size: 1.125rem;
+  font-size: var(--text-sm);
   font-weight: 600;
-  line-height: 1.2;
+  line-height: 1.25;
   color: var(--color-text-primary);
   text-transform: none;
   letter-spacing: normal;
@@ -167,12 +174,14 @@ figure.image-area {
 
 /* ── Price block ── */
 
-/* Flex column with 2px micro-gap — collapses the price stack tightly. */
+/* margin-top:auto pushes the price block to the card bottom so prices align
+   across a row regardless of title length. */
 .store-item .product-price {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  margin: 0;
+  margin-top: auto;
+  margin-bottom: 0;
   text-align: left;
 }
 
