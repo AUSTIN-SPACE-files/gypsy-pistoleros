@@ -73,19 +73,26 @@ body #usersite-container div.store-wrapper.store-layout-grid article {
 
 /* ── Image area ── */
 
-/* Full grid-scoped selector (specificity ~1,3,2) beats any BZ rule on these
-   elements using shorter paths. Clears --store-large-thumb-size width pin. */
-body #usersite-container div.store-wrapper.store-layout-grid .image-area-wrapper,
-body #usersite-container div.store-wrapper.store-layout-grid figure.image-area {
+/* .image-area-wrapper: outer shell width override. */
+body #usersite-container div.store-wrapper.store-layout-grid .image-area-wrapper {
   width: 100%;
   max-width: none;
   margin: 0;
   background: #000;
 }
 
-/* figure.image-area: padded inset frame. box-sizing:border-box folds padding
-   inside the declared width so all four sides inset equally. */
-body #usersite-container div.store-wrapper.store-layout-grid figure.image-area {
+/* figure.image-area: BZ's winning rule is likely:
+     body #usersite-container div.store-wrapper.store-layout-grid article figure.image-area
+   at specificity (1,3,4) — one extra element type over our old (1,3,3).
+   Fix: add article.store.store-item to raise ours to (1,5,4), winning on classes.
+   height:auto unpins BZ's height:var(--store-large-thumb-size).
+   All properties consolidated from the two previous rules. */
+body #usersite-container div.store-wrapper.store-layout-grid article.store.store-item figure.image-area {
+  width: 100%;
+  max-width: none;
+  height: auto;
+  margin: 0;
+  background: #000;
   padding: 8px;
   box-sizing: border-box;
   position: relative;
