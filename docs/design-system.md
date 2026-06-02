@@ -1186,3 +1186,47 @@ Bandzoogle's Customize CSS field does not resolve `@import` paths. When deployin
 
 **V2 font tokens — not deprecated, not v0**
 May 2026 audit corrected: `--font-display-secondary`, `--font-cinzel-min`, `--font-cinzel-max`, and `--font-display-tertiary` are active consumers in the v2 component bundle (`cult-gathering.css`, `cg-inscribed.css`, `hero-v2.css`, `press-pasteup.css`) which powers `cult-membership.html`. They were initially mislabelled as deprecated in `variables.css`; the label was corrected to "V2 BUNDLE TOKENS". These tokens are NOT consumed by the v0 bundle (active staging pages). Do not delete without checking both v0 and v2 import chains.
+
+---
+
+## Bandzoogle Store Integration — Known Constraints (CSS override rules)
+
+The BZ store feature renders its own server-side markup that we can only restyle via CSS (no HTML control). BZ's stylesheet (`application-*.css`) defends its store rules three distinct ways. Overriding requires the right tool for each — getting this wrong wastes deploy cycles.
+
+### 1. BZ's stylesheet loads AFTER the v0 bundle
+
+Document stylesheet order: `v0-bundle.css` loads before BZ's `application-*.css`. Consequence: at **equal specificity, BZ wins on source order**. Matching BZ's selector specificity is NOT enough — you must EXCEED it.
+
+Confirmed via DevTools: v0-bundle at sheet index 2, BZ application-* at index 9.
+
+### 2. BZ scopes store rules with `article` and uses `--store-large-thumb-size`
+
+BZ's grid, card, and image rules are scoped with `article` in the selector path, for example:
+
+```css
+#usersite-container div.store-wrapper.store-layout-grid article figure.image-area {
+  width: var(--store-large-thumb-size);   /* ~200px */
+  height: var(--store-large-thumb-size);
+}
+```
+
+To beat these, prefix our selectors with `body` **and** include `article` to exceed BZ's specificity — for example `body #usersite-container div.store-wrapper.store-layout-grid article figure.image-area` at (1,3,4) beats BZ's (1,3,2). Override **both** `width` and `height` (BZ pins both). Do NOT redefine `--store-large-thumb-size` globally — it is BZ-owned.
+
+### 3. The deepest image chain requires `!important` — specificity cannot win
+
+BZ sets `display: table` on `a.main-image`, and `width` + `max-height` on the `img`, with `!important`. No amount of selector specificity beats `!important`. These specific overrides must also use `!important`. The working pattern for square, full-width product images:
+
+- **`figure.image-area`**: `height: auto !important` — frees BZ's height pin
+- **`a.main-image`**: `display: block`, `width: 100%`, `aspect-ratio: 1/1`, `overflow: hidden`, `position: relative` — all `!important` — makes a square containing block
+- **`a.main-image img`**: `position: absolute`, `top: 0`, `left: 0`, `width: 100%`, `height: 100%`, `min-width: 100%`, `min-height: 100%`, `max-width: none`, `max-height: none`, `object-fit: cover`, `aspect-ratio: auto` — all `!important` — fills the square; `max-height: none` is **required** to free BZ's cap
+
+### Rule of thumb
+
+| Target | Override method |
+|---|---|
+| Grid, card, `figure.image-area` | Out-specify with `body` + `article` in the selector path |
+| `a.main-image`, `img` | `!important` — the only thing that wins |
+
+### Deploy gotcha
+
+Commit messages must NOT contain a literal `!` — zsh history expansion throws "event not found" and the commit silently fails. Write `important` not `!important` in commit messages, and use single quotes around the message.
