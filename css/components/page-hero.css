@@ -194,9 +194,10 @@
 /* sf — merch-store (100% 66.667%)
    Unlike other modifiers this page uses its own hero image, not the shared collage.
    background-image !important required to override the base class's !important.
-   TODO: replace PLACEHOLDER with the real BZ Files URL once the image is uploaded. */
+   background-position center 33%: pulls frame toward top so band/arches subject
+   sits in the upper readable zone; bottom-fade gradient preserves title legibility. */
 .section-page-hero--merch {
-  background-image: url('https://gypsypistoleros.com/files/PLACEHOLDER/hero.webp') !important;
+  background-image: url('https://gypsypistoleros.com/files/1413423/gp-arches-promo.jpeg') !important;
   background-size: cover !important;
   background-position: center 33% !important;
 }
