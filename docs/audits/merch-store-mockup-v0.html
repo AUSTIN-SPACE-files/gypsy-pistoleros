@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GP Merch Store — v0 STRICT Mockup</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     v0 SYSTEM — captured live from /v0-cult-membership 2026-06-04
+     Headings: Georgia 600, SENTENCE CASE, left-aligned
+     Body/labels/buttons: Inter
+     Buttons: green fill, black text, 2px black border, 4px radius
+     No framed heading block. No icon-on-hairline. No gold banner.
+     ============================================================ */
+  :root{
+    --color-bg-primary:#000000;
+    --color-bg-secondary:#111111;
+    --color-bg-elevated:#0f0f0f;
+    --color-accent-gold:#c9a84c;
+    --color-accent-red:#8b0000;
+    --color-accent-red-bright:#cc0000;
+    --color-accent-green:#39ff14;
+    --color-text-primary:#e8e8e0;
+    --color-text-white:#ffffff;
+    --color-text-secondary:#a0a090;
+    --color-border-subtle:rgba(255,255,255,0.08);
+    --font-display:Georgia,'Times New Roman',serif;
+    --font-body:'Inter','Helvetica Neue',Arial,sans-serif;
+    --radius-lg:8px;
+    --max-width:1200px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--color-bg-primary);color:var(--color-text-primary);font-family:var(--font-body);line-height:1.7;}
+  .wrap{max-width:var(--max-width);margin:0 auto;padding:0 24px;}
+
+  /* annotation chrome only */
+  .anno{font-family:var(--font-body);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#6f6;background:#0a1a0a;border:1px dashed #2a4a2a;border-radius:4px;padding:4px 10px;display:inline-block;}
+  .anno-bz{color:#fc6;background:#1a140a;border-color:#4a3a1a;}
+  .anno-row{padding-top:30px;padding-bottom:2px;}
+  .anno-row .wrap{display:flex;gap:8px;flex-wrap:wrap;}
+
+  /* ===== v0 SECTION ===== */
+  .section{padding:64px 24px;}
+  .section .inner{max-width:var(--max-width);margin:0 auto;}
+  /* v0 headings: Georgia 40px 600, sentence case, left aligned, white */
+  .section h2{font-family:var(--font-display);font-size:40px;font-weight:600;letter-spacing:1.2px;line-height:1.1;text-transform:none;color:var(--color-text-white);margin-bottom:14px;}
+  .section__intro{font-family:var(--font-body);font-size:16px;font-weight:400;color:var(--color-text-secondary);line-height:1.7;max-width:680px;margin-bottom:36px;}
+
+  /* ===== v0 HERO ===== captured: __inner, title 60px 600 sentence case left ===== */
+  .section-page-hero{position:relative;min-height:60vh;display:flex;align-items:flex-end;overflow:hidden;width:100vw;margin-left:calc(50% - 50vw);
+    background:linear-gradient(180deg,rgba(0,0,0,.35) 0%,rgba(0,0,0,.55) 60%,#000 100%),#150d10;background-size:cover;background-position:center 33%;}
+  .section-page-hero__inner{position:relative;z-index:2;max-width:var(--max-width);margin:0 auto;width:100%;padding:0 24px 64px;}
+  .section-page-hero__eyebrow{font-family:var(--font-body);font-size:14px;font-weight:600;letter-spacing:.7px;color:var(--color-text-secondary);margin-bottom:14px;}
+  .section-page-hero__title{font-family:var(--font-display);font-size:60px;font-weight:600;letter-spacing:1.8px;line-height:1.1;text-transform:none;color:var(--color-text-white);text-align:left;}
+  .section-page-hero__sub{font-family:var(--font-body);font-size:16px;color:var(--color-text-secondary);margin-top:16px;max-width:560px;}
+
+  /* ===== v0 BUTTON ===== green fill, black text, 2px black border, 4px radius, Inter 14/600 ===== */
+  .wa-button{display:inline-flex;align-items:center;gap:8px;background:var(--color-accent-green);color:#000;border:2px solid #000;border-radius:4px;font-family:var(--font-body);font-size:14px;font-weight:600;letter-spacing:.7px;text-transform:none;padding:12px 24px;cursor:pointer;text-decoration:none;transition:background .2s,color .2s;}
+  .wa-button:hover{background:#000;color:var(--color-accent-green);border-color:var(--color-accent-green);}
+  .wa-button--ghost{background:transparent;color:var(--color-text-primary);border-color:var(--color-border-subtle);}
+  .wa-button--ghost:hover{background:var(--color-text-primary);color:#000;border-color:var(--color-text-primary);}
+
+  /* ===== bare benefit row (v0 .cult-benefit equiv) ===== */
+  .info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px 32px;margin-top:8px;}
+  @media(max-width:680px){.info-grid{grid-template-columns:1fr;}}
+  .info-item{display:flex;gap:14px;align-items:flex-start;}
+  .info-item .ic{color:var(--color-accent-green);font-size:20px;line-height:1.4;flex-shrink:0;}
+  .info-item h4{font-family:var(--font-body);font-size:15px;font-weight:600;color:var(--color-text-primary);margin-bottom:2px;}
+  .info-item p{font-family:var(--font-body);font-size:14px;color:var(--color-text-secondary);}
+
+  /* ============================================================
+     BZ STORE SECTION — real emitted classes, v0 restyle
+     ============================================================ */
+  .store-wrapper.store-layout-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+  @media(max-width:900px){.store-wrapper.store-layout-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:560px){.store-wrapper.store-layout-grid{grid-template-columns:1fr;}}
+
+  article.store-item{background:var(--color-bg-secondary);border:1px solid var(--color-border-subtle);border-radius:var(--radius-lg);overflow:hidden;transition:border-color .2s,transform .2s;}
+  article.store-item:hover{border-color:var(--color-accent-green);transform:translateY(-3px);}
+  article.store-item figure.image-area{position:relative;margin:0;}
+  article.store-item a.main-image{display:block;position:relative;aspect-ratio:1/1;background:#150d10;}
+  article.store-item a.main-image .ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#3a2a2e;font-size:42px;}
+  /* SALE badge — v0: red fill, sentence case, Inter */
+  article.store-item div.sale-tag{position:absolute;top:10px;right:10px;background:var(--color-accent-red);color:#fff;font-family:var(--font-body);font-size:11px;font-weight:600;letter-spacing:.4px;text-transform:none;padding:4px 10px;border-radius:4px;border:1px solid var(--color-accent-red-bright);}
+  article.store-item .product-details{padding:16px 18px 20px;}
+  /* title: v0 heading = Georgia 600 sentence case (NOT uppercase) */
+  article.store-item h1.heading-tertiary{font-size:0;margin:0 0 8px;}
+  article.store-item a.store-grid-link{font-family:var(--font-display);font-size:18px;font-weight:600;letter-spacing:.3px;text-transform:none;color:var(--color-text-white);text-decoration:none;line-height:1.3;display:block;transition:color .2s;}
+  article.store-item a.store-grid-link:hover{color:var(--color-accent-green);}
+  /* price row — Inter; sale price in green (v0 accent), not gold */
+  article.store-item .price-row{display:flex;align-items:baseline;gap:10px;margin-top:6px;}
+  article.store-item span.old-price{font-family:var(--font-body);font-size:14px;color:var(--color-text-secondary);text-decoration:line-through;}
+  article.store-item .product-price{font-family:var(--font-body);font-size:18px;font-weight:600;color:var(--color-text-primary);}
+  article.store-item .product-price.on-sale{color:var(--color-accent-green);}
+  article.store-item em.unless-available{font-family:var(--font-body);font-style:normal;font-size:14px;color:var(--color-text-secondary);}
+
+  /* topnav sim */
+  .topnav{padding:28px 24px 4px;max-width:var(--max-width);margin:0 auto;}
+  .topnav .brand{font-family:var(--font-display);font-weight:600;font-size:34px;letter-spacing:1px;color:var(--color-text-white);}
+  .topnav .links{margin-top:12px;font-family:var(--font-body);font-size:13px;}
+  .topnav .links a{color:var(--color-text-secondary);text-decoration:none;margin-right:20px;}
+  .topnav .links a.active{color:var(--color-accent-red-bright);font-weight:600;}
+  .footer{padding:48px 24px 60px;font-family:var(--font-body);font-size:13px;color:#555;max-width:var(--max-width);margin:0 auto;}
+</style>
+</head>
+<body>
+
+  <div class="topnav">
+    <div class="brand">Gypsy Pistoleros</div>
+    <div class="links"><a>Home</a><a>Shows</a><a>Videos</a><a>CDs &amp; Vinyl</a><a class="active">Merch Store</a><a>Contact</a><a>Press Kit</a></div>
+  </div>
+
+  <!-- HERO -->
+  <div class="anno-row"><div class="wrap"><span class="anno">HTML SECTION — HERO (.section-page-hero, v0)</span></div></div>
+  <div class="section-page-hero">
+    <div class="section-page-hero__inner">
+      <div class="section-page-hero__eyebrow">Official store</div>
+      <h1 class="section-page-hero__title">The Pistoleros store</h1>
+      <p class="section-page-hero__sub">Vinyl, apparel, and one-off relics straight from the Church of the Pistoleros.</p>
+    </div>
+  </div>
+
+  <!-- FEATURED -->
+  <div class="anno-row"><div class="wrap"><span class="anno">HTML HEADING (plain h2)</span><span class="anno anno-bz">+ BZ STORE SECTION — 4 featured</span></div></div>
+  <div class="section">
+    <div class="inner">
+      <h2>New in</h2>
+      <p class="section__intro">The newest drops and the must-haves, hand-picked.</p>
+      <div class="store-wrapper store-layout-grid">
+        <article class="store store-item border-accent multiple-images"><figure class="image-area"><a class="main-image dnt"><span class="ph">♪</span><div class="sale-tag">Sale</div></a></figure><div class="product-details"><h1 class="heading-tertiary"><a class="store-grid-link">Lost in a Town Called Nowhere — splatter 7"</a></h1><div class="price-row"><span class="old-price">£6.00</span><span class="product-price on-sale">£4.80</span></div></div></article>
+        <article class="store store-item border-accent"><figure class="image-area"><a class="main-image dnt"><span class="ph">★</span><div class="sale-tag">Sale</div></a></figure><div class="product-details"><h1 class="heading-tertiary"><a class="store-grid-link">Signed poster A4</a></h1><div class="price-row"><span class="old-price">£12.00</span><span class="product-price on-sale">£5.00</span></div></div></article>
+        <article class="store store-item border-accent"><figure class="image-area"><a class="main-image dnt"><span class="ph">✚</span></a></figure><div class="product-details"><h1 class="heading-tertiary"><a class="store-grid-link">Lee's waistcoat</a></h1><div class="price-row"><span class="product-price">£100.00</span></div></div></article>
+        <article class="store store-item border-accent multiple-images"><figure class="image-area"><a class="main-image dnt"><span class="ph">♪</span><div class="sale-tag">Sale</div></a></figure><div class="product-details"><h1 class="heading-tertiary"><a class="store-grid-link">Church of the Pistoleros — vinyl</a></h1><div class="price-row"><span class="old-price">£25.00</span><span class="product-price on-sale">£20.00</span></div></div></article>
+      </div>
+    </div>
+  </div>
+
+  <!-- MUSIC -->
+  <div class="anno-row"><div class="wrap"><span class="anno">HTML HEADING</span><span class="anno anno-bz">+ BZ STORE SECTION — Music</span></div></div>
+  <div class="section">
+    <div class="inner">
+      <h2>Music</h2>
+      <p class="section__intro">Every record, on wax and disc.</p>
+      <div class="store-wrapper store-layout-grid">
+        <article class="store store-item border-accent"><figure class="image-area"><a class="main-image dnt"><span class="ph">♪</span><div class="sale-tag">Sale</div></a></figure><div class="product-details"><h1 class="heading-tertiary"><a class="store-grid-link">Church of the Pistoleros — CD</a></h1><div class="price-row"><span class="old-price">£10.00</span><span class="product-price on-sale">£8.00</span></div></div></article>
+        <article class="store store-item border-accent"><figure class="image-area"><a class="main-image dnt"><span class="ph">♪</span><div class="sale-tag">Sale</div></a></figure><div class="product-details"><h1 class="heading-tertiary"><a class="store-grid-link">Mescalito Vampires — vinyl</a></h1><div class="price-row"><span class="old-price">£15.00</span><span class="product-price on-sale">£12.00</span></div></div></article>
+        <article class="store store-item border-accent"><figure class="image-area"><a class="main-image dnt"><span class="ph">♪</span><div class="sale-tag">Sale</div></a></figure><div class="product-details"><h1 class="heading-tertiary"><a class="store-grid-link">Mescalito Vampires — CD</a></h1><div class="price-row"><span class="old-price">£7.00</span><span class="product-price on-sale">£5.60</span></div></div></article>
+        <article class="store store-item border-accent"><figure class="image-area"><a class="main-image dnt"><span class="ph">♪</span><div class="sale-tag">Sale</div></a></figure><div class="product-details"><h1 class="heading-tertiary"><a class="store-grid-link">Duende A Go Go Loco! — CD</a></h1><div class="price-row"><span class="old-price">£10.00</span><span class="product-price on-sale">£8.00</span></div></div></article>
+      </div>
+    </div>
+  </div>
+
+  <!-- APPAREL -->
+  <div class="anno-row"><div class="wrap"><span class="anno">HTML HEADING</span><span class="anno anno-bz">+ BZ STORE SECTION — Apparel</span></div></div>
+  <div class="section">
+    <div class="inner">
+      <h2>Apparel</h2>
+      <p class="section__intro">Shirts, jumpers and stage-worn cuts.</p>
+      <div class="store-wrapper store-layout-grid">
+        <article class="store store-item border-accent"><figure class="image-area"><a class="main-image dnt"><span class="ph">👕</span><div class="sale-tag">Sale</div></a></figure><div class="product-details"><h1 class="heading-tertiary"><a class="store-grid-link">Christmas jumper!</a></h1><div class="price-row"><span class="old-price">£30.00</span><span class="product-price on-sale">£24.00</span></div></div></article>
+        <article class="store store-item border-accent"><figure class="image-area"><a class="main-image dnt"><span class="ph">👕</span></a></figure><div class="product-details"><h1 class="heading-tertiary"><a class="store-grid-link">Lee's Mescalito shirt</a></h1><div class="price-row"><span class="product-price">£75.00</span></div></div></article>
+        <article class="store store-item border-accent"><figure class="image-area"><a class="main-image dnt"><span class="ph">👕</span></a></figure><div class="product-details"><h1 class="heading-tertiary"><a class="store-grid-link">Lee's live shirt</a></h1><div class="price-row"><span class="product-price">£75.00</span></div></div></article>
+        <article class="store store-item border-accent"><figure class="image-area"><a class="main-image dnt"><span class="ph">👜</span><div class="sale-tag">Sale</div></a></figure><div class="product-details"><h1 class="heading-tertiary"><a class="store-grid-link">GP cross drawstring bag</a></h1><div class="price-row"><span class="old-price">£7.00</span><span class="product-price on-sale">£5.60</span></div></div></article>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACCESSORIES -->
+  <div class="anno-row"><div class="wrap"><span class="anno">HTML HEADING</span><span class="anno anno-bz">+ BZ STORE SECTION — Accessories (incl. sold-out state)</span></div></div>
+  <div class="section">
+    <div class="inner">
+      <h2>Accessories</h2>
+      <p class="section__intro">Patches, badges and the book of secrets.</p>
+      <div class="store-wrapper store-layout-grid">
+        <article class="store store-item border-accent"><figure class="image-area"><a class="main-image dnt"><span class="ph">✚</span><div class="sale-tag">Sale</div></a></figure><div class="product-details"><h1 class="heading-tertiary"><a class="store-grid-link">Church of the Pistoleros patch</a></h1><div class="price-row"><span class="old-price">£5.00</span><span class="product-price on-sale">£4.00</span></div></div></article>
+        <article class="store store-item border-accent"><figure class="image-area"><a class="main-image dnt"><span class="ph">📖</span><div class="sale-tag">Sale</div></a></figure><div class="product-details"><h1 class="heading-tertiary"><a class="store-grid-link">Book of Secrets lyric book</a></h1><div class="price-row"><span class="old-price">£15.00</span><span class="product-price on-sale">£5.00</span></div></div></article>
+        <article class="store store-item border-accent"><figure class="image-area"><a class="main-image dnt" style="opacity:.55"><span class="ph">●</span></a></figure><div class="product-details"><h1 class="heading-tertiary"><a class="store-grid-link">Pink badge set</a></h1><div class="price-row"><em class="unless-available">Not available</em></div></div></article>
+        <article class="store store-item border-accent"><figure class="image-area"><a class="main-image dnt"><span class="ph">✚</span></a></figure><div class="product-details"><h1 class="heading-tertiary"><a class="store-grid-link">GP enamel pin</a></h1><div class="price-row"><span class="product-price">£6.00</span></div></div></article>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIGNED & RARE -->
+  <div class="anno-row"><div class="wrap"><span class="anno">HTML HEADING</span><span class="anno anno-bz">+ BZ STORE SECTION — Signed &amp; rare</span></div></div>
+  <div class="section">
+    <div class="inner">
+      <h2>Signed &amp; rare</h2>
+      <p class="section__intro">Personal pieces and one-offs. When they're gone, they're gone.</p>
+      <div class="store-wrapper store-layout-grid">
+        <article class="store store-item border-accent"><figure class="image-area"><a class="main-image dnt"><span class="ph">✒</span><div class="sale-tag">Sale</div></a></figure><div class="product-details"><h1 class="heading-tertiary"><a class="store-grid-link">Signed poster A4</a></h1><div class="price-row"><span class="old-price">£12.00</span><span class="product-price on-sale">£5.00</span></div></div></article>
+        <article class="store store-item border-accent"><figure class="image-area"><a class="main-image dnt"><span class="ph">✚</span></a></figure><div class="product-details"><h1 class="heading-tertiary"><a class="store-grid-link">Lee's waistcoat</a></h1><div class="price-row"><span class="product-price">£100.00</span></div></div></article>
+        <article class="store store-item border-accent"><figure class="image-area"><a class="main-image dnt"><span class="ph">👕</span></a></figure><div class="product-details"><h1 class="heading-tertiary"><a class="store-grid-link">Lee's Mescalito shirt</a></h1><div class="price-row"><span class="product-price">£75.00</span></div></div></article>
+        <article class="store store-item border-accent"><figure class="image-area"><a class="main-image dnt"><span class="ph">👕</span></a></figure><div class="product-details"><h1 class="heading-tertiary"><a class="store-grid-link">Lee's live shirt</a></h1><div class="price-row"><span class="product-price">£75.00</span></div></div></article>
+      </div>
+    </div>
+  </div>
+
+  <!-- INFO STRIP -->
+  <div class="anno-row"><div class="wrap"><span class="anno">HTML SECTION — INFO STRIP (bare rows, v0 style)</span></div></div>
+  <div class="section">
+    <div class="inner">
+      <h2>Shopping with the cult</h2>
+      <div class="info-grid">
+        <div class="info-item"><span class="ic">✦</span><div><h4>Official store</h4><p>Every item ships direct from the band and The New Church Records.</p></div></div>
+        <div class="info-item"><span class="ic">✦</span><div><h4>Worldwide shipping</h4><p>UK and international postage calculated at checkout.</p></div></div>
+        <div class="info-item"><span class="ic">✦</span><div><h4>Limited runs</h4><p>Signed and stage-worn pieces are one-offs — once sold, they're gone.</p></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLOSER — normal v0 section, NOT a gold banner -->
+  <div class="anno-row"><div class="wrap"><span class="anno">HTML SECTION — CLOSER (normal section + v0 button, no gold banner)</span></div></div>
+  <div class="section">
+    <div class="inner">
+      <h2>Join the cult of the Pistoleros</h2>
+      <p class="section__intro">Exclusive drops, member pricing and the inner circle. From £2 a month.</p>
+      <a class="wa-button">Become a member</a>
+    </div>
+  </div>
+
+  <div class="footer">Copyright property of Gypsy Pistoleros &amp; The New Church Records 2026</div>
+
+</body>
+</html>

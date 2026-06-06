@@ -13,3 +13,12 @@ archive/
 
 # Audit reports (working notes, kept local)
 docs/audits/
+
+!docs/audits/merch-store-selector-map.md
+!docs/audits/merch-store-mockup-v0.html
+
+# allow git to descend into docs/audits so specific files can be tracked
+!docs/audits/
+docs/audits/*
+!docs/audits/merch-store-selector-map.md
+!docs/audits/merch-store-mockup-v0.html
