@@ -1,0 +1,192 @@
+<!--
+  ╔══════════════════════════════════════════════════════════════════╗
+  ║  GP MERCH STORE — BZ HTML SECTION PASTES                        ║
+  ║  staging/merch-store-sections.html                               ║
+  ║                                                                  ║
+  ║  Each block below is a SEPARATE copy-paste into a BZ HTML        ║
+  ║  section on the merch store page. BZ injects site header, nav,   ║
+  ║  and footer automatically — do NOT paste those here.             ║
+  ║                                                                  ║
+  ║  ORDERED PASTE SEQUENCE (top-to-bottom in BZ page builder):      ║
+  ║    [1]  HTML: Hero                                               ║
+  ║    [2]  HTML: "New in" heading                                   ║
+  ║    [3]  BZ STORE: featured (4 items)                             ║
+  ║    [4]  HTML: "Music" heading                                     ║
+  ║    [5]  BZ STORE: Music                                          ║
+  ║    [6]  HTML: "Apparel" heading                                  ║
+  ║    [7]  BZ STORE: Apparel                                        ║
+  ║    [8]  HTML: "Accessories" heading                              ║
+  ║    [9]  BZ STORE: Accessories                                    ║
+  ║    [10] HTML: "Signed & rare" heading                            ║
+  ║    [11] BZ STORE: Signed & rare                                  ║
+  ║    [12] HTML: Info strip                                         ║
+  ║    [13] HTML: Closer                                             ║
+  ╚══════════════════════════════════════════════════════════════════╝
+-->
+
+
+<!-- ================================================================
+     BLOCK [1] — HERO
+     BZ destination: HTML section, FIRST block on the merch store page.
+     Following BZ section: store "New in" (4 featured items).
+     Paste the entire <section> element below.
+     ================================================================ -->
+
+<!-- TODO: once the hero image is uploaded to BZ Files, replace the
+     PLACEHOLDER URL in css/components/page-hero.css inside the
+     .section-page-hero--merch rule:
+       background-image: url('https://gypsypistoleros.com/files/PLACEHOLDER/hero.webp') !important;
+     The URL must end in .webp (or .jpg / .png) for BZ Files hosting. -->
+
+<section class="section-page-hero section-page-hero--merch" aria-label="Gypsy Pistoleros merch store">
+  <div class="section-page-hero__inner">
+    <p class="section-page-hero__eyebrow">Official store</p>
+    <h1 class="section-page-hero__title">The Pistoleros store</h1>
+    <p class="section-page-hero__tagline">Vinyl, apparel, and one-off relics straight from the Church of the Pistoleros.</p>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+
+
+<!-- ================================================================
+     BLOCK [2] — "NEW IN" CATEGORY HEADING
+     BZ destination: HTML section immediately ABOVE the BZ store section
+     containing the 4 featured / new-in items.
+     Following BZ section: store "New in" (4 featured items).
+     Paste the entire <div> element below.
+     ================================================================ -->
+
+<div class="merch-category-heading">
+  <h2>New in</h2>
+  <p class="section__intro">The newest drops and the must-haves, hand-picked.</p>
+</div>
+
+<!-- ================================================================ -->
+
+
+<!-- ================================================================
+     BLOCK [4] — "MUSIC" CATEGORY HEADING
+     BZ destination: HTML section immediately ABOVE the BZ store section
+     containing music products (CDs, vinyl).
+     Following BZ section: store "Music".
+     Paste the entire <div> element below.
+     ================================================================ -->
+
+<div class="merch-category-heading">
+  <h2>Music</h2>
+  <p class="section__intro">Every record, on wax and disc.</p>
+</div>
+
+<!-- ================================================================ -->
+
+
+<!-- ================================================================
+     BLOCK [6] — "APPAREL" CATEGORY HEADING
+     BZ destination: HTML section immediately ABOVE the BZ store section
+     containing apparel (shirts, jumpers, bags).
+     Following BZ section: store "Apparel".
+     Paste the entire <div> element below.
+     ================================================================ -->
+
+<div class="merch-category-heading">
+  <h2>Apparel</h2>
+  <p class="section__intro">Shirts, jumpers and stage-worn cuts.</p>
+</div>
+
+<!-- ================================================================ -->
+
+
+<!-- ================================================================
+     BLOCK [8] — "ACCESSORIES" CATEGORY HEADING
+     BZ destination: HTML section immediately ABOVE the BZ store section
+     containing accessories (patches, badges, books).
+     Following BZ section: store "Accessories".
+     Paste the entire <div> element below.
+     ================================================================ -->
+
+<div class="merch-category-heading">
+  <h2>Accessories</h2>
+  <p class="section__intro">Patches, badges and the book of secrets.</p>
+</div>
+
+<!-- ================================================================ -->
+
+
+<!-- ================================================================
+     BLOCK [10] — "SIGNED & RARE" CATEGORY HEADING
+     BZ destination: HTML section immediately ABOVE the BZ store section
+     containing signed and rare items.
+     Following BZ section: store "Signed & rare".
+     Paste the entire <div> element below.
+     ================================================================ -->
+
+<div class="merch-category-heading">
+  <h2>Signed &amp; rare</h2>
+  <p class="section__intro">Personal pieces and one-offs. When they&#8217;re gone, they&#8217;re gone.</p>
+</div>
+
+<!-- ================================================================ -->
+
+
+<!-- ================================================================
+     BLOCK [12] — INFO STRIP
+     BZ destination: HTML section immediately AFTER the last BZ store
+     section ("Signed & rare") and BEFORE the closer.
+     Following BZ section: HTML closer [block 13].
+     Paste the entire <div> element below.
+     ================================================================ -->
+
+<div class="merch-info-section">
+  <h2>Shopping with the cult</h2>
+  <div class="merch-info-grid">
+
+    <div class="merch-info-item">
+      <wa-icon name="bag-shopping"></wa-icon>
+      <div>
+        <p class="merch-info-item__label">Official store</p>
+        <p class="merch-info-item__copy">Every item ships direct from the band and The New Church Records.</p>
+      </div>
+    </div>
+
+    <div class="merch-info-item">
+      <wa-icon name="truck"></wa-icon>
+      <div>
+        <p class="merch-info-item__label">Worldwide shipping</p>
+        <p class="merch-info-item__copy">UK and international postage calculated at checkout.</p>
+      </div>
+    </div>
+
+    <div class="merch-info-item">
+      <wa-icon name="gem"></wa-icon>
+      <div>
+        <p class="merch-info-item__label">Limited runs</p>
+        <p class="merch-info-item__copy">Signed and stage-worn pieces are one-offs &#8212; once sold, they&#8217;re gone.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ================================================================ -->
+
+
+<!-- ================================================================
+     BLOCK [13] — CLOSER
+     BZ destination: HTML section, LAST block on the merch store page.
+     This is a normal section — NOT a banner, NOT a gold highlight.
+     Following BZ section: BZ footer (injected automatically).
+     Paste the entire <div> element below.
+     ================================================================ -->
+
+<!-- TODO: confirm the cult membership page path is correct on the live site.
+     Current href: /become-a-member-of-the-cult-of-the-pistoleros
+     Verify in BZ Pages before publishing. -->
+
+<div class="merch-closer">
+  <h2>Join the cult of the Pistoleros</h2>
+  <p class="section__intro">Exclusive drops, member pricing and the inner circle. From &#163;2 a month.</p>
+  <wa-button variant="neutral" href="/become-a-member-of-the-cult-of-the-pistoleros">Become a member</wa-button>
+</div>
+
+<!-- ================================================================ -->

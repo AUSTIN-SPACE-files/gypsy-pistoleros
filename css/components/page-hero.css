@@ -44,7 +44,8 @@
      cult-membership-v0 → sc  (0%   33.333%)
      shows              → sd  (100% 33.333%)
      videos             → se  (0%   66.667%)
-     sf–sh              → (unassigned — available for future pages)
+     merch-store        → sf  (100% 66.667%) — uses own hero image, not the collage
+     sg–sh              → (unassigned — available for future pages)
 
    ADDING A NEW PAGE
    -----------------
@@ -188,4 +189,14 @@
 .section-page-hero--videos {
   background-size: 140% !important;
   background-position: 0% 66.667% !important;
+}
+
+/* sf — merch-store (100% 66.667%)
+   Unlike other modifiers this page uses its own hero image, not the shared collage.
+   background-image !important required to override the base class's !important.
+   TODO: replace PLACEHOLDER with the real BZ Files URL once the image is uploaded. */
+.section-page-hero--merch {
+  background-image: url('https://gypsypistoleros.com/files/PLACEHOLDER/hero.webp') !important;
+  background-size: cover !important;
+  background-position: center 33% !important;
 }
