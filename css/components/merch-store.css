@@ -171,9 +171,8 @@ body #usersite-container div.store-wrapper.store-layout-grid .sale-tag {
   align-items: flex-start;
 }
 
-/* Title: Georgia 600, 18px, sentence case, white — hover green */
-.store-item h1.text-main.alt-font.heading-tertiary,
-.store-item h1.text-main.alt-font.heading-tertiary a.store-grid-link {
+/* Title: Georgia 600, sentence case, white — hover green */
+.store-item h1.text-main.alt-font.heading-tertiary {
   font-family: var(--font-display);
   font-size: var(--text-lg);
   font-weight: 600;
@@ -185,7 +184,11 @@ body #usersite-container div.store-wrapper.store-layout-grid .sale-tag {
   margin: 0;
 }
 
+/* Link: 15px (slightly tighter than h1 container) */
 .store-item h1.text-main.alt-font.heading-tertiary a.store-grid-link {
+  font-size: 15px;
+  line-height: 1.3;
+  color: var(--color-text-primary);
   text-decoration: none;
 }
 
@@ -200,6 +203,12 @@ body #usersite-container div.store-wrapper.store-layout-grid .sale-tag {
   line-height: 1.6;
   margin: 0;
   text-align: left;
+}
+
+/* Price: enforce size/weight — beats theme's .text-main (specificity 0,2,1 vs 0,1,0) */
+article.store-item .product-price {
+  font-size: 18px;
+  font-weight: 600;
 }
 
 /* ── Price block ──
@@ -367,7 +376,7 @@ body #usersite-container div.store-wrapper.store-layout-grid article .product-pr
    BZ wraps the pasted HTML in its own feature container, which
    participates in the section-rhythm alternating bands. */
 .merch-category-heading {
-  padding: var(--space-8) var(--space-6) var(--space-3);
+  padding: var(--space-12) var(--space-6);
   max-width: var(--max-width);
   margin: 0 auto;
 }
