@@ -372,12 +372,16 @@ body #usersite-container div.store-wrapper.store-layout-grid article .product-pr
   margin: 0 auto;
 }
 
+.merch-category-heading h2 { text-transform: none; }
+
 /* ── Info strip ── */
 .merch-info-section {
   padding: var(--space-12) var(--space-6);
   max-width: var(--max-width);
   margin: 0 auto;
 }
+
+.merch-info-section h2 { text-transform: none; }
 
 .merch-info-grid {
   display: grid;
@@ -431,6 +435,8 @@ body #usersite-container div.store-wrapper.store-layout-grid article .product-pr
   max-width: var(--max-width);
   margin: 0 auto;
 }
+
+.merch-closer h2 { text-transform: none; }
 
 .merch-closer .section__intro {
   margin-bottom: var(--space-6);

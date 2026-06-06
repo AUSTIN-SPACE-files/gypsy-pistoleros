@@ -145,6 +145,13 @@
   margin-bottom: 0;
 }
 
+/* Plain class rule for text-transform — wins over the theme's element selector
+   without the ID prefix, so it applies on themes (e.g. Nadia) where
+   #usersite-container is not an ancestor of the hero heading. */
+.section-page-hero__title {
+  text-transform: none;
+}
+
 .section-page-hero__tagline {
   font-family: var(--font-body);
   font-size: var(--text-base);
