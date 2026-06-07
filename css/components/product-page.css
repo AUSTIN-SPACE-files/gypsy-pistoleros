@@ -1,0 +1,126 @@
+/* ============================================================
+   product-page.css — single-product page overrides
+   Applies to .website-page-single-feature pages site-wide.
+   No !important — specificity via #usersite-container prefix.
+   ============================================================ */
+
+
+/* ── Hide native size select (kept live for Stimulus controllers) ── */
+
+#usersite-container .v0-select-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+
+/* ── Size button row ── */
+
+#usersite-container .v0-size-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0;
+}
+
+#usersite-container .v0-size-btn {
+  min-width: 48px;
+  padding: 10px 14px;
+  background: #000;
+  color: #e8e8e0;
+  border: 2px solid #000;
+  border-radius: 4px;
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+#usersite-container .v0-size-btn:hover:not(:disabled) {
+  background: #39ff14;
+  color: #000;
+  border-color: #000;
+}
+
+#usersite-container .v0-size-btn--active {
+  background: #39ff14;
+  color: #000;
+  border-color: #000;
+}
+
+#usersite-container .v0-size-btn--oos,
+#usersite-container .v0-size-btn:disabled {
+  background: transparent;
+  color: #555;
+  border-color: #444;
+  text-decoration: line-through;
+  cursor: not-allowed;
+}
+
+#usersite-container .v0-size-btn--oos:hover,
+#usersite-container .v0-size-btn:disabled:hover {
+  background: transparent;
+  color: #555;
+  border-color: #444;
+}
+
+
+/* ── Add-to-cart button restyle ── */
+
+#usersite-container button.add-to-cart {
+  background: #000;
+  color: #e8e8e0;
+  border: 2px solid #000;
+  border-radius: 4px;
+  font-family: Inter, sans-serif;
+  font-weight: 600;
+  padding: 16px 20px;
+  width: 100%;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  cursor: pointer;
+}
+
+#usersite-container button.add-to-cart:hover {
+  background: #39ff14;
+  color: #000;
+  border-color: #000;
+}
+
+#usersite-container button.add-to-cart .sale-tag-text {
+  color: #8b0000;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+}
+
+#usersite-container button.add-to-cart:hover .sale-tag-text {
+  color: #000;
+}
+
+#usersite-container button.add-to-cart .old-price.lighter {
+  text-decoration: line-through;
+  color: #888;
+}
+
+#usersite-container button.add-to-cart:hover .old-price.lighter {
+  color: #000;
+}
+
+#usersite-container button.add-to-cart:disabled {
+  background: #1a1a1a;
+  color: #666;
+  border-color: #333;
+  cursor: not-allowed;
+}
+
+#usersite-container button.add-to-cart:disabled:hover {
+  background: #1a1a1a;
+  color: #666;
+  border-color: #333;
+}

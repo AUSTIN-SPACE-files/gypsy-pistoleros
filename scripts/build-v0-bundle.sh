@@ -32,6 +32,7 @@ SOURCES=(
   "css/components/cult-membership.css"
   "css/components/section-rhythm.css"
   "css/components/merch-store.css"
+  "css/components/product-page.css"
 )
 
 TIMESTAMP="$(date -u +"%Y-%m-%d %H:%M UTC")"
