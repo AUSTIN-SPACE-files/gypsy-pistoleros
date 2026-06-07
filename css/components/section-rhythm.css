@@ -149,17 +149,23 @@
 
 /* ============================================================
    MERCH PAGE — moda-section alternating rhythm
-   BZ's theme cascade overrides plain rules and our pseudo-element
-   (BZ owns moda-section::before), so !important on the section's
-   own background-color is required. Verified via live cascade testing.
+   "important" overrides required to beat BZ's theme cascade (verified live).
+   box-shadow + clip-path give full-bleed bands (the section's own
+   background only fills its constrained content box, leaving side
+   gutters; the shadow paints colour to the viewport edges and the
+   clip-path keeps it to the section's own height — no vertical bleed,
+   no horizontal scroll since page overflow is visible).
    Scoped to .website-page-v0-merch-store only.
    ============================================================ */
 
 #usersite-container .website-page-v0-merch-store moda-sections.zoogle-content > moda-section:nth-child(2n+1) {
   background-color: #000000 !important;
+  box-shadow: 0 0 0 100vw #000000 !important;
+  clip-path: inset(0 -100vw 0 -100vw) !important;
 }
 
 #usersite-container .website-page-v0-merch-store moda-sections.zoogle-content > moda-section:nth-child(2n) {
   background-color: #0f0f0f !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 0 100vw #0f0f0f !important;
+  clip-path: inset(0 -100vw 0 -100vw) !important;
 }
