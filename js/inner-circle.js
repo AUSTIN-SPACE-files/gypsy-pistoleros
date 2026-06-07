@@ -8,23 +8,31 @@
  *   Images        — per-album preview grid + wa-dialog full gallery
  *   Video updates — BZ blog_feature moda-section (existing posts)
  *
+ * TWO-PHASE BOOT (fixes WA autoloader deadlock):
+ *   The WA autoloader (webawesome.loader.js) only defines a custom
+ *   element when an instance of it first appears in the DOM. On BZ,
+ *   /blog has zero wa-tab-group/wa-tab-panel elements at page load,
+ *   so awaiting customElements.whenDefined() before injecting the
+ *   scaffold creates a deadlock — the promise never resolves because
+ *   the element is never defined.
+ *
+ *   Phase 1 (window.load + rAF): BUILD and inject the empty scaffold.
+ *     This is what triggers the autoloader to define wa-tab-group and
+ *     wa-tab-panel. The scaffold is hidden (display:none) during this gap.
+ *   Phase 2 (whenDefined + rAF): POPULATE the panels — source
+ *     identification, gallery extraction, preview/dialog build, node moves.
+ *
  * Source identification (by DOM signature, not position):
  *   gallery source  — moda-section containing section.feature.gallery_feature
  *   blog source     — moda-section containing section.blog_feature
  *   welcome source  — first moda-section containing neither of the above
  *
- * Gallery handling:
- *   Extracts {thumb: img.src, full: a.dnt href, alt} from each
- *   .gallery-item span.img-wrap a.dnt img. Builds a plain CSS grid
- *   preview (N = PREVIEW_COUNT items) per album. Detaches and removes
- *   the original gallery moda-section — isotope never re-runs.
- *
- * Wait strategy: customElements.whenDefined for wa-tab-group and
- * wa-tab-panel, plus window.load (ensures BZ/isotope/zoogle-video
- * controllers have initialised), then one requestAnimationFrame.
+ * Gallery: extracts {thumb: img.src, full: a.dnt href, alt}. Builds a
+ *   capped preview grid (PREVIEW_COUNT items). Detaches and removes the
+ *   original gallery moda-section — isotope never re-runs.
  *
  * Fail gracefully: missing source → console.warn, panel stays empty.
- * No throw on any expected absent element.
+ *   A 5s timeout on the whenDefined wait warns if WA fails to define.
  *
  * DEPLOYMENT: upload to BZ Files, add to Headers & Metatags:
  *   <script src="https://gypsypistoleros.com/files/{ID}/inner-circle.js" defer></script>
@@ -37,14 +45,18 @@
      CONSTANTS
   ===================================================== */
 
-  var PREVIEW_COUNT = 6;
+  var PREVIEW_COUNT      = 6;
+  var WA_TIMEOUT_MS      = 5000;
 
   /* =====================================================
-     GUARD — exit immediately on every page except /blog
+     GUARD — exit on every page except the inner-circle page
   ===================================================== */
 
   var pageHost = document.querySelector('moda-sections.zoogle-content');
   if (!pageHost) return;
+
+  /* Shared across phases */
+  var group = null;
 
   /* =====================================================
      UTILITY
@@ -61,10 +73,7 @@
   ===================================================== */
 
   function identifySources(sections) {
-    var gallery = null;
-    var blog    = null;
-    var welcome = null;
-
+    var gallery = null, blog = null, welcome = null;
     for (var i = 0; i < sections.length; i++) {
       var sec = sections[i];
       if (sec.querySelector('section.feature.gallery_feature')) {
@@ -75,13 +84,11 @@
         welcome = sec;
       }
     }
-
     return { gallery: gallery, blog: blog, welcome: welcome };
   }
 
   /* =====================================================
      ALBUM EXTRACTION
-     Returns { title: string, items: [{thumb, full, alt}] }
   ===================================================== */
 
   function extractAlbum(galleryFeature) {
@@ -93,28 +100,20 @@
 
     var items   = [];
     var anchors = galleryFeature.querySelectorAll('.gallery-item span.img-wrap a.dnt');
-
     if (anchors.length === 0) {
       console.warn('[inner-circle.js] 0 gallery items in album: ' + rawTitle);
     }
-
     for (var i = 0; i < anchors.length; i++) {
       var a   = anchors[i];
       var img = a.querySelector('img');
       if (!img) continue;
-      items.push({
-        thumb: img.src,
-        full:  a.href,
-        alt:   img.alt || ''
-      });
+      items.push({ thumb: img.src, full: a.href, alt: img.alt || '' });
     }
-
     return { title: title, items: items };
   }
 
   /* =====================================================
      BUILD — preview section (per album)
-     Capped to PREVIEW_COUNT items; "View all (N)" button below.
   ===================================================== */
 
   function buildPreviewSection(album, dialogId) {
@@ -140,7 +139,6 @@
       btn.dataset.full     = item.full;
       btn.dataset.alt      = item.alt;
       btn.dataset.enlarge  = 'true';
-
       var img = document.createElement('img');
       img.src     = item.thumb;
       img.alt     = '';
@@ -152,7 +150,6 @@
 
     var footer  = document.createElement('div');
     footer.className = 'ic-preview-footer';
-
     var viewAll = document.createElement('wa-button');
     viewAll.setAttribute('variant', 'neutral');
     viewAll.dataset.dialogId = dialogId;
@@ -165,7 +162,6 @@
 
   /* =====================================================
      BUILD — gallery dialog (per album)
-     Full grid (all images) + lightbox panel.
   ===================================================== */
 
   function buildDialog(album, dialogId) {
@@ -174,10 +170,8 @@
     dialog.setAttribute('label', album.title);
     dialog.className = 'ic-gallery-dialog';
 
-    /* Grid panel — all images */
     var gridEl = document.createElement('div');
     gridEl.className = 'ic-dialog-grid';
-
     for (var i = 0; i < album.items.length; i++) {
       var item = album.items[i];
       var btn  = document.createElement('button');
@@ -186,7 +180,6 @@
       btn.setAttribute('aria-label', item.alt || 'Enlarge image ' + (i + 1));
       btn.dataset.full = item.full;
       btn.dataset.alt  = item.alt;
-
       var img = document.createElement('img');
       img.src     = item.thumb;
       img.alt     = '';
@@ -196,17 +189,14 @@
     }
     dialog.appendChild(gridEl);
 
-    /* Lightbox panel */
     var lb = document.createElement('div');
     lb.className = 'ic-lightbox';
     lb.hidden    = true;
-
     var backBtn       = document.createElement('button');
     backBtn.type      = 'button';
     backBtn.className = 'ic-lightbox-back';
     backBtn.textContent = '← Back to gallery';
     lb.appendChild(backBtn);
-
     var lbImg       = document.createElement('img');
     lbImg.className = 'ic-lightbox-img';
     lbImg.src       = '';
@@ -214,11 +204,10 @@
     lb.appendChild(lbImg);
     dialog.appendChild(lb);
 
-    /* Footer close button */
     var closeBtn = document.createElement('wa-button');
     closeBtn.setAttribute('slot', 'footer');
     closeBtn.setAttribute('variant', 'neutral');
-    closeBtn.className  = 'ic-dialog-close';
+    closeBtn.className   = 'ic-dialog-close';
     closeBtn.textContent = 'Close';
     dialog.appendChild(closeBtn);
 
@@ -236,7 +225,6 @@
     var closeBtn = dialog.querySelector('.ic-dialog-close');
     var lbImg    = dialog.querySelector('.ic-lightbox-img');
 
-    /* Grid thumb → enlarge */
     gridEl.addEventListener('click', function (e) {
       var thumb = e.target.closest('.ic-thumb');
       if (!thumb) return;
@@ -246,19 +234,16 @@
       lb.hidden     = false;
     });
 
-    /* Back → grid */
     backBtn.addEventListener('click', function () {
       lb.hidden     = true;
       gridEl.hidden = false;
       lbImg.src     = '';
     });
 
-    /* Footer close */
     closeBtn.addEventListener('click', function () {
       dialog.hide();
     });
 
-    /* Reset lightbox after dialog closes (handles WA × button and Escape) */
     dialog.addEventListener('wa-after-hide', function () {
       lb.hidden     = true;
       gridEl.hidden = false;
@@ -268,9 +253,6 @@
 
   /* =====================================================
      WIRE — images panel
-     Delegates clicks from preview thumbs and "View all" buttons.
-     Preview thumb (data-enlarge="true"): open dialog in lightbox.
-     "View all" wa-button: open dialog in grid view.
   ===================================================== */
 
   function wireImagesPanel(panel) {
@@ -282,7 +264,6 @@
       var dialog   = document.getElementById(dialogId);
       if (!dialog) return;
 
-      /* Reset to grid view before opening */
       var gridEl = dialog.querySelector('.ic-dialog-grid');
       var lb     = dialog.querySelector('.ic-lightbox');
       var lbImg  = dialog.querySelector('.ic-lightbox-img');
@@ -292,7 +273,6 @@
 
       dialog.show();
 
-      /* Preview thumb: jump straight into lightbox for that image */
       if (trigger.dataset.enlarge && trigger.dataset.full) {
         if (gridEl) gridEl.hidden = true;
         if (lb)     lb.hidden = false;
@@ -309,68 +289,76 @@
   ===================================================== */
 
   function buildScaffold() {
-    var group = document.createElement('wa-tab-group');
-    group.setAttribute('placement', 'start');
-    group.id        = 'ic-tabs';
-    group.className = 'ic-tab-group';
+    var g = document.createElement('wa-tab-group');
+    g.setAttribute('placement', 'start');
+    g.id        = 'ic-tabs';
+    g.className = 'ic-tab-group';
 
-    var defs = [
-      { panel: 'welcome', label: 'Welcome'       },
-      { panel: 'images',  label: 'Images'         },
-      { panel: 'videos',  label: 'Video updates'  }
-    ];
-
-    defs.forEach(function (d) {
+    [
+      { panel: 'welcome', label: 'Welcome'      },
+      { panel: 'images',  label: 'Images'        },
+      { panel: 'videos',  label: 'Video updates' }
+    ].forEach(function (d) {
       var tab = document.createElement('wa-tab');
       tab.setAttribute('slot',  'nav');
       tab.setAttribute('panel', d.panel);
       tab.textContent = d.label;
-      group.appendChild(tab);
+      g.appendChild(tab);
 
       var panel = document.createElement('wa-tab-panel');
       panel.setAttribute('name', d.panel);
       panel.id = 'ic-panel-' + d.panel;
-      group.appendChild(panel);
+      g.appendChild(panel);
     });
 
-    return group;
+    return g;
   }
 
   /* =====================================================
-     INIT — main orchestration
+     PHASE 1 — inject empty scaffold
+     Appending wa-tab-group to the DOM is what causes the
+     WA autoloader to define wa-tab-group and wa-tab-panel.
+     Hidden until Phase 2 populates the panels.
   ===================================================== */
 
-  function init() {
-    var host = document.querySelector('moda-sections.zoogle-content');
-    if (!host) return;
+  function injectScaffold() {
+    group = buildScaffold();
+    group.style.display = 'none'; /* hidden until populated */
+    pageHost.appendChild(group);
+  }
 
-    var sections = Array.from(host.querySelectorAll(':scope > moda-section'));
+  /* =====================================================
+     PHASE 2 — populate panels
+     Runs after WA has defined the tab components.
+  ===================================================== */
+
+  function populate() {
+    /* moda-section query: wa-tab-group is a different tag — won't match */
+    var sections = Array.from(pageHost.querySelectorAll(':scope > moda-section'));
     if (sections.length === 0) {
-      console.warn('[inner-circle.js] No moda-section children found — aborting.');
+      console.warn('[inner-circle.js] No moda-section children found — aborting populate.');
       return;
     }
 
     var sources = identifySources(sections);
-    var group   = buildScaffold();
 
     var welcomePanel = group.querySelector('wa-tab-panel[name="welcome"]');
     var imagesPanel  = group.querySelector('wa-tab-panel[name="images"]');
     var videosPanel  = group.querySelector('wa-tab-panel[name="videos"]');
 
-    /* ---- Welcome panel ---- */
+    /* Welcome */
     if (sources.welcome) {
       welcomePanel.appendChild(sources.welcome);
     } else {
       console.warn('[inner-circle.js] Welcome source not found — Welcome panel empty.');
     }
 
-    /* ---- Images panel ---- */
+    /* Images */
     if (sources.gallery) {
       var features = sources.gallery.querySelectorAll('section.feature.gallery_feature');
       if (features.length === 0) {
         console.warn('[inner-circle.js] 0 gallery_feature sections found in gallery source.');
       }
-
       for (var i = 0; i < features.length; i++) {
         var album   = extractAlbum(features[i]);
         var dId     = 'ic-dialog-' + i;
@@ -380,7 +368,6 @@
         imagesPanel.appendChild(dialog);
         wireDialog(dialog);
       }
-
       sources.gallery.remove();
     } else {
       console.warn('[inner-circle.js] Gallery source not found — Images panel empty.');
@@ -388,39 +375,67 @@
 
     wireImagesPanel(imagesPanel);
 
-    /* ---- Video Updates panel ---- */
+    /* Video Updates */
     if (sources.blog) {
       videosPanel.appendChild(sources.blog);
     } else {
       console.warn('[inner-circle.js] Blog source not found — Video Updates panel empty.');
     }
 
-    /* ---- Default active tab ---- */
+    /* Default active tab: Images if Welcome is absent */
     if (!sources.welcome) {
       var imagesTab = group.querySelector('wa-tab[panel="images"]');
       if (imagesTab) imagesTab.setAttribute('active', '');
     }
 
-    /* ---- Insert scaffold ---- */
-    host.appendChild(group);
+    /* Reveal scaffold now that panels are populated */
+    group.style.display = '';
   }
 
   /* =====================================================
-     BOOT — wait for WA + page load, then rAF → init
+     BOOT
+     Phase 1: window.load + rAF → inject empty scaffold (triggers autoloader)
+     Phase 2: whenDefined (5s timeout) + rAF → populate panels
   ===================================================== */
 
-  Promise.all([
-    customElements.whenDefined('wa-tab-group'),
-    customElements.whenDefined('wa-tab-panel'),
-    new Promise(function (resolve) {
-      if (document.readyState === 'complete') {
-        resolve();
-      } else {
-        window.addEventListener('load', resolve, { once: true });
-      }
-    })
-  ]).then(function () {
-    requestAnimationFrame(init);
+  function windowLoadPromise() {
+    return new Promise(function (resolve) {
+      if (document.readyState === 'complete') resolve();
+      else window.addEventListener('load', resolve, { once: true });
+    });
+  }
+
+  function withTimeout(promise, ms) {
+    return Promise.race([
+      promise,
+      new Promise(function (_, reject) {
+        setTimeout(function () {
+          reject(new Error('WA tab components failed to define within ' + ms + 'ms — inner-circle panels not populated'));
+        }, ms);
+      })
+    ]);
+  }
+
+  windowLoadPromise().then(function () {
+    requestAnimationFrame(function () {
+
+      /* Phase 1: put wa-tab-group in the DOM so the WA autoloader sees it */
+      injectScaffold();
+
+      /* Phase 2: wait for WA to define the components now that they exist in DOM */
+      withTimeout(
+        Promise.all([
+          customElements.whenDefined('wa-tab-group'),
+          customElements.whenDefined('wa-tab-panel')
+        ]),
+        WA_TIMEOUT_MS
+      ).then(function () {
+        requestAnimationFrame(populate);
+      }).catch(function (err) {
+        console.warn('[inner-circle.js]', err.message);
+      });
+
+    });
   });
 
 }());
