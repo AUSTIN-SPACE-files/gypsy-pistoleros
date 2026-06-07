@@ -15,7 +15,6 @@
   }
 
   function fillPriceLine(line, cartBtn) {
-    var saleTagEl = cartBtn.querySelector('.sale-tag-text');
     var oldPriceEl = cartBtn.querySelector('.old-price');
     var nowText = '';
     for (var i = cartBtn.childNodes.length - 1; i >= 0; i--) {
@@ -26,11 +25,7 @@
       }
     }
     line.innerHTML = '';
-    if (saleTagEl && oldPriceEl) {
-      var saleSpan = document.createElement('span');
-      saleSpan.className = 'v0-sale-tag';
-      saleSpan.textContent = saleTagEl.textContent.trim();
-      line.appendChild(saleSpan);
+    if (oldPriceEl) {
       var oldSpan = document.createElement('span');
       oldSpan.className = 'v0-old-price';
       oldSpan.textContent = oldPriceEl.textContent.trim();
