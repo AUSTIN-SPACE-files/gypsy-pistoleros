@@ -174,17 +174,17 @@
 }
 
 
-/* ── Remove card hairline + rounding on single-product card ── */
+/* ── Remove card hairline + rounding on ALL product-page cards ── */
 
-.not-intro-page #usersite-container article.store.store-item.single-image.border-accent {
+#usersite-container .single-store-item article.store.store-item {
   border: none;
   border-radius: 0;
 }
 
 
-/* ── Kill hover bump on single-product card (grid bounce kept intact) ── */
+/* ── Kill hover bump on ALL product-page cards (single OR multiple images) ── */
 
-.not-intro-page #usersite-container article.store.store-item.single-image:hover {
+#usersite-container .single-store-item article.store.store-item:hover {
   transform: none;
 }
 
