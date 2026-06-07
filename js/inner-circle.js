@@ -8,31 +8,33 @@
  *   Images        — per-album preview grid + wa-dialog full gallery
  *   Video updates — BZ blog_feature moda-section (existing posts)
  *
- * TWO-PHASE BOOT (fixes WA autoloader deadlock):
- *   The WA autoloader (webawesome.loader.js) only defines a custom
- *   element when an instance of it first appears in the DOM. On BZ,
- *   /blog has zero wa-tab-group/wa-tab-panel elements at page load,
- *   so awaiting customElements.whenDefined() before injecting the
- *   scaffold creates a deadlock — the promise never resolves because
- *   the element is never defined.
+ * THREE-STEP BOOT:
  *
- *   Phase 1 (window.load + rAF): BUILD and inject the empty scaffold.
- *     This is what triggers the autoloader to define wa-tab-group and
- *     wa-tab-panel. The scaffold is hidden (display:none) during this gap.
- *   Phase 2 (whenDefined + rAF): POPULATE the panels — source
- *     identification, gallery extraction, preview/dialog build, node moves.
+ *   Step 1 (window.load + rAF): SNAPSHOT source references from the
+ *     untouched DOM before any mutation. Never re-query after injection.
+ *
+ *   Step 2: BUILD scaffold and inject it as a SIBLING of
+ *     moda-sections.zoogle-content (into #page-content-wrap), NOT inside
+ *     the scanned container. This avoids polluting ':scope > moda-section'
+ *     queries and triggers the WA autoloader to define wa-tab-group and
+ *     wa-tab-panel (deadlock fix from Pass 2).
+ *
+ *   Step 3 (whenDefined + rAF): POPULATE panels using the snapshotted
+ *     source references — move nodes, build preview grids, wire dialogs.
  *
  * Source identification (by DOM signature, not position):
  *   gallery source  — moda-section containing section.feature.gallery_feature
  *   blog source     — moda-section containing section.blog_feature
  *   welcome source  — first moda-section containing neither of the above
  *
- * Gallery: extracts {thumb: img.src, full: a.dnt href, alt}. Builds a
- *   capped preview grid (PREVIEW_COUNT items). Detaches and removes the
- *   original gallery moda-section — isotope never re-runs.
+ * Gallery: extracts {thumb: img.src, full: a.dnt href, alt} from each
+ *   .gallery-item span.img-wrap a.dnt img. Builds a capped preview grid
+ *   (PREVIEW_COUNT items) + wa-dialog full gallery per album. Detaches
+ *   and .remove()s the original gallery moda-section — isotope never
+ *   re-runs on a moved container.
  *
  * Fail gracefully: missing source → console.warn, panel stays empty.
- *   A 5s timeout on the whenDefined wait warns if WA fails to define.
+ *   5s timeout on whenDefined warns if WA loader fails to define.
  *
  * DEPLOYMENT: upload to BZ Files, add to Headers & Metatags:
  *   <script src="https://gypsypistoleros.com/files/{ID}/inner-circle.js" defer></script>
@@ -45,8 +47,8 @@
      CONSTANTS
   ===================================================== */
 
-  var PREVIEW_COUNT      = 6;
-  var WA_TIMEOUT_MS      = 5000;
+  var PREVIEW_COUNT = 6;
+  var WA_TIMEOUT_MS = 5000;
 
   /* =====================================================
      GUARD — exit on every page except the inner-circle page
@@ -55,7 +57,7 @@
   var pageHost = document.querySelector('moda-sections.zoogle-content');
   if (!pageHost) return;
 
-  /* Shared across phases */
+  /* Scaffold element — set in boot step 2, consumed in populate() */
   var group = null;
 
   /* =====================================================
@@ -70,6 +72,7 @@
 
   /* =====================================================
      SOURCE IDENTIFICATION
+     Called once against the untouched DOM in boot step 1.
   ===================================================== */
 
   function identifySources(sections) {
@@ -315,33 +318,11 @@
   }
 
   /* =====================================================
-     PHASE 1 — inject empty scaffold
-     Appending wa-tab-group to the DOM is what causes the
-     WA autoloader to define wa-tab-group and wa-tab-panel.
-     Hidden until Phase 2 populates the panels.
+     POPULATE — fill panels from snapshotted sources
+     Runs in boot step 3, after WA has defined the elements.
   ===================================================== */
 
-  function injectScaffold() {
-    group = buildScaffold();
-    group.style.display = 'none'; /* hidden until populated */
-    pageHost.appendChild(group);
-  }
-
-  /* =====================================================
-     PHASE 2 — populate panels
-     Runs after WA has defined the tab components.
-  ===================================================== */
-
-  function populate() {
-    /* moda-section query: wa-tab-group is a different tag — won't match */
-    var sections = Array.from(pageHost.querySelectorAll(':scope > moda-section'));
-    if (sections.length === 0) {
-      console.warn('[inner-circle.js] No moda-section children found — aborting populate.');
-      return;
-    }
-
-    var sources = identifySources(sections);
-
+  function populate(sources) {
     var welcomePanel = group.querySelector('wa-tab-panel[name="welcome"]');
     var imagesPanel  = group.querySelector('wa-tab-panel[name="images"]');
     var videosPanel  = group.querySelector('wa-tab-panel[name="videos"]');
@@ -388,14 +369,12 @@
       if (imagesTab) imagesTab.setAttribute('active', '');
     }
 
-    /* Reveal scaffold now that panels are populated */
+    /* Reveal scaffold — was hidden during load gap */
     group.style.display = '';
   }
 
   /* =====================================================
-     BOOT
-     Phase 1: window.load + rAF → inject empty scaffold (triggers autoloader)
-     Phase 2: whenDefined (5s timeout) + rAF → populate panels
+     BOOT UTILITIES
   ===================================================== */
 
   function windowLoadPromise() {
@@ -410,19 +389,48 @@
       promise,
       new Promise(function (_, reject) {
         setTimeout(function () {
-          reject(new Error('WA tab components failed to define within ' + ms + 'ms — inner-circle panels not populated'));
+          reject(new Error(
+            'WA tab components failed to define within ' + ms + 'ms' +
+            ' — inner-circle panels not populated'
+          ));
         }, ms);
       })
     ]);
   }
 
+  /* =====================================================
+     BOOT SEQUENCE
+     Step 1 (window.load + rAF): snapshot sources from untouched DOM.
+     Step 2: build scaffold; inject as SIBLING of moda-sections into
+       #page-content-wrap (never inside the scanned container).
+     Step 3 (whenDefined + rAF): populate panels with snapshotted sources.
+  ===================================================== */
+
   windowLoadPromise().then(function () {
     requestAnimationFrame(function () {
 
-      /* Phase 1: put wa-tab-group in the DOM so the WA autoloader sees it */
-      injectScaffold();
+      /* ---- Step 1: snapshot BEFORE any DOM mutation ---- */
+      var rawSections = Array.from(pageHost.querySelectorAll(':scope > moda-section'));
+      if (rawSections.length === 0) {
+        console.warn('[inner-circle.js] No moda-section children found — aborting.');
+        return;
+      }
+      var sources = identifySources(rawSections);
 
-      /* Phase 2: wait for WA to define the components now that they exist in DOM */
+      /* ---- Step 2: build + inject scaffold as sibling of moda-sections ---- */
+      group = buildScaffold();
+      group.style.display = 'none'; /* hidden until populate() reveals it */
+
+      var insertionParent = document.getElementById('page-content-wrap')
+                         || pageHost.parentElement;
+      if (!insertionParent) {
+        console.warn('[inner-circle.js] Insertion parent (#page-content-wrap) not found — aborting.');
+        return;
+      }
+      insertionParent.appendChild(group);
+      /* Confirm: group.parentElement === insertionParent (not pageHost) */
+
+      /* ---- Step 3: await WA definitions, then populate ---- */
       withTimeout(
         Promise.all([
           customElements.whenDefined('wa-tab-group'),
@@ -430,7 +438,9 @@
         ]),
         WA_TIMEOUT_MS
       ).then(function () {
-        requestAnimationFrame(populate);
+        requestAnimationFrame(function () {
+          populate(sources);
+        });
       }).catch(function (err) {
         console.warn('[inner-circle.js]', err.message);
       });
