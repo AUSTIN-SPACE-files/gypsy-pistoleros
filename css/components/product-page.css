@@ -73,8 +73,8 @@
 /* ── Add-to-cart button restyle ── */
 
 .not-intro-page #usersite-container button.button.add-to-cart:not(.button-secondary) {
-  background-color: #000;
-  color: #e8e8e0;
+  background-color: #39ff14;
+  color: #000;
   border: 2px solid #000;
   border-radius: 4px;
   font-family: Inter, sans-serif;
@@ -88,8 +88,8 @@
 }
 
 .no-touchevents .not-intro-page #usersite-container button.button.add-to-cart:not(.button-secondary):hover {
-  background-color: #39ff14;
-  color: #000;
+  background-color: #000;
+  color: #e8e8e0;
   border-color: #000;
 }
 
@@ -102,16 +102,16 @@
 }
 
 .not-intro-page #usersite-container button.button.add-to-cart:not(.button-secondary):hover .sale-tag-text {
-  color: #000;
+  color: #e8e8e0;
 }
 
 .not-intro-page #usersite-container button.button.add-to-cart:not(.button-secondary) .old-price.lighter {
   text-decoration: line-through;
-  color: #888;
+  color: #555;
 }
 
 .not-intro-page #usersite-container button.button.add-to-cart:not(.button-secondary):hover .old-price.lighter {
-  color: #000;
+  color: #888;
 }
 
 .not-intro-page #usersite-container button.button.add-to-cart:not(.button-secondary):disabled {
