@@ -29,6 +29,7 @@ SOURCES=(
   "css/components/shows.css"
   "css/components/videos.css"
   "css/components/blog.css"
+  "css/components/inner-circle.css"
   "css/components/cult-membership.css"
   "css/components/section-rhythm.css"
   "css/components/merch-store.css"

@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Inner Circle — Gypsy Pistoleros (staging)</title>
+  <meta name="description" content="Local staging for the Inner Circle page at gypsypistoleros.com/blog.">
+
+  <!-- Google Fonts: Inter (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Web Awesome 3.7.0
+       BANDZOOGLE: these four tags also go into Pages → Site-wide Settings → Headers & Metatags -->
+  <link rel="stylesheet" href="https://ka-f.webawesome.com/webawesome@3.7.0/styles/themes/default.css" />
+  <link rel="stylesheet" href="https://ka-f.webawesome.com/webawesome@3.7.0/styles/native.css" />
+  <link rel="stylesheet" href="https://ka-f.webawesome.com/webawesome@3.7.0/styles/utilities.css" />
+  <script type="module" src="https://ka-f.webawesome.com/webawesome@3.7.0/webawesome.loader.js"></script>
+
+  <!-- Font Awesome Pro Kit -->
+  <script src="https://kit.fontawesome.com/6a400036f2.js" crossorigin="anonymous"></script>
+
+  <!-- v0 bundle (local) -->
+  <link rel="stylesheet" href="../css/v0.css">
+
+  <style>
+    /*
+      Staging-only baseline.
+      BZ injects its own body/page chrome on the live site.
+      These rules simulate a dark-themed page wrapper so JS and
+      CSS can be verified locally without BZ.
+    */
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      color: #e8e8e0;
+      font-family: 'Inter', Arial, sans-serif;
+    }
+
+    /* BZ renders moda-sections / moda-section as block-level.
+       Unknown custom elements default to display:inline — override. */
+    moda-sections,
+    moda-section {
+      display: block;
+    }
+
+    /* Staging page wrapper — mirrors BZ's #page-content-wrap */
+    #page-content-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem;
+    }
+
+    /* Staging header label */
+    .staging-banner {
+      font-family: 'Inter', Arial, sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #39ff14;
+      background: rgba(57,255,20,0.07);
+      border: 1px solid rgba(57,255,20,0.2);
+      border-radius: 4px;
+      padding: 0.4rem 0.75rem;
+      margin-bottom: 1.5rem;
+      display: inline-block;
+    }
+
+    /* Welcome hero placeholder block (simulates user-added BZ section) */
+    .ic-welcome-placeholder-inner {
+      padding: 2.5rem;
+      border: 1px dashed rgba(255,255,255,0.15);
+      border-radius: 4px;
+      background: #0f0f0f;
+    }
+    .ic-welcome-placeholder-inner p {
+      font-family: 'Inter', Arial, sans-serif;
+      font-size: 0.875rem;
+      color: #a0a090;
+      margin: 0;
+    }
+    .ic-welcome-placeholder-inner h2 {
+      font-family: Georgia, serif;
+      font-size: 1.75rem;
+      color: #e8e8e0;
+      margin: 0 0 0.5rem;
+    }
+
+    /* Suppress isotope styles — isotope is a BZ dependency not loaded in staging.
+       Gallery items render in normal document flow here. */
+    .gallery-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    .gallery-item {
+      flex: 0 0 auto;
+    }
+    .gallery-item img {
+      display: block;
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+    }
+
+    /* Blog articles: BZ's isotope/masonry not loaded; render as a simple list */
+    .blog_feature .tiled-post-inner {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .blog_feature .featured-image img {
+      display: block;
+      width: 120px;
+      height: 90px;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+
+  <!--
+    ═══════════════════════════════════════════════════════
+    STAGING NOTE — gypsypistoleros.com/blog
+    ═══════════════════════════════════════════════════════
+    This file simulates the BZ-rendered DOM at /blog.
+    On the live site, BZ builds this structure from its
+    visual section editor (not a custom HTML paste).
+
+    Three moda-sections in test order:
+      [0] Welcome hero placeholder  — testable move path
+      [1] Gallery row               — 2× gallery_feature (8 items each)
+      [2] Blog row                  — blog_feature (3 articles)
+
+    inner-circle.js identifies sources by DOM signature
+    (not position), builds the wa-tab-group scaffold,
+    and moves/rebuilds sections into panels.
+
+    BZ live differences from this staging file:
+      - Welcome placeholder: user adds real BZ section with
+        video embed + blurb text via the visual editor.
+      - Gallery albums: 25 images (Album A) and 33 (Album B).
+      - Blog posts: ~20–21 articles in the tiled masonry layout.
+      - Isotope positions gallery-item divs absolutely (ignored
+        here — we extract img.src / a.dnt href only).
+      - moda-sections.zoogle-content is inside #page-content-wrap
+        on the live page; mirrored here.
+    ═══════════════════════════════════════════════════════
+  -->
+
+  <div id="page-content-wrap">
+
+    <p class="staging-banner">Staging — inner-circle.js preview</p>
+
+    <moda-sections class="zoogle-content">
+
+
+      <!-- ════════════════════════════════════════════════════
+           MODA-SECTION [0]: WELCOME HERO (placeholder)
+           Present in staging so the move-to-Welcome-panel path
+           is testable. On BZ this will be a real section with
+           an intro video embed + blurb added by the user.
+           Identified by inner-circle.js as the "welcome source"
+           (first moda-section containing neither gallery_feature
+           nor blog_feature).
+           ════════════════════════════════════════════════════ -->
+      <moda-section>
+        <div class="ic-welcome-placeholder-inner">
+          <h2>Welcome to the Inner Circle</h2>
+          <p>[User adds BZ section here: intro video embed + blurb. Content stays editable in BZ — never hardcoded.]</p>
+        </div>
+      </moda-section>
+
+
+      <!-- ════════════════════════════════════════════════════
+           MODA-SECTION [1]: GALLERY ROW
+           Contains 2× section.feature.gallery_feature.
+           In BZ this is a 2-column feature row with the
+           gallery widget in each column.
+
+           Live album titles (ALL-CAPS in BZ source):
+             Album A: "Prince of the Damned - Video Shoot"  (25 images)
+             Album B: "DARK FAERIE TALES VIDEO SHOOT"        (33 images)
+
+           JS reads: header h1.alt-font for title,
+                     .gallery-item span.img-wrap a.dnt img
+                     for {thumb: img.src, full: a.href}.
+           ════════════════════════════════════════════════════ -->
+      <moda-section>
+
+        <!-- Album A: Prince of the Damned — 8 items (live has 25) -->
+        <section class="feature gallery_feature" data-controller="content-width">
+          <header>
+            <h1 class="alt-font">Prince of the Damned - Video Shoot</h1>
+          </header>
+          <div class="gallery-wrapper gallery-modern size-large" data-controller="isotope">
+
+            <div class="gallery-item">
+              <span class="img-wrap">
+                <a class="dnt" href="https://picsum.photos/seed/gpA01/1200/1200" rel="gallery100001">
+                  <img src="https://picsum.photos/seed/gpA01/350/350" alt="Prince of the Damned — video shoot, image 1">
+                </a>
+              </span>
+            </div>
+
+            <div class="gallery-item">
+              <span class="img-wrap">
+                <a class="dnt" href="https://picsum.photos/seed/gpA02/1200/1200" rel="gallery100001">
+                  <img src="https://picsum.photos/seed/gpA02/350/350" alt="Prince of the Damned — video shoot, image 2">
+                </a>
+              </span>
+            </div>
+
+            <div class="gallery-item">
+              <span class="img-wrap">
+                <a class="dnt" href="https://picsum.photos/seed/gpA03/1200/1200" rel="gallery100001">
+                  <img src="https://picsum.photos/seed/gpA03/350/350" alt="Prince of the Damned — video shoot, image 3">
+                </a>
+              </span>
+            </div>
+
+            <div class="gallery-item">
+              <span class="img-wrap">
+                <a class="dnt" href="https://picsum.photos/seed/gpA04/1200/1200" rel="gallery100001">
+                  <img src="https://picsum.photos/seed/gpA04/350/350" alt="Prince of the Damned — video shoot, image 4">
+                </a>
+              </span>
+            </div>
+
+            <div class="gallery-item">
+              <span class="img-wrap">
+                <a class="dnt" href="https://picsum.photos/seed/gpA05/1200/1200" rel="gallery100001">
+                  <img src="https://picsum.photos/seed/gpA05/350/350" alt="Prince of the Damned — video shoot, image 5">
+                </a>
+              </span>
+            </div>
+
+            <div class="gallery-item">
+              <span class="img-wrap">
+                <a class="dnt" href="https://picsum.photos/seed/gpA06/1200/1200" rel="gallery100001">
+                  <img src="https://picsum.photos/seed/gpA06/350/350" alt="Prince of the Damned — video shoot, image 6">
+                </a>
+              </span>
+            </div>
+
+            <div class="gallery-item">
+              <span class="img-wrap">
+                <a class="dnt" href="https://picsum.photos/seed/gpA07/1200/1200" rel="gallery100001">
+                  <img src="https://picsum.photos/seed/gpA07/350/350" alt="Prince of the Damned — video shoot, image 7">
+                </a>
+              </span>
+            </div>
+
+            <div class="gallery-item">
+              <span class="img-wrap">
+                <a class="dnt" href="https://picsum.photos/seed/gpA08/1200/1200" rel="gallery100001">
+                  <img src="https://picsum.photos/seed/gpA08/350/350" alt="Prince of the Damned — video shoot, image 8">
+                </a>
+              </span>
+            </div>
+
+          </div><!-- /.gallery-wrapper -->
+        </section><!-- /.gallery_feature Album A -->
+
+
+        <!-- Album B: Dark Faerie Tales — 8 items (live has 33) -->
+        <section class="feature gallery_feature" data-controller="content-width">
+          <header>
+            <h1 class="alt-font">DARK FAERIE TALES VIDEO SHOOT</h1>
+          </header>
+          <div class="gallery-wrapper gallery-modern size-large" data-controller="isotope">
+
+            <div class="gallery-item">
+              <span class="img-wrap">
+                <a class="dnt" href="https://picsum.photos/seed/gpB01/1200/1200" rel="gallery100002">
+                  <img src="https://picsum.photos/seed/gpB01/350/350" alt="Dark Faerie Tales — video shoot, image 1">
+                </a>
+              </span>
+            </div>
+
+            <div class="gallery-item">
+              <span class="img-wrap">
+                <a class="dnt" href="https://picsum.photos/seed/gpB02/1200/1200" rel="gallery100002">
+                  <img src="https://picsum.photos/seed/gpB02/350/350" alt="Dark Faerie Tales — video shoot, image 2">
+                </a>
+              </span>
+            </div>
+
+            <div class="gallery-item">
+              <span class="img-wrap">
+                <a class="dnt" href="https://picsum.photos/seed/gpB03/1200/1200" rel="gallery100002">
+                  <img src="https://picsum.photos/seed/gpB03/350/350" alt="Dark Faerie Tales — video shoot, image 3">
+                </a>
+              </span>
+            </div>
+
+            <div class="gallery-item">
+              <span class="img-wrap">
+                <a class="dnt" href="https://picsum.photos/seed/gpB04/1200/1200" rel="gallery100002">
+                  <img src="https://picsum.photos/seed/gpB04/350/350" alt="Dark Faerie Tales — video shoot, image 4">
+                </a>
+              </span>
+            </div>
+
+            <div class="gallery-item">
+              <span class="img-wrap">
+                <a class="dnt" href="https://picsum.photos/seed/gpB05/1200/1200" rel="gallery100002">
+                  <img src="https://picsum.photos/seed/gpB05/350/350" alt="Dark Faerie Tales — video shoot, image 5">
+                </a>
+              </span>
+            </div>
+
+            <div class="gallery-item">
+              <span class="img-wrap">
+                <a class="dnt" href="https://picsum.photos/seed/gpB06/1200/1200" rel="gallery100002">
+                  <img src="https://picsum.photos/seed/gpB06/350/350" alt="Dark Faerie Tales — video shoot, image 6">
+                </a>
+              </span>
+            </div>
+
+            <div class="gallery-item">
+              <span class="img-wrap">
+                <a class="dnt" href="https://picsum.photos/seed/gpB07/1200/1200" rel="gallery100002">
+                  <img src="https://picsum.photos/seed/gpB07/350/350" alt="Dark Faerie Tales — video shoot, image 7">
+                </a>
+              </span>
+            </div>
+
+            <div class="gallery-item">
+              <span class="img-wrap">
+                <a class="dnt" href="https://picsum.photos/seed/gpB08/1200/1200" rel="gallery100002">
+                  <img src="https://picsum.photos/seed/gpB08/350/350" alt="Dark Faerie Tales — video shoot, image 8">
+                </a>
+              </span>
+            </div>
+
+          </div><!-- /.gallery-wrapper -->
+        </section><!-- /.gallery_feature Album B -->
+
+      </moda-section><!-- /.gallery row -->
+
+
+      <!-- ════════════════════════════════════════════════════
+           MODA-SECTION [2]: BLOG ROW — "The Inner Circle"
+           Contains section.blog_feature with tiled post cards.
+           In BZ the tiling is managed by isotope/masonry;
+           in staging, posts render in normal document flow.
+
+           Live: ~20–21 posts, each article.post.blog-article
+           .tiled-item.post-tiled[data-controller="zoogle-video"].
+           zoogle-video handles video embeds inside posts —
+           initialised by BZ's Stimulus framework on page load.
+           Moving this moda-section into a wa-tab-panel is safe
+           since zoogle-video will have already initialised before
+           our script runs (window.load wait).
+           ════════════════════════════════════════════════════ -->
+      <moda-section>
+        <section class="blog_feature">
+
+          <h2 class="subtitle-wrap heading-primary row-title alt-font">
+            <span class="subtitle">The Inner Circle</span>
+          </h2>
+
+          <!-- Post 1 -->
+          <article class="post blog-article tiled-item post-tiled" data-controller="zoogle-video">
+            <div class="tiled-post">
+              <div class="tiled-post-inner">
+                <a class="featured-image" href="/blog/behind-the-lens-prince-of-the-damned">
+                  <img class="featured" src="https://picsum.photos/seed/post01/800/500" alt="Behind the lens: Prince of the Damned">
+                </a>
+                <div class="post-wrap">
+                  <h2 class="heading-blog alt-font">
+                    <a href="/blog/behind-the-lens-prince-of-the-damned">Behind the lens: Prince of the Damned</a>
+                  </h2>
+                  <div class="post">
+                    <div class="message">
+                      <p>
+                        <span class="read-more">
+                          <a href="/blog/behind-the-lens-prince-of-the-damned">Read more</a>
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                  <footer class="meta alt-font">
+                    <p class="post-info">
+                      <span data-time="2026-04-10T12:00:00Z">10 Apr 2026</span>
+                    </p>
+                  </footer>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Post 2 -->
+          <article class="post blog-article tiled-item post-tiled" data-controller="zoogle-video">
+            <div class="tiled-post">
+              <div class="tiled-post-inner">
+                <a class="featured-image" href="/blog/dark-faerie-tales-shoot-day-two">
+                  <img class="featured" src="https://picsum.photos/seed/post02/800/500" alt="Dark Faerie Tales shoot — day two">
+                </a>
+                <div class="post-wrap">
+                  <h2 class="heading-blog alt-font">
+                    <a href="/blog/dark-faerie-tales-shoot-day-two">Dark Faerie Tales shoot — day two</a>
+                  </h2>
+                  <div class="post">
+                    <div class="message">
+                      <p>
+                        <span class="read-more">
+                          <a href="/blog/dark-faerie-tales-shoot-day-two">Read more</a>
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                  <footer class="meta alt-font">
+                    <p class="post-info">
+                      <span data-time="2026-03-22T12:00:00Z">22 Mar 2026</span>
+                    </p>
+                  </footer>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Post 3 -->
+          <article class="post blog-article tiled-item post-tiled" data-controller="zoogle-video">
+            <div class="tiled-post">
+              <div class="tiled-post-inner">
+                <a class="featured-image" href="/blog/rebellion-2026-announcements">
+                  <img class="featured" src="https://picsum.photos/seed/post03/800/500" alt="Rebellion 2026 — the announcements">
+                </a>
+                <div class="post-wrap">
+                  <h2 class="heading-blog alt-font">
+                    <a href="/blog/rebellion-2026-announcements">Rebellion 2026 — the announcements</a>
+                  </h2>
+                  <div class="post">
+                    <div class="message">
+                      <p>
+                        <span class="read-more">
+                          <a href="/blog/rebellion-2026-announcements">Read more</a>
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                  <footer class="meta alt-font">
+                    <p class="post-info">
+                      <span data-time="2026-02-14T12:00:00Z">14 Feb 2026</span>
+                    </p>
+                  </footer>
+                </div>
+              </div>
+            </div>
+          </article>
+
+        </section><!-- /.blog_feature -->
+      </moda-section><!-- /.blog row -->
+
+
+    </moda-sections><!-- /.zoogle-content -->
+  </div><!-- /#page-content-wrap -->
+
+  <!--
+    inner-circle.js — loaded defer, mirrors BZ Files deployment.
+    BANDZOOGLE: upload js/inner-circle.js to BZ Files and add to
+    Pages → Site-wide Settings → Headers & Metatags:
+      <script src="https://gypsypistoleros.com/files/{ID}/inner-circle.js" defer></script>
+  -->
+  <script src="../js/inner-circle.js" defer></script>
+
+</body>
+</html>
