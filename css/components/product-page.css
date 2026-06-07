@@ -72,8 +72,8 @@
 
 /* ── Add-to-cart button restyle ── */
 
-body #usersite-container button.button.add-to-cart {
-  background: #000;
+.not-intro-page #usersite-container button.button.add-to-cart:not(.button-secondary) {
+  background-color: #000;
   color: #e8e8e0;
   border: 2px solid #000;
   border-radius: 4px;
@@ -87,13 +87,13 @@ body #usersite-container button.button.add-to-cart {
   appearance: none;
 }
 
-body #usersite-container button.button.add-to-cart:hover {
-  background: #39ff14;
+.no-touchevents .not-intro-page #usersite-container button.button.add-to-cart:not(.button-secondary):hover {
+  background-color: #39ff14;
   color: #000;
   border-color: #000;
 }
 
-body #usersite-container button.button.add-to-cart .sale-tag-text {
+.not-intro-page #usersite-container button.button.add-to-cart:not(.button-secondary) .sale-tag-text {
   color: #8b0000;
   text-transform: uppercase;
   font-size: 11px;
@@ -101,28 +101,28 @@ body #usersite-container button.button.add-to-cart .sale-tag-text {
   font-weight: 700;
 }
 
-body #usersite-container button.button.add-to-cart:hover .sale-tag-text {
+.not-intro-page #usersite-container button.button.add-to-cart:not(.button-secondary):hover .sale-tag-text {
   color: #000;
 }
 
-body #usersite-container button.button.add-to-cart .old-price.lighter {
+.not-intro-page #usersite-container button.button.add-to-cart:not(.button-secondary) .old-price.lighter {
   text-decoration: line-through;
   color: #888;
 }
 
-body #usersite-container button.button.add-to-cart:hover .old-price.lighter {
+.not-intro-page #usersite-container button.button.add-to-cart:not(.button-secondary):hover .old-price.lighter {
   color: #000;
 }
 
-body #usersite-container button.button.add-to-cart:disabled {
-  background: #1a1a1a;
+.not-intro-page #usersite-container button.button.add-to-cart:not(.button-secondary):disabled {
+  background-color: #1a1a1a;
   color: #666;
   border-color: #333;
   cursor: not-allowed;
 }
 
-body #usersite-container button.button.add-to-cart:disabled:hover {
-  background: #1a1a1a;
+.not-intro-page #usersite-container button.button.add-to-cart:not(.button-secondary):disabled:hover {
+  background-color: #1a1a1a;
   color: #666;
   border-color: #333;
 }
