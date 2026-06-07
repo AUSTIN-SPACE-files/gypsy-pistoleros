@@ -7,8 +7,8 @@
 
 /* ── Panel ── */
 
-body #usersite-container section.cart-summary {
-  background-color: #0f0f0f;
+#usersite-container section.cart-summary#cart-summary {
+  background-color: #0f0f0f !important;
 }
 
 
