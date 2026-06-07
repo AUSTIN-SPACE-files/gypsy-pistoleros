@@ -158,6 +158,12 @@
    Scoped to .website-page-v0-merch-store only.
    ============================================================ */
 
+/* BZ puts a 1px solid black L/R/bottom border on every moda-section;
+   it shows as vertical lines on the #0f0f0f bands. Remove it. */
+#usersite-container .website-page-v0-merch-store moda-sections.zoogle-content > moda-section {
+  border: 0 !important;
+}
+
 #usersite-container .website-page-v0-merch-store moda-sections.zoogle-content > moda-section:nth-child(2n+1) {
   background-color: #000000 !important;
   box-shadow: 0 0 0 100vw #000000 !important;
