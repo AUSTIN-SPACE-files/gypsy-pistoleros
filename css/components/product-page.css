@@ -72,7 +72,7 @@
 
 /* ── Add-to-cart button restyle ── */
 
-#usersite-container button.add-to-cart {
+body #usersite-container button.button.add-to-cart {
   background: #000;
   color: #e8e8e0;
   border: 2px solid #000;
@@ -83,15 +83,17 @@
   width: 100%;
   transition: background 0.15s, color 0.15s, border-color 0.15s;
   cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
-#usersite-container button.add-to-cart:hover {
+body #usersite-container button.button.add-to-cart:hover {
   background: #39ff14;
   color: #000;
   border-color: #000;
 }
 
-#usersite-container button.add-to-cart .sale-tag-text {
+body #usersite-container button.button.add-to-cart .sale-tag-text {
   color: #8b0000;
   text-transform: uppercase;
   font-size: 11px;
@@ -99,27 +101,27 @@
   font-weight: 700;
 }
 
-#usersite-container button.add-to-cart:hover .sale-tag-text {
+body #usersite-container button.button.add-to-cart:hover .sale-tag-text {
   color: #000;
 }
 
-#usersite-container button.add-to-cart .old-price.lighter {
+body #usersite-container button.button.add-to-cart .old-price.lighter {
   text-decoration: line-through;
   color: #888;
 }
 
-#usersite-container button.add-to-cart:hover .old-price.lighter {
+body #usersite-container button.button.add-to-cart:hover .old-price.lighter {
   color: #000;
 }
 
-#usersite-container button.add-to-cart:disabled {
+body #usersite-container button.button.add-to-cart:disabled {
   background: #1a1a1a;
   color: #666;
   border-color: #333;
   cursor: not-allowed;
 }
 
-#usersite-container button.add-to-cart:disabled:hover {
+body #usersite-container button.button.add-to-cart:disabled:hover {
   background: #1a1a1a;
   color: #666;
   border-color: #333;
