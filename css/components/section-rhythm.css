@@ -179,7 +179,7 @@
   left: calc(50% - 50vw);
   width: 100vw;
   height: 100%;
-  z-index: -1;
+  z-index: 0;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
   pointer-events: none;
 }
@@ -194,5 +194,5 @@
 
 .website-page-v0-merch-store moda-sections.zoogle-content > moda-section > * {
   position: relative;
-  z-index: 0;
+  z-index: 1;
 }
