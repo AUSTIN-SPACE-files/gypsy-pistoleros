@@ -1,0 +1,154 @@
+/* ============================================================
+   cart-drawer.css — slide-out cart panel v0
+   section.cart-summary — BZ-rendered, position:fixed.
+   No !important — specificity via #usersite-container + section.cart-summary.
+   ============================================================ */
+
+
+/* ── Panel ── */
+
+body #usersite-container section.cart-summary {
+  background-color: var(--color-bg-primary);
+}
+
+
+/* ── Heading ── */
+
+#usersite-container section.cart-summary h2.heading-secondary {
+  font-family: Georgia, serif;
+  color: #e8e8e0;
+  text-transform: none;
+}
+
+#usersite-container .cart-summary__close .icon-close {
+  color: #e8e8e0;
+  transition: color 0.15s;
+}
+
+#usersite-container .cart-summary__close:hover .icon-close {
+  color: #39ff14;
+}
+
+
+/* ── Cart item row ── */
+
+#usersite-container tr.cart-item.border-accent {
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+
+/* ── Item title ── */
+
+#usersite-container .item-description h2 {
+  font-family: Georgia, serif;
+  text-transform: none;
+  color: #e8e8e0;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+
+/* ── Product option (size etc.) ── */
+
+#usersite-container .cart-item__product-option,
+#usersite-container .cart-item__product-options {
+  font-family: Inter, sans-serif;
+  font-size: 13px;
+  color: #a0a090;
+}
+
+
+/* ── Remove link ── */
+
+#usersite-container .cart-item__actions a.remove {
+  font-family: Inter, sans-serif;
+  font-size: 12px;
+  color: #a0a090;
+  text-transform: none;
+  text-decoration: none;
+}
+
+#usersite-container .cart-item__actions a.remove:hover {
+  color: #8b0000;
+}
+
+
+/* ── Qty select ── */
+
+#usersite-container .cart-item__actions select {
+  background-color: #000;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23e8e8e0' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  color: #e8e8e0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  padding: 8px 32px 8px 12px;
+}
+
+#usersite-container .cart-item__actions select:hover,
+#usersite-container .cart-item__actions select:focus {
+  border-color: #39ff14;
+  outline: none;
+}
+
+
+/* ── Subtotal ── */
+
+#usersite-container .cart-summary__subtotal {
+  font-family: Inter, sans-serif;
+}
+
+#usersite-container .cart-summary__subtotal > span:first-child {
+  color: #a0a090;
+}
+
+#usersite-container .cart-summary__subtotal > span:last-child {
+  color: #e8e8e0;
+  font-weight: 600;
+}
+
+
+/* ── Checkout button — green fill to match product-page Add to Cart ── */
+/* Specificity: (1,5,3) beats BZ Nadia hover rule (1,5,0) on element column */
+
+body #usersite-container section.cart-summary .checkout-action a.button.button-full.no-pjax {
+  background-color: #39ff14;
+  color: #000;
+  border: 2px solid #000;
+  border-radius: 4px;
+  font-family: Inter, sans-serif;
+  font-weight: 600;
+  text-transform: none;
+  padding: 16px 20px;
+  width: 100%;
+  display: block;
+  text-align: center;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+body #usersite-container section.cart-summary .checkout-action a.button.button-full.no-pjax:hover {
+  background-color: var(--color-accent-green-dark);
+  color: #000;
+}
+
+
+/* ── Continue shopping ── */
+
+#usersite-container section.cart-summary .cart-summary__footer a.small {
+  font-family: Inter, sans-serif;
+  font-size: 13px;
+  color: #a0a090;
+  text-decoration: underline;
+  display: block;
+  text-align: center;
+}
+
+#usersite-container section.cart-summary .cart-summary__footer a.small:hover {
+  color: #e8e8e0;
+}
