@@ -168,11 +168,11 @@
      8  Join the cult of the Pistoleros — even → #0f0f0f
    ============================================================ */
 
-.website-page-v0-merch-store #usersite-container moda-sections.zoogle-content > moda-section {
+.website-page-v0-merch-store moda-sections.zoogle-content > moda-section {
   position: relative;
 }
 
-.website-page-v0-merch-store #usersite-container moda-sections.zoogle-content > moda-section::before {
+.website-page-v0-merch-store moda-sections.zoogle-content > moda-section::before {
   content: '';
   position: absolute;
   top: 0;
@@ -184,15 +184,15 @@
   pointer-events: none;
 }
 
-.website-page-v0-merch-store #usersite-container moda-sections.zoogle-content > moda-section:nth-child(2n+1)::before {
+.website-page-v0-merch-store moda-sections.zoogle-content > moda-section:nth-child(2n+1)::before {
   background-color: #000000;
 }
 
-.website-page-v0-merch-store #usersite-container moda-sections.zoogle-content > moda-section:nth-child(2n)::before {
+.website-page-v0-merch-store moda-sections.zoogle-content > moda-section:nth-child(2n)::before {
   background-color: #0f0f0f;
 }
 
-.website-page-v0-merch-store #usersite-container moda-sections.zoogle-content > moda-section > * {
+.website-page-v0-merch-store moda-sections.zoogle-content > moda-section > * {
   position: relative;
   z-index: 0;
 }
