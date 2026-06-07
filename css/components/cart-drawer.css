@@ -96,6 +96,15 @@ body #usersite-container section.cart-summary {
 }
 
 
+/* ── Struck/old price ── */
+
+body #usersite-container section.cart-summary span.old-price {
+  color: #888;
+  text-decoration: line-through;
+  font-family: var(--font-body);
+}
+
+
 /* ── Subtotal ── */
 
 #usersite-container .cart-summary__subtotal {
