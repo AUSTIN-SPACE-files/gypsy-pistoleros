@@ -126,3 +126,60 @@
   color: #666;
   border-color: #333;
 }
+
+
+/* ── Cart button relabel (v0-cart-relabel) ── */
+
+/* Collapse native text nodes; price spans hidden — mirrored in .v0-price-line above */
+.not-intro-page #usersite-container button.button.add-to-cart.v0-cart-relabel {
+  font-size: 0;
+}
+
+.not-intro-page #usersite-container button.button.add-to-cart.v0-cart-relabel .sale-tag-text,
+.not-intro-page #usersite-container button.button.add-to-cart.v0-cart-relabel .old-price {
+  display: none;
+}
+
+.not-intro-page #usersite-container button.button.add-to-cart.v0-cart-relabel .v0-cart-label {
+  font-size: 16px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+
+/* ── Price line above the add-to-cart button ── */
+
+.v0-price-line {
+  text-align: left;
+  margin: 0 0 12px 0;
+  font-family: var(--font-body);
+}
+
+.v0-sale-tag {
+  color: #8b0000;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  margin-right: 8px;
+}
+
+.v0-old-price {
+  color: #888;
+  text-decoration: line-through;
+  margin-right: 8px;
+}
+
+.v0-now-price {
+  color: var(--color-text-primary);
+  font-weight: 700;
+}
+
+
+/* ── Remove card hairline + rounding on single-product card ── */
+
+.not-intro-page #usersite-container article.store.store-item.single-image.border-accent {
+  border: none;
+  border-radius: 0;
+}
