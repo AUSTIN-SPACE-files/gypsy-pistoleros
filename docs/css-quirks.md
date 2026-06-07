@@ -399,3 +399,107 @@ Lesson: `revert !important` is more aggressive than it looks. It hands cascade b
 ### Cross-component override placeholder
 
 No cross-component overrides were needed as of May 2026. If a future deployment surfaces one, add it directly to `section-rhythm.css` (for `#usersite-container`-scoped rules) or create a new component-adjacent file rather than using a monolithic overrides file.
+
+---
+
+## Single-product pages (.website-page-single-feature)
+
+- Product pages use a DISTINCT wrapper from the merch store: `.website-page-single-feature`,
+  NOT `.website-page-v0-merch-store`. Styling applies to ALL product pages site-wide; drive
+  off generic selectors (`select[name^="cart_item[option_"]`, `.add-to-cart`), not per-product.
+
+- **IMPORTANT — product-page card scoping:** BZ gives the product-page card
+  `article.store.store-item` with EITHER `.single-image` OR `.multiple-images` depending on how
+  many photos the product has. Do NOT scope product-page-only effects to `.single-image` —
+  that misses every multi-photo product. The correct discriminator is the single-product
+  WRAPPER: `.single-store-item` (also `.store-layout-list` / `.store_item_feature`), present on
+  product pages only. Merch grid cards use `.store-layout-grid` / `.store-wrapper` instead.
+
+  To kill the hover bounce + card hairline on ALL product pages while keeping the merch
+  grid bounce:
+  ```css
+  #usersite-container .single-store-item article.store.store-item:hover { transform: none; }
+  #usersite-container .single-store-item article.store.store-item { border: none; border-radius: 0; }
+  ```
+  Specificity (1,2,1)+el beats the generic grid rule `article.store.store-item:hover` (0,3,0)
+  because the single ID outranks the class column; no `!important` needed.
+
+- The generic merch-grid bounce is `article.store.store-item:hover { transform: translateY(-3px) }`.
+  Its selector is broad enough to also match product-page cards — hence the wrapper scoping
+  above is required to exclude them.
+
+---
+
+## BZ add-to-cart button — background-color specificity fight
+
+BZ's Nadia theme sets the button background via two rules:
+
+```css
+/* base (1,3,0) */
+.not-intro-page #usersite-container .button:not(.button-secondary) {
+  background-color: var(--button-color);
+  color: hsla(var(--button-accessible-font-color-hsl), .8);
+}
+/* hover (1,5,0) */
+.no-touchevents .not-intro-page #usersite-container .button:not(.button-secondary):hover {
+  background-color: var(--button-hover-color);
+  color: ...;
+}
+```
+
+Both set the **longhand** `background-color` (not the shorthand `background`). Shorthand rules
+in our bundle did not override them even at equal or higher specificity because longhand always
+wins over shorthand at equal specificity.
+
+**Fix:** use the `background-color` longhand in our button rules. Prefix the base rule to
+reach (1,4,1)+ and the hover rule with `.no-touchevents` to reach (1,5,3)+, beating BZ on the
+element column tiebreak.
+
+**Diagnostic note:** BZ's theme `<link>` is cross-origin (CORS-opaque); `.cssRules` throws in
+JS. Diagnose via `getComputedStyle` on the element, inline `style` attribute probes, and
+zoomed screenshots — not CSSOM.
+
+---
+
+## BZ cart drawer (section.cart-summary)
+
+### Panel background
+
+BZ locks the cart-summary background with a double-ID + `!important` rule:
+
+```css
+#usersite-container .cart-summary#cart-summary {
+  background-color: var(--section-background-color) !important;
+}
+```
+
+Specificity: (2,1,0) with `!important`. A plain `body #usersite-container section.cart-summary`
+rule (1,2,2) loses because it is not `!important`.
+
+**Fix:** match the double-ID pattern and add one extra element to win the specificity tiebreak:
+
+```css
+#usersite-container section.cart-summary#cart-summary {
+  background-color: #0f0f0f !important;  /* (2,1,1) beats BZ's (2,1,0) */
+}
+```
+
+Within the `!important` layer, specificity decides; our (2,1,1) beats (2,1,0) on the element
+column.
+
+### Qty select appearance and the "revert to 1" non-bug
+
+`appearance: none` + a data-URI SVG chevron on the cart qty `<select>` is safe and does not
+interfere with BZ's quantity-change handler. A cart item appearing to "revert to 1" on quantity
+change is BZ **clamping quantity to available stock** — a 1-stock item cannot be set to 2. This
+is correct behaviour, not a styling regression.
+
+### Checkout button specificity
+
+BZ's Nadia hover rule for buttons reaches (1,5,0) inside the cart drawer. Use:
+
+```css
+body #usersite-container section.cart-summary .checkout-action a.button.button-full.no-pjax:hover
+```
+
+This is (1,5,3) — beats (1,5,0) on the element column. Use `background-color` longhand.

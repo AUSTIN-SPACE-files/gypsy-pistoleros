@@ -152,3 +152,68 @@ Architectural learnings (now in docs/css-quirks.md):
 - Cross-file CSS dependencies exist between pages —
   .section-live lives in press-kit.css but used by shows.html
   (Pass 8a; documented but not refactored — flagged for future)
+
+
+### Product page + cart drawer Pass XZ (June 2026) — production-ready
+
+Full v0 pass on the single-product page (.website-page-single-feature)
+and the site-wide cart slide-out drawer (section.cart-summary). Cart
+submission verified end-to-end with a real order.
+
+Product page work:
+- Size-button row: native BZ <select> hidden (visually offscreen, kept
+  live for Stimulus controllers), replaced with a JS-injected row of
+  .v0-size-btn squares (48x48px, inline-flex centred). Buttons dispatch
+  synthetic change events on the hidden select to keep the three Stimulus
+  controllers (variations-options, variations-price, inventory-form) firing.
+- Add-to-cart button: specificity fight against BZ Nadia's
+  .not-intro-page #usersite-container .button:not(.button-secondary) (1,3,0)
+  and its hover variant (1,5,0). Won by using background-COLOR longhand +
+  .not-intro-page/.no-touchevents prefix chain. Button: green #39ff14 resting,
+  #2dcc10 dark-green hover — matches system wa-button[variant="neutral"] pattern.
+- Button relabelled "Add to Cart" via a JS-injected .v0-cart-label span as
+  first child; CSS font-size:0 on the button collapses BZ's native text nodes
+  while keeping all Stimulus-managed price nodes intact in the DOM. Price
+  (old-price + current price) mirrored above the button in a .v0-price-line
+  div, kept live via select change listener + MutationObserver on the button
+  subtree.
+- Sale badge on product image restyled to match the merch grid badge (red fill,
+  --color-accent-red-bright border, Inter, top/right 8px).
+- Card hover bounce and hairline border suppressed. Initial attempt scoped to
+  .single-image — WRONG; multi-photo products use .multiple-images and still
+  bounced. Corrected by scoping to the single-product WRAPPER .single-store-item,
+  which is present on all product pages and absent on the merch grid. This is
+  the canonical discriminator for product-page-only card effects.
+
+Cart drawer work:
+- New file css/components/cart-drawer.css added to bundle.
+- Panel background: BZ locks it with #usersite-container .cart-summary#cart-summary
+  { background-color !important } (2,1,0) — a double-ID + !important rule.
+  Override uses #usersite-container section.cart-summary#cart-summary (2,1,1)
+  with !important; the element tiebreak wins within the !important layer.
+  Final colour: #0f0f0f (matches merch-store lighter band / --color-bg-elevated).
+- Heading: Georgia, #e8e8e0, text-transform:none. Close X: #e8e8e0 / green hover.
+- Item title: Georgia, text-transform:none (BZ forces uppercase), #e8e8e0, 600.
+- Item row: border softened to rgba(255,255,255,0.08) bottom-only.
+- Remove link: Inter 12px, #a0a090, hover blood-red #8b0000 (reads as destructive).
+- Qty select: appearance:none, data-URI SVG chevron (stroke #e8e8e0), black fill,
+  rgba(255,255,255,0.2) border, green border on hover/focus.
+- Struck/old price: #888 Inter, matching product page treatment.
+- Checkout button: green #39ff14 fill matching Add to Cart. Specificity fight won
+  with body #usersite-container section.cart-summary .checkout-action a.button...
+  (1,5,3) beating BZ Nadia hover (1,5,0) on the element column.
+- Continue shopping: Inter 13px, #a0a090, underline, centred, hover #e8e8e0.
+
+Non-bug caught: qty select appearing to "revert to 1" on quantity change is BZ
+clamping to available stock — a 1-stock item cannot be set to 2. Correct behaviour,
+not a styling regression. appearance:none on the select is safe.
+
+Architectural learnings (now in docs/css-quirks.md):
+- Product-page card discriminator is .single-store-item wrapper, NOT .single-image
+  class — .single-image misses multi-photo products
+- BZ double-ID + !important panel background requires matching !important with one
+  extra element for the tiebreak
+- BZ button background-color is longhand; shorthand in our rules does not override
+  it even at equal specificity — always use background-color longhand for buttons
+- CORS-opaque BZ <link> means .cssRules throws — diagnose via getComputedStyle,
+  inline style probes, and screenshots
