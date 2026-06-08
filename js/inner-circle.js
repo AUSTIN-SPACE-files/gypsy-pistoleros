@@ -52,9 +52,19 @@
 
   /* =====================================================
      GUARD — exit on every page except the inner-circle page
+
+     BZ renders moda-sections.zoogle-content THREE times on this page:
+       [0] inside #site-wide-header  — EMPTY, matched first by querySelector
+       [1] inside #page-content-wrap — the real content (gallery + blog)
+       [2] inside #site-wide-footer  — footer content
+     Anchoring to #page-content-wrap first avoids the wrong-host trap.
   ===================================================== */
 
-  var pageHost = document.querySelector('moda-sections.zoogle-content');
+  var contentWrap = document.getElementById('page-content-wrap');
+  if (!contentWrap) return;
+
+  var pageHost = contentWrap.querySelector(':scope > moda-sections.zoogle-content')
+              || contentWrap.querySelector('moda-sections.zoogle-content');
   if (!pageHost) return;
 
   /* Scaffold element — set in boot step 2, consumed in populate() */
@@ -421,14 +431,9 @@
       group = buildScaffold();
       group.style.display = 'none'; /* hidden until populate() reveals it */
 
-      var insertionParent = document.getElementById('page-content-wrap')
-                         || pageHost.parentElement;
-      if (!insertionParent) {
-        console.warn('[inner-circle.js] Insertion parent (#page-content-wrap) not found — aborting.');
-        return;
-      }
-      insertionParent.appendChild(group);
-      /* Confirm: group.parentElement === insertionParent (not pageHost) */
+      /* contentWrap is already verified at module load — use it directly */
+      contentWrap.appendChild(group);
+      /* Confirm: group.parentElement === contentWrap (sibling of pageHost, not inside it) */
 
       /* ---- Step 3: await WA definitions, then populate ---- */
       withTimeout(
