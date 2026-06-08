@@ -43,6 +43,8 @@
 (function () {
   'use strict';
 
+  console.log('[inner-circle] script start', document.readyState);
+
   /* =====================================================
      CONSTANTS
   ===================================================== */
@@ -381,6 +383,7 @@
 
     /* Reveal scaffold — was hidden during load gap */
     group.style.display = '';
+    console.log('[inner-circle] populate done');
   }
 
   /* =====================================================
@@ -394,16 +397,14 @@
     });
   }
 
-  function withTimeout(promise, ms) {
+  function waDefinedOrTimeout(ms) {
     return Promise.race([
-      promise,
-      new Promise(function (_, reject) {
-        setTimeout(function () {
-          reject(new Error(
-            'WA tab components failed to define within ' + ms + 'ms' +
-            ' — inner-circle panels not populated'
-          ));
-        }, ms);
+      Promise.all([
+        customElements.whenDefined('wa-tab-group'),
+        customElements.whenDefined('wa-tab-panel')
+      ]).then(function () { return 'defined'; }),
+      new Promise(function (resolve) {
+        setTimeout(function () { resolve('timeout'); }, ms);
       })
     ]);
   }
@@ -417,39 +418,43 @@
   ===================================================== */
 
   windowLoadPromise().then(function () {
+    console.log('[inner-circle] window load reached');
     requestAnimationFrame(function () {
+      try {
 
-      /* ---- Step 1: snapshot BEFORE any DOM mutation ---- */
-      var rawSections = Array.from(pageHost.querySelectorAll(':scope > moda-section'));
-      if (rawSections.length === 0) {
-        console.warn('[inner-circle.js] No moda-section children found — aborting.');
-        return;
-      }
-      var sources = identifySources(rawSections);
+        /* ---- Step 1: snapshot BEFORE any DOM mutation ---- */
+        var rawSections = Array.from(pageHost.querySelectorAll(':scope > moda-section'));
+        if (rawSections.length === 0) {
+          console.warn('[inner-circle] No moda-section children found — aborting.');
+          return;
+        }
+        var sources = identifySources(rawSections);
 
-      /* ---- Step 2: build + inject scaffold as sibling of moda-sections ---- */
-      group = buildScaffold();
-      group.style.display = 'none'; /* hidden until populate() reveals it */
+        /* ---- Step 2: build + inject scaffold (autoloader trigger) ---- */
+        group = buildScaffold();
+        group.style.display = 'none'; /* hidden until populate() reveals it */
+        contentWrap.appendChild(group);
+        console.log('[inner-circle] scaffold appended');
 
-      /* contentWrap is already verified at module load — use it directly */
-      contentWrap.appendChild(group);
-      /* Confirm: group.parentElement === contentWrap (sibling of pageHost, not inside it) */
-
-      /* ---- Step 3: await WA definitions, then populate ---- */
-      withTimeout(
-        Promise.all([
-          customElements.whenDefined('wa-tab-group'),
-          customElements.whenDefined('wa-tab-panel')
-        ]),
-        WA_TIMEOUT_MS
-      ).then(function () {
-        requestAnimationFrame(function () {
-          populate(sources);
+        /* ---- Step 3: await WA definitions AFTER scaffold is in DOM ---- */
+        waDefinedOrTimeout(WA_TIMEOUT_MS).then(function (result) {
+          if (result === 'timeout') {
+            console.warn('[inner-circle] components timed out — populating anyway');
+          } else {
+            console.log('[inner-circle] components defined');
+          }
+          requestAnimationFrame(function () {
+            try {
+              populate(sources);
+            } catch (err) {
+              console.error('[inner-circle] populate threw', err);
+            }
+          });
         });
-      }).catch(function (err) {
-        console.warn('[inner-circle.js]', err.message);
-      });
 
+      } catch (err) {
+        console.error('[inner-circle] init threw', err);
+      }
     });
   });
 
