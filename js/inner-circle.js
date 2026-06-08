@@ -43,6 +43,30 @@
 (function () {
   'use strict';
 
+  /* =====================================================
+     PAGE GUARD — URL (primary discriminator)
+
+     Run ONLY on the blog index page. Post-detail pages share the
+     same #page-content-wrap + moda-sections structure so the DOM
+     guard below is not enough on its own.
+
+     INDEX_PATHS: exact index slugs (trailing slash stripped).
+     *** UPDATE THIS LIST at production cutover ***
+     e.g. add '/inner-circle', '/members', or whatever the live slug is.
+
+     isPostDetail: /blog/<numeric-id>/... — matches post URLs even
+     when the index slug is '/blog', blocking those before indexOf().
+  ===================================================== */
+
+  var _path         = location.pathname.replace(/\/+$/, '');
+  var _isPostDetail = /\/blog\/\d+\//.test(location.pathname);
+  /* NOTE: one-place update for production cutover — add the live slug here */
+  var _INDEX_PATHS  = ['/v0-blog-draft', '/blog'];
+  if (_isPostDetail || _INDEX_PATHS.indexOf(_path) === -1) {
+    console.log('[inner-circle] not blog index, skipping');
+    return;
+  }
+
   console.log('[inner-circle] script start', document.readyState);
 
   /* =====================================================
@@ -53,7 +77,9 @@
   var WA_TIMEOUT_MS = 5000;
 
   /* =====================================================
-     GUARD — exit on every page except the inner-circle page
+     DOM GUARD — exit if BZ hasn't rendered the expected wrapper
+     (URL guard above is the primary gatekeeper; this is structural
+     defence for pages that somehow share the same slug pattern)
 
      BZ renders moda-sections.zoogle-content THREE times on this page:
        [0] inside #site-wide-header  — EMPTY, matched first by querySelector
@@ -437,6 +463,17 @@
       }
       var sources = identifySources(rawSections);
       console.log('[inner-circle] sources identified');
+
+      /* Secondary structural safety net (belt-and-braces, post URL guard).
+         A post-detail page carries a "Back to all posts" link in its content.
+         If one is found, this is not the index — bail before any DOM mutation. */
+      var _allLinks = pageHost.querySelectorAll('a');
+      for (var _li = 0; _li < _allLinks.length; _li++) {
+        if (_allLinks[_li].textContent.trim() === 'Back to all posts') {
+          console.warn('[inner-circle] post-detail detected by structure — skipping.');
+          return;
+        }
+      }
 
       /* ---- Step 2: build + inject scaffold (autoloader trigger) ---- */
       group = buildScaffold();
