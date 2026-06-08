@@ -390,13 +390,6 @@
      BOOT UTILITIES
   ===================================================== */
 
-  function windowLoadPromise() {
-    return new Promise(function (resolve) {
-      if (document.readyState === 'complete') resolve();
-      else window.addEventListener('load', resolve, { once: true });
-    });
-  }
-
   function waDefinedOrTimeout(ms) {
     return Promise.race([
       Promise.all([
@@ -411,51 +404,68 @@
 
   /* =====================================================
      BOOT SEQUENCE
-     Step 1 (window.load + rAF): snapshot sources from untouched DOM.
-     Step 2: build scaffold; inject as SIBLING of moda-sections into
-       #page-content-wrap (never inside the scanned container).
-     Step 3 (whenDefined + rAF): populate panels with snapshotted sources.
+     start() runs synchronously once window is complete.
+     No rAF gates scaffold injection — rAF in backgrounded
+     tabs is throttled/paused and would silently stall init.
+
+     Step 1: snapshot sources from untouched DOM.
+     Step 2: build scaffold + inject immediately (autoloader trigger).
+     Step 3 (waDefinedOrTimeout): populate panels; rAF only here,
+       after scaffold is in DOM and components are (or will be) defined.
   ===================================================== */
 
-  windowLoadPromise().then(function () {
+  function start() {
     console.log('[inner-circle] window load reached');
-    requestAnimationFrame(function () {
-      try {
+    console.log('[inner-circle] post-load body entered');
+    try {
 
-        /* ---- Step 1: snapshot BEFORE any DOM mutation ---- */
-        var rawSections = Array.from(pageHost.querySelectorAll(':scope > moda-section'));
-        if (rawSections.length === 0) {
-          console.warn('[inner-circle] No moda-section children found — aborting.');
-          return;
-        }
-        var sources = identifySources(rawSections);
+      /* ---- host check ---- */
+      console.log('[inner-circle] host resolved', !!pageHost);
 
-        /* ---- Step 2: build + inject scaffold (autoloader trigger) ---- */
-        group = buildScaffold();
-        group.style.display = 'none'; /* hidden until populate() reveals it */
-        contentWrap.appendChild(group);
-        console.log('[inner-circle] scaffold appended');
-
-        /* ---- Step 3: await WA definitions AFTER scaffold is in DOM ---- */
-        waDefinedOrTimeout(WA_TIMEOUT_MS).then(function (result) {
-          if (result === 'timeout') {
-            console.warn('[inner-circle] components timed out — populating anyway');
-          } else {
-            console.log('[inner-circle] components defined');
-          }
-          requestAnimationFrame(function () {
-            try {
-              populate(sources);
-            } catch (err) {
-              console.error('[inner-circle] populate threw', err);
-            }
-          });
-        });
-
-      } catch (err) {
-        console.error('[inner-circle] init threw', err);
+      /* ---- Step 1: snapshot BEFORE any DOM mutation ---- */
+      var rawSections = Array.from(pageHost.querySelectorAll(':scope > moda-section'));
+      console.log('[inner-circle] sources snapshotted', rawSections.length);
+      if (rawSections.length === 0) {
+        console.warn('[inner-circle] No moda-section children found — aborting.');
+        return;
       }
-    });
-  });
+      var sources = identifySources(rawSections);
+      console.log('[inner-circle] sources identified');
+
+      /* ---- Step 2: build + inject scaffold (autoloader trigger) ---- */
+      group = buildScaffold();
+      group.style.display = 'none'; /* hidden until populate() reveals it */
+      console.log('[inner-circle] about to append scaffold');
+      contentWrap.appendChild(group);
+      console.log('[inner-circle] scaffold appended');
+
+      /* ---- Step 3: await WA definitions AFTER scaffold is in DOM ---- */
+      waDefinedOrTimeout(WA_TIMEOUT_MS).then(function (result) {
+        if (result === 'timeout') {
+          console.warn('[inner-circle] components timed out — populating anyway');
+        } else {
+          console.log('[inner-circle] components defined');
+        }
+        requestAnimationFrame(function () {
+          try {
+            populate(sources);
+          } catch (err) {
+            console.error('[inner-circle] populate threw', err);
+          }
+        });
+      });
+
+    } catch (err) {
+      console.error('[inner-circle] init threw', err);
+    }
+  }
+
+  /* F: explicit complete-branch — no 'load' listener that never fires
+     on fast/cached reloads where readyState is already 'complete'. */
+  if (document.readyState === 'complete') {
+    start();
+  } else {
+    window.addEventListener('load', start, { once: true });
+  }
 
 }());
