@@ -445,10 +445,6 @@
       contentWrap.appendChild(group);
       console.log('[inner-circle] scaffold appended');
 
-      /* Set Images as default active tab before components upgrade */
-      var defaultTab = group.querySelector('wa-tab[panel="images"]');
-      if (defaultTab) defaultTab.setAttribute('active', '');
-
       /* ---- Step 3: await WA definitions AFTER scaffold is in DOM ---- */
       var waResult = await waDefinedOrTimeout(WA_TIMEOUT_MS);
       if (waResult === 'timeout') {
@@ -457,8 +453,36 @@
         console.log('[inner-circle] components defined');
       }
 
+      /* BUG 1 FIX: WA 3.x derives the shown panel from the `active` attribute
+         on the wa-tab-group element (value = panel name), NOT from active on a
+         child wa-tab. Set it here, after components are upgraded. */
+      group.setAttribute('active', 'images');
+
       /* ---- Step 4: populate panels — throw surfaces to this catch ---- */
       populate(sources);
+
+      /* BUG 2 FIX (Option A): BZ's masonry controller laid out the blog posts
+         at width 0 because the Videos panel was display:none at load time.
+         Dispatch a synthetic resize when the Videos panel first becomes visible
+         so masonry recalculates against its actual rendered width.
+         Option B fallback: strip masonry inline styles and apply a CSS grid
+         (same philosophy as the gallery rebuild) — use if resize proves unreliable.
+         WA 3.x event: 'wa-tab-show' on the tab-group, detail.name = panel name. */
+      group.addEventListener('wa-tab-show', function (e) {
+        if (e.detail && e.detail.name === 'videos') {
+          requestAnimationFrame(function () {
+            window.dispatchEvent(new Event('resize'));
+            console.log('[inner-circle] videos panel shown, resize dispatched');
+          });
+        }
+      });
+
+      /* Belt-and-braces: one resize on the next paint after Images becomes
+         active, so any layout engine watching the default panel is current. */
+      requestAnimationFrame(function () {
+        window.dispatchEvent(new Event('resize'));
+      });
+
       console.log('[inner-circle] populate done');
 
     } catch (err) {
