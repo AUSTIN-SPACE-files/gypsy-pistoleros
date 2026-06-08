@@ -335,6 +335,7 @@
   ===================================================== */
 
   function populate(sources) {
+    console.log('[inner-circle] populate: start');
     var welcomePanel = group.querySelector('wa-tab-panel[name="welcome"]');
     var imagesPanel  = group.querySelector('wa-tab-panel[name="images"]');
     var videosPanel  = group.querySelector('wa-tab-panel[name="videos"]');
@@ -343,14 +344,16 @@
     if (sources.welcome) {
       welcomePanel.appendChild(sources.welcome);
     } else {
-      console.warn('[inner-circle.js] Welcome source not found — Welcome panel empty.');
+      console.warn('[inner-circle] Welcome source not found — Welcome panel empty.');
     }
+    console.log('[inner-circle] populate: welcome done');
 
     /* Images */
     if (sources.gallery) {
       var features = sources.gallery.querySelectorAll('section.feature.gallery_feature');
+      console.log('[inner-circle] populate: gallery extract start', features.length);
       if (features.length === 0) {
-        console.warn('[inner-circle.js] 0 gallery_feature sections found in gallery source.');
+        console.warn('[inner-circle] 0 gallery_feature sections in gallery source.');
       }
       for (var i = 0; i < features.length; i++) {
         var album   = extractAlbum(features[i]);
@@ -360,10 +363,12 @@
         imagesPanel.appendChild(preview);
         imagesPanel.appendChild(dialog);
         wireDialog(dialog);
+        console.log('[inner-circle] populate: gallery', i, 'built');
       }
       sources.gallery.remove();
+      console.log('[inner-circle] populate: gallery removed');
     } else {
-      console.warn('[inner-circle.js] Gallery source not found — Images panel empty.');
+      console.warn('[inner-circle] Gallery source not found — Images panel empty.');
     }
 
     wireImagesPanel(imagesPanel);
@@ -371,19 +376,13 @@
     /* Video Updates */
     if (sources.blog) {
       videosPanel.appendChild(sources.blog);
+      console.log('[inner-circle] populate: blog moved');
     } else {
-      console.warn('[inner-circle.js] Blog source not found — Video Updates panel empty.');
-    }
-
-    /* Default active tab: Images if Welcome is absent */
-    if (!sources.welcome) {
-      var imagesTab = group.querySelector('wa-tab[panel="images"]');
-      if (imagesTab) imagesTab.setAttribute('active', '');
+      console.warn('[inner-circle] Blog source not found — Video Updates panel empty.');
     }
 
     /* Reveal scaffold — was hidden during load gap */
     group.style.display = '';
-    console.log('[inner-circle] populate done');
   }
 
   /* =====================================================
@@ -404,17 +403,24 @@
 
   /* =====================================================
      BOOT SEQUENCE
-     start() runs synchronously once window is complete.
-     No rAF gates scaffold injection — rAF in backgrounded
-     tabs is throttled/paused and would silently stall init.
+     async start() keeps snapshot → inject → await WA → populate
+     all inside ONE try/catch. A bare .then() callback is outside
+     any sync try/catch — throws inside it become unhandled
+     rejections. async/await surfaces them to the catch block.
 
      Step 1: snapshot sources from untouched DOM.
      Step 2: build scaffold + inject immediately (autoloader trigger).
-     Step 3 (waDefinedOrTimeout): populate panels; rAF only here,
-       after scaffold is in DOM and components are (or will be) defined.
+             Set Images as default active tab.
+     Step 3: await waDefinedOrTimeout — always resolves.
+     Step 4: populate() — synchronous; any throw caught here.
   ===================================================== */
 
-  function start() {
+  /* Safety net for any rejection that escapes the try/catch */
+  window.addEventListener('unhandledrejection', function (e) {
+    console.error('[inner-circle] unhandled rejection', e.reason);
+  });
+
+  async function start() {
     console.log('[inner-circle] window load reached');
     console.log('[inner-circle] post-load body entered');
     try {
@@ -439,28 +445,28 @@
       contentWrap.appendChild(group);
       console.log('[inner-circle] scaffold appended');
 
+      /* Set Images as default active tab before components upgrade */
+      var defaultTab = group.querySelector('wa-tab[panel="images"]');
+      if (defaultTab) defaultTab.setAttribute('active', '');
+
       /* ---- Step 3: await WA definitions AFTER scaffold is in DOM ---- */
-      waDefinedOrTimeout(WA_TIMEOUT_MS).then(function (result) {
-        if (result === 'timeout') {
-          console.warn('[inner-circle] components timed out — populating anyway');
-        } else {
-          console.log('[inner-circle] components defined');
-        }
-        requestAnimationFrame(function () {
-          try {
-            populate(sources);
-          } catch (err) {
-            console.error('[inner-circle] populate threw', err);
-          }
-        });
-      });
+      var waResult = await waDefinedOrTimeout(WA_TIMEOUT_MS);
+      if (waResult === 'timeout') {
+        console.warn('[inner-circle] components timed out — populating anyway');
+      } else {
+        console.log('[inner-circle] components defined');
+      }
+
+      /* ---- Step 4: populate panels — throw surfaces to this catch ---- */
+      populate(sources);
+      console.log('[inner-circle] populate done');
 
     } catch (err) {
       console.error('[inner-circle] init threw', err);
     }
   }
 
-  /* F: explicit complete-branch — no 'load' listener that never fires
+  /* Explicit complete-branch — no 'load' listener that never fires
      on fast/cached reloads where readyState is already 'complete'. */
   if (document.readyState === 'complete') {
     start();
