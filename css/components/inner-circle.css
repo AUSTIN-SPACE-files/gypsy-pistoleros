@@ -219,6 +219,17 @@
   --width: min(92vw, 900px);
 }
 
+#usersite-container .ic-gallery-dialog::part(header) {
+  padding: 1rem 1.5rem 0.5rem;
+}
+
+#usersite-container .ic-gallery-dialog::part(title) {
+  font-family: 'Georgia', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0a0a0a;
+}
+
 /* Dialog grid: all album images, auto-sized columns */
 .ic-dialog-grid {
   display: grid;
