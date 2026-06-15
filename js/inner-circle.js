@@ -485,8 +485,12 @@
 
       /* BUG 1 FIX: WA 3.x derives the shown panel from the `active` attribute
          on the wa-tab-group element (value = panel name), NOT from active on a
-         child wa-tab. Set it here, after components are upgraded. */
-      group.setAttribute('active', 'images');
+         child wa-tab. Set it here, after components are upgraded.
+         If ?p= is present the user arrived via a blog pagination link — open
+         Videos directly so they land on the correct panel. */
+      var _params     = new URLSearchParams(window.location.search);
+      var _defaultTab = _params.has('p') ? 'videos' : 'images';
+      group.setAttribute('active', _defaultTab);
 
       /* ---- Step 4: populate panels — throw surfaces to this catch ---- */
       populate(sources);
