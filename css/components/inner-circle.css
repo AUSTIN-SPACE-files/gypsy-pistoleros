@@ -296,7 +296,7 @@ wa-tab[slot="nav"]:focus-visible::part(base) {
 
 /* Post meta header */
 #usersite-container #ic-panel-videos header.meta {
-  padding: 0.75rem 1rem 0 !important;
+  padding: 0.75rem 1rem 0.25rem !important;
 }
 
 #usersite-container #ic-panel-videos p.post-info {
@@ -360,23 +360,12 @@ wa-tab[slot="nav"]:focus-visible::part(base) {
   -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  padding: 0 1rem 0 !important;
-  max-height: calc(5 * 1.6 * 13px);
+  padding: 0 1rem 0.5rem;
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
   font-size: 13px;
   color: #a0a090;
   line-height: 1.6;
   flex: 1 !important;
-}
-
-/* Zero BZ's global p margin/font rules inside excerpt */
-#usersite-container #ic-panel-videos .message p {
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
-  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif !important;
-  font-size: 13px !important;
-  line-height: 1.6 !important;
-  color: #a0a090;
 }
 
 /* Hide BZ's native "Read more" anchor inside .message; our ::after handles it */
