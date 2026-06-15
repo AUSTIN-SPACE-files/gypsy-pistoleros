@@ -24,18 +24,27 @@
   width: 100%;
   margin: 0 0 var(--space-16);
   margin-top: 0 !important;
+  /* WA 3.x custom properties — verified names from docs */
+  --indicator-color: #e8e8e0;
+  --track-color: rgba(255, 255, 255, 0.12);
+  --track-width: 1px;
 }
 
 
 /* ---- Inner Circle: tab nav — minimal text list (Option A) ---- */
 
-/* No border, no hairline — green text is the only active signal */
+/* Nav container — no extra border; WA's ::part(tabs) track handles the line */
 #usersite-container #ic-tabs::part(nav) {
   border-right: none;
   border-bottom: none;
   background: transparent;
   padding: 1rem 0;
   gap: 0;
+}
+
+/* WA's internal tab-strip track — subtle white hairline */
+#usersite-container #ic-tabs::part(tabs) {
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 /* Tab host element */
@@ -69,9 +78,9 @@
   background: transparent;
 }
 
-/* Active tab — neon green text only */
+/* Active tab — off-white text; WA's --indicator-color handles the track bar */
 #usersite-container #ic-tabs wa-tab[active]::part(base) {
-  color: #39ff14;
+  color: #e8e8e0;
   border: none;
   background: transparent;
 }
@@ -499,9 +508,13 @@
 @media (max-width: 899px) {
   #usersite-container #ic-tabs::part(nav) {
     border-right: none;
-    border-bottom: 1px solid rgba(57, 255, 20, 0.15);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
     overflow-x: auto;
     padding: 0;
+  }
+
+  #usersite-container #ic-tabs::part(tabs) {
+    border-right: none;
   }
 
   #usersite-container #ic-tabs wa-tab::part(base) {
@@ -511,7 +524,7 @@
   }
 
   #usersite-container #ic-tabs wa-tab[active]::part(base) {
-    color: #39ff14;
+    color: #e8e8e0;
     border: none;
   }
 }
