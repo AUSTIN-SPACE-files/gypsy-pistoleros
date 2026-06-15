@@ -232,12 +232,6 @@
 
     var lb = document.createElement('div');
     lb.className = 'ic-lightbox';
-    lb.hidden    = true;
-    var backBtn       = document.createElement('button');
-    backBtn.type      = 'button';
-    backBtn.className = 'ic-lightbox-back';
-    backBtn.textContent = '← Back to gallery';
-    lb.appendChild(backBtn);
     var lbImg       = document.createElement('img');
     lbImg.className = 'ic-lightbox-img';
     lbImg.src       = '';
@@ -254,8 +248,6 @@
 
   function wireDialog(dialog) {
     var gridEl   = dialog.querySelector('.ic-dialog-grid');
-    var lb       = dialog.querySelector('.ic-lightbox');
-    var backBtn  = dialog.querySelector('.ic-lightbox-back');
     var lbImg    = dialog.querySelector('.ic-lightbox-img');
 
     gridEl.addEventListener('click', function (e) {
@@ -263,20 +255,10 @@
       if (!thumb) return;
       lbImg.src = thumb.dataset.full;
       lbImg.alt = thumb.dataset.alt || '';
-      gridEl.hidden = true;
-      lb.hidden     = false;
-    });
-
-    backBtn.addEventListener('click', function () {
-      lb.hidden     = true;
-      gridEl.hidden = false;
-      lbImg.src     = '';
     });
 
     dialog.addEventListener('wa-after-hide', function () {
-      lb.hidden     = true;
-      gridEl.hidden = false;
-      lbImg.src     = '';
+      lbImg.src = '';
     });
   }
 
@@ -293,18 +275,12 @@
       var dialog   = document.getElementById(dialogId);
       if (!dialog) return;
 
-      var gridEl = dialog.querySelector('.ic-dialog-grid');
-      var lb     = dialog.querySelector('.ic-lightbox');
       var lbImg  = dialog.querySelector('.ic-lightbox-img');
-      if (gridEl) gridEl.hidden = false;
-      if (lb)     lb.hidden = true;
       if (lbImg)  lbImg.src = '';
 
       dialog.show();
 
       if (trigger.dataset.enlarge && trigger.dataset.full) {
-        if (gridEl) gridEl.hidden = true;
-        if (lb)     lb.hidden = false;
         if (lbImg) {
           lbImg.src = trigger.dataset.full;
           lbImg.alt = trigger.dataset.alt || '';
