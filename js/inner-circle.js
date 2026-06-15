@@ -331,7 +331,7 @@
 
   function buildScaffold() {
     var g = document.createElement('wa-tab-group');
-    g.setAttribute('placement', 'start');
+    g.setAttribute('placement', 'top');
     g.id        = 'ic-tabs';
     g.className = 'ic-tab-group';
 
