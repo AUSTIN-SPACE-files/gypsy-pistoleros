@@ -317,9 +317,9 @@ wa-tab[slot="nav"]:focus-visible::part(base) {
   margin: 0;
   text-transform: none;
   letter-spacing: normal;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
 }
 
 #usersite-container #ic-panel-videos h2.heading-blog a {
@@ -347,26 +347,23 @@ wa-tab[slot="nav"]:focus-visible::part(base) {
 }
 
 #usersite-container #ic-panel-videos .post {
-  display: flex;
+  display: flex !important;
   flex-direction: column;
   flex: 1;
 }
 
+/* Excerpt — consolidates two prior .message rules; !important beats BZ's flow-root and flex:0 */
 #usersite-container #ic-panel-videos .message {
-  flex: 1;
-}
-
-/* Excerpt — !important on display overrides BZ's display:flow-root on .message */
-#usersite-container #ic-panel-videos .message {
+  display: -webkit-box !important;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
   padding: 0 1rem 0.5rem;
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
   font-size: 13px;
   color: #a0a090;
   line-height: 1.6;
-  display: -webkit-box !important;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  flex: 1 !important;
 }
 
 /* Read more link — force visibility; BZ adds pdf__hide which sets display:none */
@@ -388,6 +385,26 @@ wa-tab[slot="nav"]:focus-visible::part(base) {
 
 #usersite-container #ic-panel-videos a.read-more.pdf__hide {
   display: block !important;
+}
+
+/* CSS-only read-more cue — BZ grid mode does not render a.read-more in the DOM */
+#usersite-container #ic-panel-videos article.post {
+  cursor: pointer;
+}
+
+#usersite-container #ic-panel-videos article.post::after {
+  content: 'Read more \2192';
+  display: block;
+  padding: 0.5rem 1rem 1rem;
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 11px;
+  color: #39ff14;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+#usersite-container #ic-panel-videos article.post:hover::after {
+  color: #e8e8e0;
 }
 
 
