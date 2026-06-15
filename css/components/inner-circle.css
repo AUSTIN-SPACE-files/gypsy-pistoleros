@@ -108,11 +108,11 @@ wa-tab[slot="nav"]:focus-visible::part(base) {
 }
 
 
-/* ---- Preview grid: 3 columns × 2 rows at desktop ---- */
+/* ---- Preview grid: 4 columns × 2 rows at desktop ---- */
 
 .ic-preview-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: var(--space-2);
 }
 
