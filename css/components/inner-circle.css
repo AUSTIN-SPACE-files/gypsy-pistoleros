@@ -306,16 +306,26 @@ wa-tab[slot="nav"]:focus-visible::part(base) {
   margin: 0 0 0.4rem;
 }
 
-/* Post title — override BZ's 40px Georgia */
-#ic-panel-videos h2.heading-blog {
-  font-family: Georgia, serif;
-  font-size: 1rem;
+/* Post title — two-ID specificity + !important on font props beats BZ's !important rules */
+#usersite-container #ic-panel-videos h2.heading-blog {
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif !important;
+  font-size: 0.875rem !important;
   font-weight: 600;
   color: #e8e8e0;
   line-height: 1.35;
   margin: 0;
   text-transform: none;
   letter-spacing: normal;
+}
+
+#usersite-container #ic-panel-videos h2.heading-blog a {
+  color: inherit;
+  text-decoration: none;
+}
+
+#usersite-container #ic-panel-videos h2.heading-blog a:hover {
+  color: #39ff14;
+  text-decoration: none;
 }
 
 /* Post wrap — flex column so read-more sits at bottom */
