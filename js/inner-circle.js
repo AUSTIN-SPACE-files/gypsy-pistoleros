@@ -245,13 +245,6 @@
     lb.appendChild(lbImg);
     dialog.appendChild(lb);
 
-    var closeBtn = document.createElement('wa-button');
-    closeBtn.setAttribute('slot', 'footer');
-    closeBtn.setAttribute('variant', 'neutral');
-    closeBtn.className   = 'ic-dialog-close';
-    closeBtn.textContent = 'Close';
-    dialog.appendChild(closeBtn);
-
     return dialog;
   }
 
@@ -263,7 +256,6 @@
     var gridEl   = dialog.querySelector('.ic-dialog-grid');
     var lb       = dialog.querySelector('.ic-lightbox');
     var backBtn  = dialog.querySelector('.ic-lightbox-back');
-    var closeBtn = dialog.querySelector('.ic-dialog-close');
     var lbImg    = dialog.querySelector('.ic-lightbox-img');
 
     gridEl.addEventListener('click', function (e) {
@@ -279,10 +271,6 @@
       lb.hidden     = true;
       gridEl.hidden = false;
       lbImg.src     = '';
-    });
-
-    closeBtn.addEventListener('click', function () {
-      dialog.hide();
     });
 
     dialog.addEventListener('wa-after-hide', function () {

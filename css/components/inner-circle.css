@@ -585,12 +585,12 @@
     align-items: flex-start;
   }
 
-  /* Thumbnail column: fixed width, 2-col grid, scrollable */
+  /* Thumbnail column: fixed width, 3-col grid, scrollable */
   #usersite-container .ic-gallery-dialog .ic-dialog-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 6px;
-    width: 200px;
+    width: 280px;
     flex-shrink: 0;
     max-height: 70vh;
     overflow-y: auto;
@@ -620,6 +620,11 @@
     max-width: 100%;
     width: auto;
     object-fit: contain;
+  }
+
+  /* No footer button — collapse the empty footer slot */
+  #usersite-container .ic-gallery-dialog::part(footer) {
+    display: none;
   }
 }
 
