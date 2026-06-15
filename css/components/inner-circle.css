@@ -265,12 +265,18 @@
 /* ---- Inner Circle: blog grid cards ---- */
 
 /* Blog grid container — two-ID + !important beats BZ's fixed 300px / justify-content:center */
+#usersite-container #ic-panel-videos .blog-wrapper {
+  width: 100%;
+  box-sizing: border-box;
+}
+
 #usersite-container #ic-panel-videos .blog.grid {
   grid-template-columns: repeat(3, 1fr) !important;
   justify-content: stretch !important;
   align-items: stretch;
   gap: 1.25rem;
   width: 100%;
+  box-sizing: border-box;
 }
 
 /* Card */
@@ -431,7 +437,82 @@
 
 
 /* ==========================================
-   RESPONSIVE
+   RESPONSIVE — tab nav layout
+   Desktop: fake vertical left nav via CSS flex override
+   Mobile: horizontal scrolling tab bar
+   ========================================== */
+
+@media (min-width: 900px) {
+  #usersite-container #ic-tabs::part(base) {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  #usersite-container #ic-tabs::part(nav) {
+    flex-direction: column;
+    border-bottom: none;
+    border-right: 1px solid rgba(57, 255, 20, 0.2);
+    width: 160px;
+    flex-shrink: 0;
+    padding: 1rem 0;
+    gap: 0;
+    align-items: flex-start;
+  }
+
+  #usersite-container #ic-tabs::part(body) {
+    flex: 1;
+    padding: 0 0 0 2rem;
+    width: auto;
+  }
+
+  #usersite-container #ic-tabs wa-tab::part(base) {
+    border-bottom: none;
+    border-right: 2px solid transparent;
+    border-left: none;
+    padding: 0.6rem 1.5rem 0.6rem 1rem;
+    width: 100%;
+    text-align: left;
+    justify-content: flex-start;
+  }
+
+  #usersite-container #ic-tabs wa-tab[active]::part(base) {
+    border-right-color: #39ff14;
+    border-bottom: none;
+    color: #39ff14;
+  }
+}
+
+@media (max-width: 899px) {
+  #usersite-container #ic-tabs::part(nav) {
+    flex-direction: row;
+    border-bottom: 1px solid rgba(57, 255, 20, 0.2);
+    border-right: none;
+    width: 100%;
+    overflow-x: auto;
+    padding: 0;
+  }
+
+  #usersite-container #ic-tabs::part(body) {
+    padding: 1.5rem 0 0;
+    width: 100%;
+  }
+
+  #usersite-container #ic-tabs wa-tab::part(base) {
+    border-bottom: 2px solid transparent;
+    border-right: none;
+    white-space: nowrap;
+  }
+
+  #usersite-container #ic-tabs wa-tab[active]::part(base) {
+    border-bottom-color: #39ff14;
+    border-right: none;
+  }
+}
+
+
+/* ==========================================
+   RESPONSIVE — images grid / dialog
    ========================================== */
 
 @media (max-width: 720px) {
