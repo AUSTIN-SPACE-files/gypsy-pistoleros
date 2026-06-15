@@ -27,12 +27,12 @@
 }
 
 
-/* ---- Inner Circle: tab nav (top placement) ---- */
+/* ---- Inner Circle: tab nav — desktop (placement="start") cosmetics ---- */
 
-/* Horizontal nav bar */
+/* Left nav separator */
 #usersite-container #ic-tabs::part(nav) {
   background: transparent;
-  border-bottom: 1px solid rgba(57, 255, 20, 0.2);
+  border-right: 1px solid rgba(57, 255, 20, 0.2);
   padding: 0;
   gap: 0;
 }
@@ -45,15 +45,14 @@
   text-transform: uppercase;
   letter-spacing: 0.12em;
   color: #a0a090;
-  padding: 0.75rem 1.5rem;
 }
 
 /* Tab base part */
 #usersite-container #ic-tabs wa-tab::part(base) {
   color: #a0a090;
-  border-bottom: 2px solid transparent;
+  border-right: 2px solid transparent;
   border-radius: 0;
-  padding: 0.75rem 1.5rem;
+  padding: 0.6rem 1.5rem 0.6rem 1rem;
   transition: color 0.2s, border-color 0.2s;
 }
 
@@ -64,14 +63,13 @@
 
 #usersite-container #ic-tabs wa-tab[active]::part(base) {
   color: #39ff14;
-  border-bottom-color: #39ff14;
+  border-right-color: #39ff14;
   background: transparent;
 }
 
-/* Panel body — full width below the nav bar */
+/* Panel body */
 #usersite-container #ic-tabs::part(body) {
-  width: 100%;
-  padding: 1.5rem 0 0;
+  padding: 0 0 0 2rem;
 }
 
 
@@ -438,75 +436,31 @@
 
 /* ==========================================
    RESPONSIVE — tab nav layout
-   Desktop: fake vertical left nav via CSS flex override
-   Mobile: horizontal scrolling tab bar
+   Mobile (<900px): placement="top" (set by JS), cosmetic overrides only
    ========================================== */
-
-@media (min-width: 900px) {
-  #usersite-container #ic-tabs::part(base) {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-  }
-
-  #usersite-container #ic-tabs::part(nav) {
-    flex-direction: column;
-    border-bottom: none;
-    border-right: 1px solid rgba(57, 255, 20, 0.2);
-    width: 160px;
-    flex-shrink: 0;
-    padding: 1rem 0;
-    gap: 0;
-    align-items: flex-start;
-  }
-
-  #usersite-container #ic-tabs::part(body) {
-    flex: 1;
-    padding: 0 0 0 2rem;
-    width: auto;
-  }
-
-  #usersite-container #ic-tabs wa-tab::part(base) {
-    border-bottom: none;
-    border-right: 2px solid transparent;
-    border-left: none;
-    padding: 0.6rem 1.5rem 0.6rem 1rem;
-    width: 100%;
-    text-align: left;
-    justify-content: flex-start;
-  }
-
-  #usersite-container #ic-tabs wa-tab[active]::part(base) {
-    border-right-color: #39ff14;
-    border-bottom: none;
-    color: #39ff14;
-  }
-}
 
 @media (max-width: 899px) {
   #usersite-container #ic-tabs::part(nav) {
-    flex-direction: row;
-    border-bottom: 1px solid rgba(57, 255, 20, 0.2);
     border-right: none;
-    width: 100%;
+    border-bottom: 1px solid rgba(57, 255, 20, 0.2);
     overflow-x: auto;
     padding: 0;
   }
 
   #usersite-container #ic-tabs::part(body) {
     padding: 1.5rem 0 0;
-    width: 100%;
   }
 
   #usersite-container #ic-tabs wa-tab::part(base) {
-    border-bottom: 2px solid transparent;
     border-right: none;
+    border-bottom: 2px solid transparent;
     white-space: nowrap;
+    padding: 0.75rem 1rem;
   }
 
   #usersite-container #ic-tabs wa-tab[active]::part(base) {
-    border-bottom-color: #39ff14;
     border-right: none;
+    border-bottom-color: #39ff14;
   }
 }
 

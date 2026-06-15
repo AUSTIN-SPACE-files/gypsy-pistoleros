@@ -329,9 +329,19 @@
      BUILD — tab scaffold
   ===================================================== */
 
+  function setTabPlacement() {
+    var placement = window.innerWidth < 900 ? 'top' : 'start';
+    var tg = document.getElementById('ic-tabs');
+    if (tg && tg.getAttribute('placement') !== placement) {
+      tg.setAttribute('placement', placement);
+    }
+  }
+
+  window.addEventListener('resize', setTabPlacement);
+
   function buildScaffold() {
     var g = document.createElement('wa-tab-group');
-    g.setAttribute('placement', 'top');
+    g.setAttribute('placement', window.innerWidth < 900 ? 'top' : 'start');
     g.id        = 'ic-tabs';
     g.className = 'ic-tab-group';
 
