@@ -568,3 +568,78 @@
     font-size: var(--text-xl);
   }
 }
+
+
+/* ==========================================
+   GALLERY DIALOG LIGHTBOX — two-column on desktop
+   Desktop (≥900px): thumbs left column, large image right column.
+   Mobile (<900px): original stacked layout.
+   ========================================== */
+
+@media (min-width: 900px) {
+  /* Flex row: thumbnail column left, lightbox right */
+  #usersite-container .ic-gallery-dialog::part(body) {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    align-items: flex-start;
+  }
+
+  /* Thumbnail column: fixed width, 2-col grid, scrollable */
+  #usersite-container .ic-gallery-dialog .ic-dialog-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+    width: 200px;
+    flex-shrink: 0;
+    max-height: 70vh;
+    overflow-y: auto;
+    order: 0;
+  }
+
+  /* Thumbs 25% smaller: 114px → ~85px */
+  #usersite-container .ic-gallery-dialog .ic-thumb {
+    width: 85px;
+    height: 85px;
+  }
+
+  /* Large image column: fills remaining width */
+  #usersite-container .ic-gallery-dialog .ic-lightbox {
+    flex: 1;
+    order: 1;
+    position: sticky;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-height: 75vh;
+  }
+
+  #usersite-container .ic-gallery-dialog .ic-lightbox-img {
+    max-height: 75vh;
+    max-width: 100%;
+    width: auto;
+    object-fit: contain;
+  }
+}
+
+@media (max-width: 899px) {
+  /* Stacked layout — restore block flow */
+  #usersite-container .ic-gallery-dialog::part(body) {
+    display: block;
+  }
+
+  #usersite-container .ic-gallery-dialog .ic-dialog-grid {
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    gap: 8px;
+    width: 100%;
+    max-height: none;
+    overflow-y: visible;
+  }
+
+  #usersite-container .ic-gallery-dialog .ic-thumb {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+  }
+}
