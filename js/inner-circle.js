@@ -290,6 +290,24 @@
   }
 
   /* =====================================================
+     WIRE — blog pagination
+     Rewrites BZ's pagination hrefs (/v0-blog-draft/blog_posts?display_format=grid&p=N)
+     to the bare index path + ?p=N, which BZ serves as the styled v0 page.
+     Uses _INDEX_PATHS[0] so cutover is a one-place update.
+  ===================================================== */
+
+  function rewritePagination() {
+    var links = document.querySelectorAll('#ic-panel-videos .pagination a');
+    links.forEach(function (a) {
+      var u;
+      try { u = new URL(a.href); } catch (e) { return; }
+      var p = u.searchParams.get('p');
+      if (!p) return;
+      a.setAttribute('href', _INDEX_PATHS[0] + '?p=' + p);
+    });
+  }
+
+  /* =====================================================
      BUILD — tab scaffold
   ===================================================== */
 
@@ -376,7 +394,8 @@
     /* Video Updates */
     if (sources.blog) {
       videosPanel.appendChild(sources.blog);
-      console.log('[inner-circle] populate: blog moved');
+      rewritePagination();
+      console.log('[inner-circle] populate: blog moved, pagination rewritten');
     } else {
       console.warn('[inner-circle] Blog source not found — Video Updates panel empty.');
     }
