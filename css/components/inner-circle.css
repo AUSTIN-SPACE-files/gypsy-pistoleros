@@ -491,6 +491,89 @@
 
 
 /* ==========================================
+   SINGLE BLOG POST — detail page
+   Scoped to article.blog-article[class*="single"] to avoid touching
+   the grid cards. BZ adds a .single-* class to the article on detail pages.
+   ========================================== */
+
+/* Constrain + centre the article */
+#usersite-container article.blog-article[class*="single"] {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem 3rem;
+}
+
+/* Post title */
+#usersite-container article.blog-article[class*="single"] h2.heading-blog {
+  font-family: 'Georgia', serif !important;
+  font-size: 2rem !important;
+  font-weight: 700;
+  color: #e8e8e0 !important;
+  line-height: 1.2;
+  margin: 0 0 0.5rem;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+/* Date / post-info meta */
+#usersite-container article.blog-article[class*="single"] .post-info {
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 12px;
+  color: #a0a090;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Body copy */
+#usersite-container article.blog-article[class*="single"] .message,
+#usersite-container article.blog-article[class*="single"] .message p {
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif !important;
+  font-size: 16px !important;
+  line-height: 1.7 !important;
+  color: #e8e8e0 !important;
+}
+
+/* Video container */
+#usersite-container article.blog-article[class*="single"] .video-container {
+  margin: 1.5rem 0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+/* Back link */
+#usersite-container article.blog-article[class*="single"] .back-link a {
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 12px;
+  color: #39ff14;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+}
+
+#usersite-container article.blog-article[class*="single"] .back-link a:hover {
+  color: #e8e8e0;
+}
+
+/* Footer meta border */
+#usersite-container article.blog-article[class*="single"] .blog-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  margin-top: 2rem;
+  padding-top: 1rem;
+}
+
+/* Comments section */
+#usersite-container article.blog-article[class*="single"] .comments {
+  margin-top: 2rem;
+}
+
+#usersite-container article.blog-article[class*="single"] .comments .count {
+  font-family: 'Georgia', serif;
+  color: #e8e8e0;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+
+/* ==========================================
    RESPONSIVE — tab nav layout
    Mobile (<900px): placement="top" (set by JS), cosmetic overrides only
    ========================================== */
