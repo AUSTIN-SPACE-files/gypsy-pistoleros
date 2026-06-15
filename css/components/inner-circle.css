@@ -603,22 +603,34 @@
     height: 85px;
   }
 
-  /* Large image column: fills remaining width */
+  /* Large image column: fixed height matches thumbnail column */
   #usersite-container .ic-gallery-dialog .ic-lightbox {
     flex: 1;
     order: 1;
     position: sticky;
     top: 0;
     display: flex;
-    align-items: flex-start;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
-    max-height: 75vh;
+    height: 70vh;
+    max-height: 70vh;
+  }
+
+  /* "← Back to gallery" button overlaid so it doesn't push the image down */
+  #usersite-container .ic-gallery-dialog .ic-lightbox-back {
+    position: absolute;
+    top: 50%;
+    left: 8px;
+    transform: translateY(-50%);
+    z-index: 2;
   }
 
   #usersite-container .ic-gallery-dialog .ic-lightbox-img {
-    max-height: 75vh;
+    max-height: 70vh;
     max-width: 100%;
     width: auto;
+    height: auto;
     object-fit: contain;
   }
 
