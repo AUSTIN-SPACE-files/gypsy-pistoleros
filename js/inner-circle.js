@@ -429,7 +429,7 @@
 
      Step 1: snapshot sources from untouched DOM.
      Step 2: build scaffold + inject immediately (autoloader trigger).
-             Set Images as default active tab.
+             Set Welcome as default active tab.
      Step 3: await waDefinedOrTimeout — always resolves.
      Step 4: populate() — synchronous; any throw caught here.
   ===================================================== */
@@ -489,7 +489,7 @@
          If ?p= is present the user arrived via a blog pagination link — open
          Videos directly so they land on the correct panel. */
       var _params     = new URLSearchParams(window.location.search);
-      var _defaultTab = _params.has('p') ? 'videos' : 'images';
+      var _defaultTab = _params.has('p') ? 'videos' : 'welcome';
       group.setAttribute('active', _defaultTab);
 
       /* ---- Step 4: populate panels — throw surfaces to this catch ---- */
