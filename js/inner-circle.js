@@ -391,7 +391,7 @@
     if (sources.gallery) {
       if (!imagesPanel.querySelector('.ic-section-header')) {
         imagesPanel.appendChild(buildSectionHeader(
-          'The gallery',
+          'The Gallery',
           'Snaps from the road, the studio, and everywhere in between. Tap any album to see the full set.'
         ));
       }
