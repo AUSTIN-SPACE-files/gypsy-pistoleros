@@ -757,6 +757,14 @@
   padding: 0;
 }
 
+/* Zero the moda-section vertical padding that drops Welcome content 64px
+   below the Images/Videos titles. Specificity (0,2,1) beats BZ's type-only
+   moda-section rules; escalate to !important only if computed value persists. */
+#usersite-container #ic-panel-welcome moda-section {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
 /* Intro block: heading + lead — full column width, flush left */
 #usersite-container #ic-panel-welcome .ic-welcome-intro {
   margin-bottom: 2rem;
