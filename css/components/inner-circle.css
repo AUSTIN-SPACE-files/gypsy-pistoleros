@@ -765,8 +765,12 @@
   padding-bottom: 0;
 }
 
-/* Intro block: heading + lead — full column width, flush left */
+/* Intro block: heading + lead — full column width, flush left.
+   margin-top: -64px compensates for BZ moda-section shape (m-shape m-masked)
+   spacing that isn't reachable via padding/margin resets on the wrapper chain.
+   64px tracks the observed gap; adjust if BZ structure changes. */
 #usersite-container #ic-panel-welcome .ic-welcome-intro {
+  margin-top: -64px;
   margin-bottom: 2rem;
 }
 
