@@ -136,6 +136,16 @@
   margin-bottom: 0;
 }
 
+/* Subtle card treatment — dark fill, hairline white border, no green accent.
+   5-col thumb grid uses 1fr columns so it adapts to the reduced available width
+   from the 28px L/R padding without any thumb-size overrides needed. */
+#usersite-container #ic-panel-images .ic-album-preview {
+  background: #0f0f0f;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 24px 28px;
+}
+
 .ic-album-title {
   font-family: var(--font-display);
   font-size: clamp(1.25rem, 2.5vw, var(--text-2xl));
