@@ -239,8 +239,17 @@
    wa-dialog with custom width; grid scrolls inside.
    ========================================== */
 
+/* --width is WA 3.7's custom property lever for dialog width.
+   ::part(panel) is targeted alongside it because WA 3.7 appears to have
+   an internal max-width on the panel shadow element that caps --width at
+   ~720px on large screens. Setting both ensures the larger size lands. */
 .ic-gallery-dialog {
-  --width: min(92vw, 900px);
+  --width: min(92vw, 1200px);
+}
+
+#usersite-container #ic-panel-images .ic-gallery-dialog::part(panel) {
+  width: min(92vw, 1200px);
+  max-width: min(92vw, 1200px);
 }
 
 #usersite-container .ic-gallery-dialog::part(header) {
