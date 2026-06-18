@@ -352,6 +352,27 @@
      Runs in boot step 3, after WA has defined the elements.
   ===================================================== */
 
+  /* =====================================================
+     BUILD — section header (Images + Videos panels)
+  ===================================================== */
+
+  function buildSectionHeader(title, blurb) {
+    var header = document.createElement('div');
+    header.className = 'ic-section-header';
+
+    var h2 = document.createElement('h2');
+    h2.className = 'ic-section-title';
+    h2.textContent = title;
+    header.appendChild(h2);
+
+    var p = document.createElement('p');
+    p.className = 'ic-section-blurb';
+    p.textContent = blurb;
+    header.appendChild(p);
+
+    return header;
+  }
+
   function populate(sources) {
     console.log('[inner-circle] populate: start');
     var welcomePanel = group.querySelector('wa-tab-panel[name="welcome"]');
@@ -368,6 +389,12 @@
 
     /* Images */
     if (sources.gallery) {
+      if (!imagesPanel.querySelector('.ic-section-header')) {
+        imagesPanel.appendChild(buildSectionHeader(
+          'The gallery',
+          'Snaps from the road, the studio, and everywhere in between. Tap any album to see the full set.'
+        ));
+      }
       var features = sources.gallery.querySelectorAll('section.feature.gallery_feature');
       console.log('[inner-circle] populate: gallery extract start', features.length);
       if (features.length === 0) {
@@ -393,6 +420,12 @@
 
     /* Video Updates */
     if (sources.blog) {
+      if (!videosPanel.querySelector('.ic-section-header')) {
+        videosPanel.appendChild(buildSectionHeader(
+          'Video updates',
+          'Monthly films from the band plus tour diaries, sessions, and behind-the-scenes chaos. Newest first.'
+        ));
+      }
       videosPanel.appendChild(sources.blog);
       rewritePagination();
       console.log('[inner-circle] populate: blog moved, pagination rewritten');
