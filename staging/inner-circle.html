@@ -179,6 +179,17 @@
 
     <p class="staging-banner">Staging — inner-circle.js · three-container host test</p>
 
+    <!-- ==========================================
+         SECTION 1 — HERO
+         ========================================== -->
+    <section class="section-hero section-hero--blog" aria-label="Inner Circle">
+      <div class="section-hero__content">
+        <h1 class="section-hero__title">Inner Circle</h1>
+        <p class="section-hero__tagline">PLACEHOLDER TAGLINE</p>
+      </div>
+    </section>
+
+
     <moda-sections class="zoogle-content">
 
 
@@ -196,6 +207,26 @@
             <h2>Welcome to the Inner Circle</h2>
             <p>You made it. This is where the band lives between the shows — the footage, the photographs, the updates that don't make it to social. If you're here, you're family.</p>
             <p>[BZ video embed goes here: user adds intro video block via BZ editor]</p>
+          </div>
+        </section>
+
+        <!--
+          BZ HTML Feature block — user pastes the .ic-perk-card div into a
+          Bandzoogle "HTML" section; BZ wraps it as section.feature.html_feature.
+          Simulated here so staging renders the perk list within the Welcome panel.
+        -->
+        <section class="feature html_feature" data-controller="content-width">
+          <div class="ic-perk-card">
+            <p class="ic-welcome-subheading">What you get</p>
+            <ul class="ic-perk-list">
+              <li><wa-icon name="circle-play"></wa-icon>Monthly update video from the band</li>
+              <li><wa-icon name="eye"></wa-icon>Behind-the-scenes content</li>
+              <li><wa-icon name="music"></wa-icon>Early access to new music</li>
+              <li><wa-icon name="comments"></wa-icon>Private Facebook &amp; Messenger group</li>
+              <li><wa-icon name="tag"></wa-icon>10% off all merch</li>
+              <li><wa-icon name="signal-stream"></wa-icon>Private members-only livestream</li>
+              <li><wa-icon name="calendar"></wa-icon>First to hear about tours and new albums</li>
+            </ul>
           </div>
         </section>
       </moda-section>
@@ -216,7 +247,7 @@
            ══════════════════════════════════════════════════════ -->
       <moda-section>
 
-        <!-- Album A: Prince of the Damned — 8 items -->
+        <!-- Album A: Prince of the Damned — 8 items -->        git add css/components/cult-membership.css dist/v0-bundle.css && git commit -m "cult-membership: set support-section icons to neon green #39ff14"
         <section class="feature gallery_feature" data-controller="content-width">
           <header>
             <h1 class="alt-font">Prince of the Damned - Video Shoot</h1>
