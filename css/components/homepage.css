@@ -67,6 +67,7 @@
 .section-hero--cult    { background-image: url('https://gypsypistoleros.com/files/1417815/05-cult-sign-up.webp'); }
 .section-hero--contact { background-image: url('https://gypsypistoleros.com/files/1417816/07-contact-and-bookings.webp'); }
 .section-hero--press   { background-image: url('https://gypsypistoleros.com/files/1417817/08-press-kit.webp'); }
+.section-hero--videos  { background-image: url('https://gypsypistoleros.com/files/1417813/03-videos-arches-quartet.webp'); }
 
 /* ::before gradient stripped in Pass 6f — section-rhythm.css's
    higher-specificity rule sets z-index: -1 on this pseudo-element,
