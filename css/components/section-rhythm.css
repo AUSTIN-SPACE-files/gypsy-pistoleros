@@ -176,6 +176,16 @@
   clip-path: inset(0 -100vw 0 -100vw) !important;
 }
 
+/* Hero moda-section: exempt from band treatment.
+   clip-path on this element clips the hero's margin-top bleed-up;
+   transparent bg + no shadow let the hero photo show through the nav chrome. */
+#usersite-container .website-page-v0-merch-store moda-sections.zoogle-content > moda-section:first-child {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  clip-path: none !important;
+  overflow: visible !important;
+}
+
 /* Card inversion: card contrasts against its band.
    Black band (odd) -> lighter card; #0f0f0f band (even) -> black card. */
 #usersite-container .website-page-v0-merch-store moda-sections.zoogle-content > moda-section:nth-child(2n+1) article.store-item {
