@@ -228,6 +228,24 @@
   -webkit-text-fill-color: var(--color-accent-green);
 }
 
+/* ==========================================
+   HOVER/FOCUS — BZ interaction decoration neutraliser
+   BZ's CDN sheet sets !important on a:hover/a:focus for underline, border,
+   box-shadow, and background. Colour rules above are more specific (class vs
+   element) so they survive. This rule exists solely to zero BZ's box/underline
+   on all footer anchor interactive states.
+   ========================================== */
+
+#usersite-container .site-footer a:hover,
+#usersite-container .site-footer a:focus,
+#usersite-container .site-footer a:focus-visible {
+  text-decoration: none !important;
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: none !important;
+}
+
 
 /* ==========================================
    MOBILE — single centered column (<=640px)
