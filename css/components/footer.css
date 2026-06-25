@@ -80,6 +80,7 @@
   box-shadow: none !important;
   background: none !important;
   text-decoration: none !important;
+  font-weight: 400 !important;
   transition: color 0.2s ease !important;
 }
 
@@ -218,8 +219,8 @@
 }
 
 #usersite-container .footer-credit-link:hover {
-  color: var(--color-accent-green);
-  -webkit-text-fill-color: var(--color-accent-green);
+  color: var(--color-text-primary);
+  -webkit-text-fill-color: var(--color-text-primary);
   text-decoration: none;
   outline: none !important;
 }
