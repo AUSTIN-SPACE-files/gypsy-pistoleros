@@ -64,6 +64,19 @@
 
 
 /* ==========================================
+   LINKS — shared text-decoration reset
+   BZ's anchor rules inside #usersite-container reach (1,1,1) via :link/:visited
+   pseudo-classes, beating per-class (1,1,0) defaults. This single rule ties
+   that specificity and wins by source order (our bundle loads after BZ's
+   remix stylesheet). Covers all four footer link types.
+   ========================================== */
+
+#usersite-container .site-footer a {
+  text-decoration: none;
+}
+
+
+/* ==========================================
    FOOTER NAV
    ========================================== */
 
@@ -93,6 +106,7 @@
 /* Login is the only nav link green by default — modifier class keeps it distinct */
 #usersite-container .footer-nav__link--login {
   color: var(--color-accent-green);
+  text-decoration: none;
 }
 
 #usersite-container .footer-nav__link--login:hover {
