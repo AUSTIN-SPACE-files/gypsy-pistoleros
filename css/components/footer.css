@@ -79,14 +79,15 @@
 #usersite-container .footer-nav__link {
   font-family: var(--font-body);
   font-size: var(--text-sm);
-  color: var(--color-text-primary);
+  color: var(--color-text-secondary);
   text-decoration: none;
   letter-spacing: 0.03em;
   transition: color 0.2s ease;
 }
 
 #usersite-container .footer-nav__link:hover {
-  color: var(--color-accent-green);
+  color: var(--color-text-primary);
+  text-decoration: none;
 }
 
 /* Login is the only nav link green by default — modifier class keeps it distinct */
@@ -95,8 +96,8 @@
 }
 
 #usersite-container .footer-nav__link--login:hover {
-  color: var(--color-accent-green);
-  text-decoration: underline;
+  color: var(--color-accent-green-dark);
+  text-decoration: none;
 }
 
 
@@ -127,7 +128,7 @@
 }
 
 #usersite-container .footer-social-link:hover {
-  color: var(--color-accent-green);
+  color: var(--color-text-secondary);
 }
 
 #usersite-container .footer-social-link:focus-visible {
@@ -188,6 +189,7 @@
 
 #usersite-container .footer-credit-link:hover {
   color: var(--color-accent-green);
+  text-decoration: none;
 }
 
 
