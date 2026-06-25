@@ -1,70 +1,143 @@
 <!--
   ═══════════════════════════════════════════════════════════════
   _brand-footer-feature-row.html
-  Gypsy Pistoleros — Custom Brand Footer Feature Row
-  AUSTIN_SPACE build — May 2026
+  Gypsy Pistoleros — Multi-column Brand Footer Feature Row
+  AUSTIN_SPACE build — June 2026
   ═══════════════════════════════════════════════════════════════
 
   THIS IS NOT A STANDALONE PAGE.
 
-  This file contains HTML to be pasted into a Bandzoogle Feature
+  Paste the contents of this file into a Bandzoogle HTML Feature
   Row content block via Bandzoogle's content editor, using the
   "Custom HTML" feature type.
 
   PLACEMENT:
-  Add the Feature Row in Bandzoogle's site-wide footer area
-  (Pages → Site-wide Settings → Footer), placing it above or
-  below Bandzoogle's default footer block (which outputs the
-  copyright text and member login nav at #page-footer).
+  Pages → Site-wide Settings → Footer
+  Slot: #feature_column_18362120 (the empty column above #page-footer).
+  BZ's #page-footer (copyright feature + member utility nav) stays
+  below this block, untouched.
 
   STYLING:
-  Styled entirely by css/components/footer.css. This block must
-  be pasted into Bandzoogle with v0-bundle.css loaded site-wide
-  via Design → Customize CSS, or the footer will render unstyled.
+  Styled entirely by css/components/footer.css, which is compiled
+  into dist/v0-bundle.css and loaded site-wide via the <link> tag
+  in Headers & Metatags. Do NOT paste CSS into BZ Customize CSS.
 
-  DOM PORTABILITY:
-  This block is DOM-portable. It can be pasted into any
-  Bandzoogle Feature Row column without CSS adjustments, as long
-  as v0-bundle.css is loaded site-wide. It does not depend on
-  any surrounding Bandzoogle column ID, Feature Row ID, or page
-  chrome selector.
+  PENDING:
+  Inner Circle href is "#" with data-pending-url="true". Update to
+  the confirmed BZ slug once Kerry confirms it (likely /blog).
 
   CSS CLASSES USED BY THIS BLOCK:
-    .site-footer          — outer wrapper (footer.css)
-    .site-footer__brand   — band name + tagline container (footer.css)
-    .site-footer__brand h3 — Bleeding Cowboys band name (typography.css)
-    .site-tagline         — tagline paragraph (typography.css)
-    .site-footer__social  — social icon link row (footer.css)
-    .footer-social-link   — individual social anchor (footer.css)
-  All 6 selectors are covered in v0-bundle.css.
+    .site-footer              — outer wrapper (footer.css)
+    .site-footer__inner       — two-zone flex row (footer.css)
+    .site-footer__logo        — left logo column (footer.css)
+    .site-footer__logo-img    — the vertical lockup img (footer.css)
+    .site-footer__right       — right stacked zone (footer.css)
+    .site-footer__nav         — footer nav element (footer.css)
+    .footer-nav__list         — nav <ul> (footer.css)
+    .footer-nav__link         — nav <a> (footer.css)
+    .site-footer__social      — social icon row (footer.css)
+    .footer-social-link       — individual social anchor (footer.css)
+    .site-footer__baseline    — baseline row (footer.css)
+    .site-footer__copyright   — copyright block (footer.css)
+    .footer-copyright         — "© 2026..." line (footer.css)
+    .footer-location          — "Worcester, est. MMXXVI" line (footer.css)
+    .site-footer__credit      — AUSTIN_SPACE credit <p> (footer.css)
+    .footer-credit-link       — AUSTIN_SPACE anchor (footer.css)
   ═══════════════════════════════════════════════════════════════
 -->
 
 <footer class="site-footer">
 
-  <div class="site-footer__brand">
-    <h3>GYPSY PISTOLEROS</h3>
-    <p class="site-tagline" style="margin-top: 4px;">The World's Only Glam Punk Goth 'n' Roll Outlaws</p>
-  </div>
+  <!-- TWO-ZONE ROW: logo left / nav + social right -->
+  <div class="site-footer__inner">
 
-  <div class="site-footer__social">
-    <a href="https://facebook.com/GPistoleros" class="footer-social-link">
-      <wa-icon name="facebook" family="brands" label="Facebook"></wa-icon> Facebook
-    </a>
-    <a href="https://instagram.com/gypsypistoleros" class="footer-social-link">
-      <wa-icon name="instagram" family="brands" label="Instagram"></wa-icon> Instagram
-    </a>
-    <a href="https://youtube.com/@OfficialGypsyPistoleros" class="footer-social-link">
-      <wa-icon name="youtube" family="brands" label="YouTube"></wa-icon> YouTube
-    </a>
-    <a href="https://tiktok.com/@gypsypistolerosofficial" class="footer-social-link">
-      <wa-icon name="tiktok" family="brands" label="TikTok"></wa-icon> TikTok
-    </a>
-    <a href="https://open.spotify.com/artist/0Waa1UXmRMFxUG3E8eyCZu" class="footer-social-link">
-      <wa-icon name="spotify" family="brands" label="Spotify"></wa-icon> Spotify
-    </a>
-  </div>
+    <!-- LEFT: vertical logo lockup -->
+    <div class="site-footer__logo">
+      <img
+        src="https://gypsypistoleros.com/files/1417936/gp-logo-vertical.webp"
+        alt="Gypsy Pistoleros"
+        class="site-footer__logo-img"
+        width="529"
+        height="1000"
+        loading="lazy">
+    </div>
 
-  <p style="font-size: var(--text-xs); color: var(--color-text-secondary); opacity: 0.5;">© 2026 Gypsy Pistoleros. Site by AUSTIN_SPACE.</p>
+    <!-- RIGHT: footer nav + social icons stacked -->
+    <div class="site-footer__right">
+
+      <nav class="site-footer__nav" aria-label="Footer navigation">
+        <ul class="footer-nav__list">
+          <li><a href="/home" class="footer-nav__link">Home</a></li>
+          <li><a href="/shows" class="footer-nav__link">Shows</a></li>
+          <li><a href="/merch-store" class="footer-nav__link">Merch Store</a></li>
+          <li><a href="#" class="footer-nav__link" data-pending-url="true">Inner Circle</a></li>
+          <li><a href="/press-kit-epk" class="footer-nav__link">Press Kit (EPK)</a></li>
+          <li><a href="/contact-booking" class="footer-nav__link">Contact &amp; Booking</a></li>
+        </ul>
+      </nav>
+
+      <div class="site-footer__social">
+        <a href="https://open.spotify.com/artist/0Waa1UXmRMFxUG3E8eyCZu"
+           class="footer-social-link"
+           aria-label="Gypsy Pistoleros on Spotify"
+           target="_blank" rel="noopener noreferrer">
+          <i class="fa-brands fa-spotify"></i>
+        </a>
+        <a href="https://music.apple.com/gb/artist/gypsy-pistoleros/56759998"
+           class="footer-social-link"
+           aria-label="Gypsy Pistoleros on Apple Music"
+           target="_blank" rel="noopener noreferrer">
+          <i class="fa-brands fa-apple"></i>
+        </a>
+        <a href="https://www.youtube.com/@OfficialGypsyPistoleros"
+           class="footer-social-link"
+           aria-label="Gypsy Pistoleros on YouTube"
+           target="_blank" rel="noopener noreferrer">
+          <i class="fa-brands fa-youtube"></i>
+        </a>
+        <a href="https://www.facebook.com/GPistoleros"
+           class="footer-social-link"
+           aria-label="Gypsy Pistoleros on Facebook"
+           target="_blank" rel="noopener noreferrer">
+          <i class="fa-brands fa-facebook"></i>
+        </a>
+        <a href="https://www.instagram.com/gypsypistoleros/"
+           class="footer-social-link"
+           aria-label="Gypsy Pistoleros on Instagram"
+           target="_blank" rel="noopener noreferrer">
+          <i class="fa-brands fa-instagram"></i>
+        </a>
+        <a href="https://www.tiktok.com/@gypsypistolerosofficial"
+           class="footer-social-link"
+           aria-label="Gypsy Pistoleros on TikTok"
+           target="_blank" rel="noopener noreferrer">
+          <i class="fa-brands fa-tiktok"></i>
+        </a>
+        <a href="https://www.threads.net/@gypsypistoleros"
+           class="footer-social-link"
+           aria-label="Gypsy Pistoleros on Threads"
+           target="_blank" rel="noopener noreferrer">
+          <i class="fa-brands fa-threads"></i>
+        </a>
+      </div>
+
+    </div><!-- /.site-footer__right -->
+
+  </div><!-- /.site-footer__inner -->
+
+  <!-- BASELINE ROW: copyright left / credit right -->
+  <div class="site-footer__baseline">
+
+    <div class="site-footer__copyright">
+      <p class="footer-copyright">© 2026 Gypsy Pistoleros</p>
+      <p class="footer-location">Worcester, est. MMXXVI</p>
+    </div>
+
+    <p class="site-footer__credit">Site by <a
+        href="https://austinspace.co.uk"
+        class="footer-credit-link"
+        target="_blank" rel="noopener noreferrer">AUSTIN_SPACE</a></p>
+
+  </div><!-- /.site-footer__baseline -->
 
 </footer>
