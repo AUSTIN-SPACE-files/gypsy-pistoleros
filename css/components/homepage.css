@@ -114,6 +114,13 @@
   gap: var(--space-4);
 }
 
+.section-hero__sigil {
+  max-width: 120px;
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 /* #usersite-container prefix required to beat the BZ theme's
    `#usersite-container h1 { font-size: 25px }` rule (specificity 1,0,1).
    Without the prefix our class selector (0,1,0) loses the cascade.
