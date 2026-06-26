@@ -150,6 +150,44 @@
   margin-bottom: 0;
 }
 
+/* Hero texture treatment — grain + vignette.
+   Scoped away from --home; home hero stays clean.
+   .section-hero__fx carries NO z-index (stays z:auto) so it does NOT
+   form a stacking context. Its ::before/::after therefore participate
+   directly in .section-hero's stacking context, which lets
+   mix-blend-mode:soft-light on ::before blend against the hero photo
+   rather than the fx div's own transparent backdrop. */
+.section-hero:not(.section-hero--home) .section-hero__fx {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Grain layer — soft-light blend against the hero photo + scrim.
+   SVG feTurbulence fractalNoise, desaturated, tiled at 180×180. */
+.section-hero:not(.section-hero--home) .section-hero__fx::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='180' height='180' filter='url(%23g)'/></svg>");
+  background-repeat: repeat;
+  background-size: 180px 180px;
+  mix-blend-mode: soft-light;
+  opacity: 0.5;
+}
+
+/* Vignette layer — normal blend, dark radial fade inward from edges. */
+.section-hero:not(.section-hero--home) .section-hero__fx::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(ellipse 85% 78% at 50% 42%, transparent 46%, rgba(0,0,0,0.62) 100%);
+}
+
 
 /* ==========================================
    SECTION 2 — ALBUM
