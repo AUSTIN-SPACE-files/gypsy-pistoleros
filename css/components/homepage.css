@@ -102,7 +102,7 @@
   pointer-events: none;
   background-image:
     linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)),
-    linear-gradient(to top, #000000 0px, #000000 80px, rgba(0, 0, 0, 0) 320px);
+    linear-gradient(to top, #000000 0px, #000000 24px, rgba(0, 0, 0, 0.70) 100px, rgba(0, 0, 0, 0) 344px);
   background-color: transparent;
 }
 
