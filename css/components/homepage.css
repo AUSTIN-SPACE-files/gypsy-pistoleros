@@ -110,7 +110,7 @@
   position: relative;
   z-index: 2;
   text-align: center;
-  padding: var(--space-16) var(--space-6);
+  padding: 0 var(--space-6) var(--space-16);
   max-width: var(--max-width);
   display: flex;
   flex-direction: column;
@@ -119,7 +119,7 @@
 }
 
 .section-hero__sigil {
-  max-width: 120px;
+  max-width: 160px;
   width: 100%;
   height: auto;
   display: block;
@@ -134,7 +134,7 @@
    5px h1 default. !important required because BZ's theme also uses
    !important on #usersite-container h1. */
 #usersite-container .section-hero__title {
-  font-size: clamp(2.5rem, 9vw, 5rem) !important;
+  font-size: clamp(2rem, 3.4vw, 3rem) !important;
   text-transform: none !important;
   padding-bottom: 0;
   margin-bottom: 0;
