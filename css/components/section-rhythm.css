@@ -40,6 +40,14 @@
    outweighed the visual gain. Reverted to flat colour + hairline.
    ============================================================ */
 
+/* Clips the ~15px 100vw scrollbar-gutter overhang that causes site-wide
+   horizontal scroll. clip (not hidden) avoids BFC/containing-block side
+   effects on the four position:fixed children: #main-nav, #page-background,
+   #cart-badge, .mobile-nav-open-site-overlay. */
+#usersite-container {
+  overflow-x: clip;
+}
+
 #usersite-container .page-content > section {
   position: relative;
 }
