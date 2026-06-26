@@ -52,9 +52,13 @@
   overflow: hidden;
 
   /* Pull-up: hero extends behind the BZ chrome.
-     250px covers typical BZ header height (band name + nav + strap). */
-  margin-top: -250px;
-  padding-top: calc(250px + var(--space-8));
+     -286px = -250px baseline + 36px measured m-masked residual (lever 2).
+     Lever 1: #container-wrapper:has(.section-hero) zeroes BZ's 40px fixed-nav padding
+     (section-rhythm.css). After lever 1, the residual 36px comes from the BZ
+     moda-section m-shape m-masked inset — not reachable via padding/margin resets;
+     absorbed here per inner-circle.css:813 precedent. Verified live across all pages. */
+  margin-top: -286px;
+  padding-top: calc(286px + var(--space-8));
 
   /* Full-bleed: edge-to-edge breakout from Bandzoogle's content container */
   width: 100vw;

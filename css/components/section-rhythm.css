@@ -131,6 +131,18 @@
    conflict. Not addressed in this pass — confirm in DevTools
    once header transparency is working. */
 
+/* Lever 1: pin hero image to viewport top (y=0).
+   BZ injects div#container-wrapper { padding-top: 40px } to push all page
+   content below the position:fixed #main-nav. On hero pages the nav bleeds
+   intentionally over the image, so the compensation is unwanted — it shifts
+   the hero 40px from viewport top. :has(.section-hero) scopes the zero to
+   hero pages only; non-hero pages keep the 40px and their content stays
+   below #main-nav. #container-wrapper sits outside #usersite-container so
+   no usersite-container prefix here. */
+#container-wrapper:has(.section-hero) {
+  padding-top: 0 !important;
+}
+
 #usersite-container header,
 #usersite-container .site-header,
 #usersite-container header.site-header,
