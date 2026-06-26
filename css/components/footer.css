@@ -81,6 +81,7 @@
   background: none !important;
   text-decoration: none !important;
   font-weight: 400 !important;
+  padding: 0 !important;
   transition: color 0.2s ease !important;
 }
 
