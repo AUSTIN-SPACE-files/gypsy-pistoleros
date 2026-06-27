@@ -485,6 +485,13 @@
   z-index: 2 !important;
 }
 
+/* section-rhythm paints an opaque background-color on ::before at z-index:-1,
+   which sits in front of the section's own background-image and hides the photo.
+   Selector at (1,3,2) beats section-rhythm's nth-child rules at (1,2,2). */
+#usersite-container .page-content > section.section-join.section-join--photo::before {
+  background-color: transparent;
+}
+
 /* Variant 1 */
 .section-join--photo-hairguitar {
   background-image: url('https://gypsypistoleros.com/files/1418177/gp-redblue-hairguitar.webp');
