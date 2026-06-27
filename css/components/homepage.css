@@ -500,11 +500,72 @@
 .section-join.section-join--photo {
   border-top: 1px solid rgb(26, 26, 26);
   border-bottom: 1px solid rgb(26, 26, 26);
+  overflow: hidden;
+  padding-top: var(--space-8);
+  padding-bottom: var(--space-8);
 }
 
-/* Variant 1 */
-.section-join--photo-hairguitar {
+/* Variant: bluefog-vocals photo (renamed from --photo-hairguitar) */
+.section-join--photo-bluefog {
   background-image: url('https://gypsypistoleros.com/files/1418182/gp-bluefog-vocals.webp');
+}
+
+/* Sigil layer — position:absolute overrides > * rule's position:relative
+   by source order (equal specificity, later wins).
+   z-index:2 inherited from > * rule — above scrim (1), below content
+   (also z:2, later in DOM). */
+.section-join__sigil {
+  position: absolute;
+  top: -80px;
+  left: -80px;
+  width: 480px;
+  height: 480px;
+  background-image: url('https://gypsypistoleros.com/files/1413427/gp-sigil.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  transform: rotate(-15deg);
+  filter: brightness(0) invert(1);
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+/* Content block — right 46%, left-aligned.
+   46% (not 50%) shifts the left edge to ~54vw, clear of the lit subject. */
+.section-join__content {
+  margin-left: auto;
+  max-width: 46%;
+  text-align: left;
+}
+
+.section-join__content h2 {
+  margin-bottom: var(--space-3);
+}
+
+/* Override base .section-join__copy centering and bottom gap */
+.section-join__content .section-join__copy {
+  max-width: none;
+  margin: 0 0 var(--space-4) !important;
+}
+
+.section-join__content .section-join__more {
+  margin-top: var(--space-3);
+}
+
+/* Responsive: collapse to full-width centred below 768px */
+@media (max-width: 768px) {
+  .section-join__sigil {
+    display: none;
+  }
+
+  .section-join__content {
+    max-width: 100%;
+    margin-left: 0;
+    text-align: center;
+  }
+
+  .section-join__content .section-join__copy {
+    margin: 0 auto var(--space-4) !important;
+  }
 }
 
 
