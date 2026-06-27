@@ -16,7 +16,22 @@
 #usersite-container .site-footer {
   background-color: var(--color-bg-primary);
   padding: var(--space-12) var(--space-6) var(--space-8);
-  border-top: 1px solid rgba(232, 232, 224, 0.12);
+  position: relative;
+}
+
+/* Full-bleed upper divider. border-top on .site-footer was capped at the
+   BZ ancestor content width (~1200px); 100vw pseudo-element reaches the
+   viewport edges. #usersite-container overflow-x:clip contains it. */
+#usersite-container .site-footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  height: 1px;
+  background: rgba(232, 232, 224, 0.12);
+  pointer-events: none;
 }
 
 
@@ -181,8 +196,21 @@
   max-width: var(--max-width);
   margin: 0 auto;
   padding-top: var(--space-6);
-  border-top: 1px solid rgba(232, 232, 224, 0.12);
   gap: var(--space-4);
+  position: relative;
+}
+
+/* Full-bleed lower divider — same technique as .site-footer::before above. */
+#usersite-container .site-footer__baseline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  height: 1px;
+  background: rgba(232, 232, 224, 0.12);
+  pointer-events: none;
 }
 
 #usersite-container .site-footer__copyright {
