@@ -497,8 +497,8 @@
 }
 
 .section-join.section-join--photo {
-  border-top: none;
-  border-bottom: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 /* Variant 1 */
