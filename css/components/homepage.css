@@ -328,6 +328,7 @@
   height: 0;
   overflow: hidden;
   background: var(--color-bg-secondary);
+  border: 1px solid rgb(26, 26, 26);
 }
 
 .section-watch__embed iframe {
