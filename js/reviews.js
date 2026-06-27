@@ -35,8 +35,6 @@
 (function () {
   'use strict';
 
-  const PRESS_LOGO_BASE = 'assets/press-logos';
-
   let cachedReviews = null;
 
   /* ---- utilities ---- */
@@ -52,15 +50,31 @@
 
   /* ---- template helpers ---- */
 
-  function logoOrName(review) {
-    if (!review.publication_slug) {
-      return `<span class="review-card__publication">${escapeHtml(review.publication)}</span>`;
-    }
-    const src = `${PRESS_LOGO_BASE}/${review.publication_slug}.svg`;
-    const alt = escapeHtml(review.publication);
-    // Image attempts to load the SVG logo; onerror hides it and shows the
-    // text fallback span instead. Both are rendered so no layout shift occurs.
-    return `<img class="review-card__logo" src="${src}" alt="${alt}" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'"><span class="review-card__publication" style="display:none">${alt}</span>`;
+  const PUBLICATION_ICONS = {
+    'classic-rock':               'fa-solid fa-guitar',
+    'powerplay':                  'fa-solid fa-bolt',
+    'punksite':                   'fa-solid fa-skull',
+    'maximum-volume-music':       'fa-solid fa-volume-high',
+    'fireworks-magazine':         'fa-solid fa-burst',
+    'evermetal':                  'fa-solid fa-gem',
+    'petes-rock-news-and-views':  'fa-solid fa-newspaper',
+    'the-rockpit':                'fa-solid fa-fire',
+    'liverpool-sound-and-vision': 'fa-solid fa-music',
+    'ringmaster-review':          'fa-solid fa-ring',
+    'overdrive-ie':               'fa-solid fa-gauge-high',
+    'myglobalmind':               'fa-solid fa-globe',
+    'jace-media':                 'fa-solid fa-microphone',
+    'the-indie-scene':            'fa-solid fa-music',
+    'the-sentinel-daily':         'fa-solid fa-shield-halved',
+    'jammerzine':                 'fa-solid fa-headphones',
+    'punktuation':                'fa-solid fa-skull',
+    'rock-news':                  'fa-solid fa-newspaper',
+    'all-about-the-rock':         'fa-solid fa-guitar',
+    'get-ready-to-rock':          'fa-solid fa-rocket'
+  };
+
+  function reviewIcon(review) {
+    return PUBLICATION_ICONS[review.publication_slug] || 'fa-solid fa-star';
   }
 
   function ratingBlock(review) {
@@ -86,13 +100,22 @@
     const footerContent = (ratingHtml || reviewerHtml)
       ? ratingHtml + reviewerHtml
       : '<span class="review-card__footer-placeholder" aria-hidden="true">&nbsp;</span>';
+    const icon = reviewIcon(review);
+    const bgRotate = review.iconRotate || '-18deg';
+    const bgScale  = review.iconScale  || '1';
     return `<wa-card class="review-card" data-review-id="${escapeHtml(review.id)}">
   <div slot="header" class="review-card__header">
-    ${logoOrName(review)}
+    <div class="review-card__pub">
+      <i class="${icon} review-card__pub-icon" aria-hidden="true"></i>
+      <span class="review-card__publication">${escapeHtml(review.publication)}</span>
+    </div>
   </div>
-  <blockquote class="review-card__quote">
-    &ldquo;${escapeHtml(review.quote_short)}&rdquo;
-  </blockquote>
+  <div class="review-card__quote-wrap" style="--review-bg-rotate:${bgRotate};--review-bg-scale:${bgScale}">
+    <i class="${icon} review-card__quote-bg" aria-hidden="true"></i>
+    <blockquote class="review-card__quote">
+      &ldquo;${escapeHtml(review.quote_short)}&rdquo;
+    </blockquote>
+  </div>
   <div slot="footer" class="review-card__footer">
     ${footerContent}
   </div>

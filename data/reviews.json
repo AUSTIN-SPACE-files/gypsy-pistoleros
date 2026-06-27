@@ -14,7 +14,9 @@
       "quote_long": "More obvious is that the band's sixth album is a thoroughly convincing excursion to their genre-fluid realm of rock. None of Dark Faerie Tales' eclecticism feels tagged on. Rather, it's an accomplished mutation.",
       "rating_score": 8,
       "rating_max": 10,
-      "tags": ["featured", "press-kit", "membership"]
+      "tags": ["featured", "press-kit", "membership"],
+      "iconRotate": "-18deg",
+      "iconScale": "1"
     },
     {
       "id": "powerplay-dark-faerie-tales",
@@ -29,7 +31,9 @@
       "quote_long": null,
       "rating_score": 10,
       "rating_max": 10,
-      "tags": ["featured", "press-kit", "membership"]
+      "tags": ["featured", "press-kit", "membership"],
+      "iconRotate": "-18deg",
+      "iconScale": "1"
     },
     {
       "id": "punksite-dark-faerie-tales",
@@ -44,7 +48,9 @@
       "quote_long": "If a world was ever ready for an album like this, then this is the time. Gypsy Pistoleros have made an album that knows who you are and how you feel, with songs that reach corners of the mind you may have not known existed until now.",
       "rating_score": 5,
       "rating_max": 5,
-      "tags": ["featured", "press-kit", "membership"]
+      "tags": ["featured", "press-kit", "membership"],
+      "iconRotate": "-18deg",
+      "iconScale": "1"
     },
     {
       "id": "maximum-volume-music-dark-faerie-tales",
@@ -59,7 +65,9 @@
       "quote_long": "That, frankly, is where this thing lives. In the lip curl. In the swagger. In the fact it never walks when it can strut, never struts when it can stagger glam-drunk through a hook, and never settles for being one song when it can be about four at once.",
       "rating_score": 9,
       "rating_max": 10,
-      "tags": ["featured", "press-kit"]
+      "tags": ["featured", "press-kit"],
+      "iconRotate": "-18deg",
+      "iconScale": "1"
     },
     {
       "id": "fireworks-magazine-dark-faerie-tales",
@@ -74,7 +82,9 @@
       "quote_long": "In 2026, while much of rock music plays it safe, Gypsy Pistoleros are burning the rulebook. This is not nostalgia. This is not cosplay. This is fur-clad glam decadence colliding with gothic ritual, punk fury, and sleazy rock 'n' roll danger.",
       "rating_score": null,
       "rating_max": null,
-      "tags": ["featured", "press-kit"]
+      "tags": ["featured", "press-kit"],
+      "iconRotate": "-18deg",
+      "iconScale": "1"
     },
     {
       "id": "petes-rock-news-dark-faerie-tales",
@@ -89,7 +99,9 @@
       "quote_long": "Solidifying Gypsy Pistoleros' reputation as genre innovators and making Dark Faerie Tales a must-listen for those seeking authentic, boundary-pushing rock.",
       "rating_score": 10,
       "rating_max": 10,
-      "tags": ["featured", "press-kit"]
+      "tags": ["featured", "press-kit"],
+      "iconRotate": "-18deg",
+      "iconScale": "1"
     },
     {
       "id": "the-rockpit-dark-faerie-tales",
@@ -104,7 +116,9 @@
       "quote_long": "Dark Faerie Tales is the moment everything Gypsy Pistoleros have ever been finally collides into one fully realised identity. The chaos is still there, but now it's controlled; the madness remains, but now it has purpose.",
       "rating_score": null,
       "rating_max": null,
-      "tags": ["featured", "press-kit"]
+      "tags": ["featured", "press-kit"],
+      "iconRotate": "-18deg",
+      "iconScale": "1"
     },
     {
       "id": "liverpool-sound-vision-dark-faerie-tales",
@@ -119,7 +133,9 @@
       "quote_long": "Dark Faerie Tales is the superb follow up to the Church Of The Pistoleros, and those in the packed pews of the cathedral being built on incredible foundations, and the praise be's are loud and bountiful.",
       "rating_score": 9,
       "rating_max": 10,
-      "tags": ["featured", "press-kit"]
+      "tags": ["featured", "press-kit"],
+      "iconRotate": "-18deg",
+      "iconScale": "1"
     },
     {
       "id": "ringmaster-review-dark-faerie-tales",
@@ -134,7 +150,9 @@
       "quote_long": "Gypsy Pistoleros is one of those wonderful oddities; a band bearing a thickly recognisable voice and creative breath that is solely theirs yet with every release they still unveil something bold and unique within that familiarity.",
       "rating_score": null,
       "rating_max": null,
-      "tags": ["featured", "press-kit"]
+      "tags": ["featured", "press-kit"],
+      "iconRotate": "-18deg",
+      "iconScale": "1"
     },
     {
       "id": "evermetal-dark-faerie-tales",
@@ -149,7 +167,9 @@
       "quote_long": "A love letter to the beautiful and the broken, scrawled in lipstick on a cracked mirror in a green room that's a little more squalid, a little more glamorous, than we can quite define.",
       "rating_score": 8,
       "rating_max": 10,
-      "tags": ["featured", "press-kit"]
+      "tags": ["featured", "press-kit"],
+      "iconRotate": "-18deg",
+      "iconScale": "1"
     },
     {
       "id": "overdrive-ie-dark-faerie-tales",
@@ -164,7 +184,9 @@
       "quote_long": "Gypsy Pistoleros return with their most fully realised statement yet. A fairytale for the damned filled with outsiders, night-dwellers and romantics with chipped teeth.",
       "rating_score": null,
       "rating_max": null,
-      "tags": ["featured", "press-kit"]
+      "tags": ["featured", "press-kit"],
+      "iconRotate": "-18deg",
+      "iconScale": "1"
     },
     {
       "id": "myglobalmind-dark-faerie-tales",
@@ -179,7 +201,9 @@
       "quote_long": null,
       "rating_score": null,
       "rating_max": null,
-      "tags": ["featured", "press-kit"]
+      "tags": ["featured", "press-kit"],
+      "iconRotate": "-18deg",
+      "iconScale": "1"
     },
     {
       "id": "jace-media-dark-faerie-tales",
@@ -194,7 +218,9 @@
       "quote_long": "Darker and more theatrical than Church of the Pistoleros, it blends sleazy punk energy with gothic drama and flashes of fire.",
       "rating_score": null,
       "rating_max": null,
-      "tags": ["featured", "press-kit"]
+      "tags": ["featured", "press-kit"],
+      "iconRotate": "-18deg",
+      "iconScale": "1"
     },
     {
       "id": "the-indie-scene-dark-faerie-tales",
@@ -209,7 +235,9 @@
       "quote_long": "There's a little symphonic metal here, a lot of glam rock and total musical mayhem.",
       "rating_score": null,
       "rating_max": null,
-      "tags": ["featured", "press-kit"]
+      "tags": ["featured", "press-kit"],
+      "iconRotate": "-18deg",
+      "iconScale": "1"
     },
     {
       "id": "the-sentinel-daily-dark-faerie-tales",
@@ -224,7 +252,9 @@
       "quote_long": "Gypsy Pistoleros no longer seems like a half-baked gimmick. Not many bands have the strength of character to take on such a mantle, but on the evidence of their last two records I'm starting to think the Pistoleros might just be such an outfit.",
       "rating_score": null,
       "rating_max": null,
-      "tags": ["featured", "press-kit"]
+      "tags": ["featured", "press-kit"],
+      "iconRotate": "-18deg",
+      "iconScale": "1"
     },
     {
       "id": "jammerzine-dark-faerie-tales",
@@ -239,7 +269,9 @@
       "quote_long": null,
       "rating_score": null,
       "rating_max": null,
-      "tags": ["featured", "press-kit"]
+      "tags": ["featured", "press-kit"],
+      "iconRotate": "-18deg",
+      "iconScale": "1"
     },
     {
       "id": "punktuation-dark-faerie-tales",
@@ -254,7 +286,9 @@
       "quote_long": null,
       "rating_score": null,
       "rating_max": null,
-      "tags": ["featured", "press-kit"]
+      "tags": ["featured", "press-kit"],
+      "iconRotate": "-18deg",
+      "iconScale": "1"
     },
     {
       "id": "rock-news-nottingham-live",
@@ -269,7 +303,9 @@
       "quote_long": "Beautifully feral, unpredictable, and fiercely independent. They do not just play a gig, they host an immersive, theatrical rock 'n' roll ritual that demands your full attention.",
       "rating_score": null,
       "rating_max": null,
-      "tags": ["featured", "live"]
+      "tags": ["featured", "live"],
+      "iconRotate": "-18deg",
+      "iconScale": "1"
     },
     {
       "id": "powerplay-church-of-the-pistoleros",
@@ -284,7 +320,9 @@
       "quote_long": null,
       "rating_score": 10,
       "rating_max": 10,
-      "tags": ["featured", "historical"]
+      "tags": ["featured", "historical"],
+      "iconRotate": "-18deg",
+      "iconScale": "1"
     },
     {
       "id": "all-about-the-rock-church-of-the-pistoleros",
@@ -299,7 +337,9 @@
       "quote_long": null,
       "rating_score": 9,
       "rating_max": 10,
-      "tags": ["featured", "historical"]
+      "tags": ["featured", "historical"],
+      "iconRotate": "-18deg",
+      "iconScale": "1"
     },
     {
       "id": "maximum-volume-music-church-of-the-pistoleros",
@@ -314,7 +354,9 @@
       "quote_long": null,
       "rating_score": 9,
       "rating_max": 10,
-      "tags": ["featured", "historical"]
+      "tags": ["featured", "historical"],
+      "iconRotate": "-18deg",
+      "iconScale": "1"
     },
     {
       "id": "get-ready-to-rock-church-of-the-pistoleros",
@@ -329,7 +371,9 @@
       "quote_long": null,
       "rating_score": 5,
       "rating_max": 5,
-      "tags": ["featured", "historical"]
+      "tags": ["featured", "historical"],
+      "iconRotate": "-18deg",
+      "iconScale": "1"
     },
     {
       "id": "liverpool-sound-vision-church-of-the-pistoleros",
@@ -344,7 +388,9 @@
       "quote_long": null,
       "rating_score": 9,
       "rating_max": 10,
-      "tags": ["featured", "historical"]
+      "tags": ["featured", "historical"],
+      "iconRotate": "-18deg",
+      "iconScale": "1"
     },
     {
       "id": "punksite-church-of-the-pistoleros",
@@ -359,7 +405,9 @@
       "quote_long": null,
       "rating_score": 5,
       "rating_max": 5,
-      "tags": ["featured", "historical"]
+      "tags": ["featured", "historical"],
+      "iconRotate": "-18deg",
+      "iconScale": "1"
     }
   ]
 }
