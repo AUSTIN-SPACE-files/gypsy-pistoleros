@@ -43,12 +43,16 @@
   --wa-color-neutral-border-quiet: rgba(255, 255, 255, 0.2);
 }
 
-/* Push card body to fill remaining height so footer always sits at bottom */
+/* Push card body to fill remaining height so footer always sits at bottom.
+   position:relative + overflow:hidden make the body the positioning/clipping context
+   for the bg icon, so it spans from the header hairline to the footer hairline. */
 .review-card::part(body) {
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  position: relative;
+  overflow: hidden;
 }
 
 /* Fallback for WA token approach: set divider border-color directly on parts */
@@ -107,19 +111,18 @@
    CARD BODY — quote
    ========================================== */
 
-/* Wraps blockquote + background icon. position:relative + overflow:hidden
-   gives the bg icon a clipping boundary and an absolute-positioning parent. */
+/* Positioning context is now ::part(body) — see above.
+   flex+align-items centre the blockquote; body's justify-content:center
+   handles the vertical centering of the wrap in the full body height. */
 .review-card__quote-wrap {
-  position: relative;
-  overflow: hidden;
-  flex: 1;
   display: flex;
   align-items: center;
 }
 
 /* Background icon: blown-up, rotated, low-opacity — sits behind quote text.
+   Positioned against ::part(body) so it spans header hairline → footer hairline.
    font-size: clamp(120px, 30vw, 200px)
-   color: rgba(255,255,255,0.05)
+   color: rgba(255,255,255,0.10)
    transform composition owned here; JS supplies --review-bg-rotate / --review-bg-scale. */
 .review-card__quote-bg {
   position: absolute;
@@ -127,7 +130,7 @@
   left: 50%;
   font-size: clamp(120px, 30vw, 200px);
   line-height: 1;
-  color: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.10);
   z-index: 0;
   transform: translate(-50%, -50%) rotate(var(--review-bg-rotate, -18deg)) scale(var(--review-bg-scale, 1));
   pointer-events: none;
