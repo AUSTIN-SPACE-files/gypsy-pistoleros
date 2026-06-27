@@ -532,12 +532,22 @@
   pointer-events: none;
 }
 
-/* Content block — right 52%, left-aligned.
-   52% keeps left edge at ~48vw, in the dark middle/right of the bluefog photo. */
+/* Content block — two-column, right-biased at 65%.
+   Left edge at ~35vw, text column in dark middle/right zone of bluefog photo. */
 .section-join__content {
   margin-left: auto;
-  max-width: 52%;
+  max-width: 65%;
   text-align: left;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+/* Text column — left flex child */
+.section-join__text {
+  flex: 1;
+  min-width: 0;
 }
 
 .section-join__content h2 {
@@ -554,14 +564,20 @@
   margin-top: var(--space-2);
 }
 
+/* Actions column — right flex child, equal-width stacked buttons */
 .section-join__actions {
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
-  align-items: flex-start;
+  align-items: stretch;
+  flex-shrink: 0;
 }
 
-/* Responsive: collapse to full-width centred below 768px */
+.section-join__actions wa-button {
+  width: 100%;
+}
+
+/* Responsive: collapse to stacked centred below 768px */
 @media (max-width: 768px) {
   .section-join__sigil {
     display: none;
@@ -571,10 +587,16 @@
     max-width: 100%;
     margin-left: 0;
     text-align: center;
+    flex-direction: column;
+    align-items: center;
   }
 
   .section-join__content .section-join__copy {
     margin: 0 auto var(--space-4) !important;
+  }
+
+  .section-join__actions wa-button {
+    width: auto;
   }
 }
 
