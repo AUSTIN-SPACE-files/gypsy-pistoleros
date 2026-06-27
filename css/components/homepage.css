@@ -501,8 +501,8 @@
   border-top: 1px solid rgb(26, 26, 26);
   border-bottom: 1px solid rgb(26, 26, 26);
   overflow: hidden;
-  padding-top: var(--space-8);
-  padding-bottom: var(--space-8);
+  padding-top: var(--space-3);
+  padding-bottom: var(--space-3);
 }
 
 /* Variant: bluefog-vocals photo (renamed from --photo-hairguitar) */
@@ -510,12 +510,16 @@
   background-image: url('https://gypsypistoleros.com/files/1418182/gp-bluefog-vocals.webp');
 }
 
-/* Sigil layer — position:absolute overrides > * rule's position:relative
-   by source order (equal specificity, later wins).
-   z-index:2 inherited from > * rule — above scrim (1), below content
-   (also z:2, later in DOM). */
+/* position:absolute !important — beats section-rhythm's (1,3,1)
+   #usersite-container .page-content > section:not(...) > * { position:relative }
+   Identical pattern to z-index:2 !important on .section-join--photo > *. */
+.section-join--photo .section-join__sigil {
+  position: absolute !important;
+}
+
+/* Sigil layer — z-index:2 inherited from > * rule — above scrim (1),
+   below content (also z:2, later in DOM). */
 .section-join__sigil {
-  position: absolute;
   top: -80px;
   left: -80px;
   width: 480px;
@@ -529,26 +533,26 @@
   pointer-events: none;
 }
 
-/* Content block — right 46%, left-aligned.
-   46% (not 50%) shifts the left edge to ~54vw, clear of the lit subject. */
+/* Content block — right 52%, left-aligned.
+   52% keeps left edge at ~48vw, in the dark middle/right of the bluefog photo. */
 .section-join__content {
   margin-left: auto;
-  max-width: 46%;
+  max-width: 52%;
   text-align: left;
 }
 
 .section-join__content h2 {
-  margin-bottom: var(--space-3);
+  margin-bottom: var(--space-2);
 }
 
 /* Override base .section-join__copy centering and bottom gap */
 .section-join__content .section-join__copy {
   max-width: none;
-  margin: 0 0 var(--space-4) !important;
+  margin: 0 0 var(--space-2) !important;
 }
 
 .section-join__content .section-join__more {
-  margin-top: var(--space-3);
+  margin-top: var(--space-2);
 }
 
 /* Responsive: collapse to full-width centred below 768px */
