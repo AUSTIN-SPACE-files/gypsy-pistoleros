@@ -236,6 +236,11 @@
   transition: transform 200ms ease;
 }
 
+.video-card__play i {
+  color: #000;
+  font-size: 24px;
+}
+
 .video-card__facade:hover .video-card__play,
 .video-card__facade:focus-visible .video-card__play {
   transform: translate(-50%, -50%) scale(1.05);
