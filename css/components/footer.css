@@ -17,6 +17,8 @@
   background-color: var(--color-bg-primary);
   padding: var(--space-12) var(--space-6) var(--space-8);
   position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
 }
 
 /* Full-bleed upper divider. border-top on .site-footer was capped at the

@@ -139,6 +139,10 @@
    hero pages only; non-hero pages keep the 40px and their content stays
    below #main-nav. #container-wrapper sits outside #usersite-container so
    no usersite-container prefix here. */
+#container-wrapper {
+  padding-bottom: 0;
+}
+
 #container-wrapper:has(.section-hero) {
   padding-top: 0 !important;
 }
