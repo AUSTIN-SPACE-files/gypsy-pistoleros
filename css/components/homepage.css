@@ -647,7 +647,7 @@
    ========================================== */
 
 .section-contacts {
-  padding: var(--space-8) 0 var(--space-16);
+  padding: var(--space-8) 0;
   max-width: var(--max-width);
   margin: 0 auto;
 }
