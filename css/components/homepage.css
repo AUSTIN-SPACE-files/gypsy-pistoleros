@@ -319,6 +319,9 @@
   grid-template-columns: 1fr 1fr;
   gap: var(--space-8);
   margin-top: var(--space-8);
+  max-width: var(--max-width);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Responsive 16:9 iframe wrapper */
@@ -517,7 +520,7 @@
    Two-layer scrim covers lum~83 (neck/chest crop) at combined ~0.60 left edge. */
 .section-join__content {
   margin: 0 auto;
-  max-width: 65%;
+  max-width: var(--max-width);
   text-align: left;
   display: flex;
   flex-direction: row;
@@ -629,6 +632,13 @@
 /* Variant — hairguitar image */
 .section-watch--photo-hairguitar {
   background-image: url('https://gypsypistoleros.com/files/1418177/gp-redblue-hairguitar.webp');
+}
+
+/* Constrain Watch heading to the 1200px column — aligns with __grid when full-bleed */
+.section-watch--photo > h2 {
+  max-width: var(--max-width);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 
