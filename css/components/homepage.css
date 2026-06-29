@@ -363,7 +363,7 @@
    ========================================== */
 
 .section-about {
-  padding: var(--space-16) var(--space-6);
+  padding: var(--space-16) 0;
   max-width: var(--max-width);
   margin: 0 auto;
 }
@@ -406,6 +406,12 @@
   .section-about__text,
   .section-about__media {
     width: 100%;
+  }
+}
+
+@media (max-width: 1248px) {
+  .section-about {
+    padding-inline: var(--space-6);
   }
 }
 
@@ -465,8 +471,9 @@
   z-index: 0;
   background-size: cover;
   background-position: 50% 40%;
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
+  max-width: var(--max-width);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Scrim — ::after at z-index:1, above section-rhythm's z-index:0 children.
@@ -509,8 +516,7 @@
 }
 
 .section-join.section-join--photo {
-  border-top: 1px solid rgb(26, 26, 26);
-  border-bottom: 1px solid rgb(26, 26, 26);
+  border: 1px solid rgb(26, 26, 26);
   padding-top: var(--space-3);
   padding-bottom: var(--space-3);
 }
@@ -524,7 +530,7 @@
    Two-layer scrim covers lum~83 (neck/chest crop) at combined ~0.60 left edge. */
 .section-join__content {
   margin: 0 auto;
-  max-width: var(--max-width);
+  max-width: 100%;
   text-align: left;
   display: flex;
   flex-direction: row;
