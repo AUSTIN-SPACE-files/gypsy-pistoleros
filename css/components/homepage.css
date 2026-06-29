@@ -376,26 +376,24 @@
 .section-about__inner {
   display: flex;
   flex-direction: row;
-  align-items: stretch;
+  align-items: center;
   gap: var(--space-8);
-  min-height: 480px;
 }
 
 .section-about__text {
-  flex: 3;
+  flex: 2;
   min-width: 0;
 }
 
 .section-about__media {
-  flex: 2;
+  flex: 1;
   min-width: 0;
 }
 
 .section-about__photo {
   width: 100%;
-  height: 100%;
+  height: auto;
   display: block;
-  object-fit: cover;
   border: 1px solid rgb(26, 26, 26);
 }
 
@@ -403,17 +401,11 @@
   .section-about__inner {
     flex-direction: column;
     gap: var(--space-6);
-    min-height: unset;
   }
 
   .section-about__text,
   .section-about__media {
     width: 100%;
-  }
-
-  .section-about__photo {
-    height: auto;
-    object-fit: initial;
   }
 }
 
