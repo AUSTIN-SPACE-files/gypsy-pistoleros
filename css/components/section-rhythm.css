@@ -140,7 +140,7 @@
    below #main-nav. #container-wrapper sits outside #usersite-container so
    no usersite-container prefix here. */
 #container-wrapper {
-  padding-bottom: 0;
+  padding-bottom: 0 !important;
 }
 
 #container-wrapper:has(.section-hero) {
