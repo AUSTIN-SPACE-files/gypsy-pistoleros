@@ -558,17 +558,10 @@
   margin-top: var(--space-2);
 }
 
-/* Actions column — right flex child, equal-width stacked buttons */
+/* Actions column — right flex child */
 .section-join__actions {
   display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-  align-items: stretch;
   flex-shrink: 0;
-}
-
-.section-join__actions wa-button {
-  width: 100%;
 }
 
 /* Responsive: collapse to stacked centred below 768px */
@@ -584,9 +577,6 @@
     margin: 0 auto var(--space-4) !important;
   }
 
-  .section-join__actions wa-button {
-    width: auto;
-  }
 }
 
 
