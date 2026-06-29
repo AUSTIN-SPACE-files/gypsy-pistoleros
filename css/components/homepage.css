@@ -363,7 +363,7 @@
    ========================================== */
 
 .section-about {
-  padding: var(--space-16) 0;
+  padding: var(--space-16) 0 var(--space-8);
   max-width: var(--max-width);
   margin: 0 auto;
 }
@@ -376,8 +376,9 @@
 .section-about__inner {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: stretch;
   gap: var(--space-8);
+  min-height: 480px;
 }
 
 .section-about__text {
@@ -392,8 +393,9 @@
 
 .section-about__photo {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
+  object-fit: cover;
   border: 1px solid rgb(26, 26, 26);
 }
 
@@ -401,11 +403,17 @@
   .section-about__inner {
     flex-direction: column;
     gap: var(--space-6);
+    min-height: unset;
   }
 
   .section-about__text,
   .section-about__media {
     width: 100%;
+  }
+
+  .section-about__photo {
+    height: auto;
+    object-fit: initial;
   }
 }
 
@@ -517,8 +525,8 @@
 
 .section-join.section-join--photo {
   border: 1px solid rgb(26, 26, 26);
-  padding-top: var(--space-3);
-  padding-bottom: var(--space-3);
+  padding-top: var(--space-8);
+  padding-bottom: var(--space-8);
 }
 
 /* Variant: bluefog-vocals photo (renamed from --photo-hairguitar) */
@@ -657,7 +665,7 @@
    ========================================== */
 
 .section-contacts {
-  padding: var(--space-16) var(--space-6);
+  padding: var(--space-8) var(--space-6) var(--space-16);
   max-width: var(--max-width);
   margin: 0 auto;
 }
@@ -714,4 +722,8 @@
   .section-contacts__grid {
     grid-template-columns: 1fr;
   }
+}
+
+#usersite-container .page-content > section.section-contacts::before {
+  border-top: none;
 }
