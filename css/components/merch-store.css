@@ -406,7 +406,7 @@ body #usersite-container div.store-wrapper.store-layout-grid article .product-pr
   align-items: flex-start;
 }
 
-.merch-info-item wa-icon {
+.merch-info-item i {
   font-size: 1.25rem;
   color: var(--color-text-secondary);
   flex-shrink: 0;
