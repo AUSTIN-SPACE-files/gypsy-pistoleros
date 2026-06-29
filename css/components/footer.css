@@ -372,3 +372,18 @@
 #footer-wrap {
   border-bottom: 0 !important;
 }
+
+
+/* ==========================================
+   CLOSE PHANTOM 16px — MODA-SECTION ENFORCED HEIGHT
+   BZ's <moda-section> custom element enforces its own height
+   via JS or shadow-DOM internals — height/min-height CSS
+   overrides (including inline !important) are re-set by the
+   custom element on the next tick. Negative margin-bottom pulls
+   the document bottom up by exactly 16px to match actual content
+   height without contesting the custom element's internal height.
+   ========================================== */
+
+#usersite-container moda-section:has(.site-footer) {
+  margin-bottom: -16px !important;
+}
