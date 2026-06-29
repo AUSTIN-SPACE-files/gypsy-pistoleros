@@ -641,8 +641,8 @@
 /* Constrain Watch heading to the 1200px column — aligns with __grid when full-bleed */
 .section-watch--photo > h2 {
   max-width: var(--max-width);
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
 
 
