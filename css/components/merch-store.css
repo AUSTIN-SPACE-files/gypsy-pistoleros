@@ -408,7 +408,7 @@ body #usersite-container div.store-wrapper.store-layout-grid article .product-pr
 
 .merch-info-item wa-icon {
   font-size: 1.25rem;
-  color: var(--color-accent-green);
+  color: var(--color-text-secondary);
   flex-shrink: 0;
   margin-top: 2px;
 }

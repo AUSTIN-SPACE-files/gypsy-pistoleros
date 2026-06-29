@@ -1,24 +1,10 @@
 /* ================================================
-   ICON STYLES — Font Awesome Pro Thin (fa-thin)
+   ICON STYLES — Font Awesome Sharp Thin (fa-sharp fa-thin)
    Loaded via FA Pro Kit: kit.fontawesome.com/6a400036f2.js
-   staging/cult-membership-v0.html · staging/staging-wrapper.html
    Built by AUSTIN_SPACE — May 2026
    ================================================ */
 
-/* Base thin icon colour — silver (decorative default) */
+/* Base sharp-thin icon colour — muted silver (decorative default) */
 i.fa-thin {
-  color: var(--color-silver);
-}
-
-/* Benefit card icons — 3.5rem silver */
-.benefit-card-content i.fa-thin {
-  font-size: 3.5rem;
-  color: var(--color-silver);
-}
-
-/* Membership panel benefit icons */
-.membership-benefit i.fa-thin {
-  color: var(--color-silver);
-  font-size: 1rem;
-  flex-shrink: 0;
+  color: var(--color-text-secondary);
 }

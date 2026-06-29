@@ -319,7 +319,7 @@
   function renderError(targets) {
     targets.forEach(function (target) {
       target.innerHTML = '<wa-alert variant="warning" open>\n'
-        + '  <i class="fa-thin fa-triangle-exclamation" slot="icon"></i>\n'
+        + '  <i class="fa-sharp fa-thin fa-triangle-exclamation" slot="icon"></i>\n'
         + '  Tour dates currently unavailable. Please check back soon.\n'
         + '</wa-alert>';
     });

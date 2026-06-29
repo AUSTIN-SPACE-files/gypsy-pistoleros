@@ -51,30 +51,30 @@
   /* ---- template helpers ---- */
 
   const PUBLICATION_ICONS = {
-    'classic-rock':               'fa-solid fa-guitar',
-    'powerplay':                  'fa-solid fa-bolt',
-    'punksite':                   'fa-solid fa-skull',
-    'maximum-volume-music':       'fa-solid fa-volume-high',
-    'fireworks-magazine':         'fa-solid fa-burst',
-    'evermetal':                  'fa-solid fa-gem',
-    'petes-rock-news-and-views':  'fa-solid fa-newspaper',
-    'the-rockpit':                'fa-solid fa-fire',
-    'liverpool-sound-and-vision': 'fa-solid fa-music',
-    'ringmaster-review':          'fa-solid fa-ring',
-    'overdrive-ie':               'fa-solid fa-gauge-high',
-    'myglobalmind':               'fa-solid fa-globe',
-    'jace-media':                 'fa-solid fa-microphone',
-    'the-indie-scene':            'fa-solid fa-music',
-    'the-sentinel-daily':         'fa-solid fa-shield-halved',
-    'jammerzine':                 'fa-solid fa-headphones',
-    'punktuation':                'fa-solid fa-skull',
-    'rock-news':                  'fa-solid fa-newspaper',
-    'all-about-the-rock':         'fa-solid fa-guitar',
-    'get-ready-to-rock':          'fa-solid fa-rocket'
+    'classic-rock':               'fa-sharp fa-thin fa-guitar',
+    'powerplay':                  'fa-sharp fa-thin fa-bolt',
+    'punksite':                   'fa-sharp fa-thin fa-skull',
+    'maximum-volume-music':       'fa-sharp fa-thin fa-volume-high',
+    'fireworks-magazine':         'fa-sharp fa-thin fa-burst',
+    'evermetal':                  'fa-sharp fa-thin fa-gem',
+    'petes-rock-news-and-views':  'fa-sharp fa-thin fa-newspaper',
+    'the-rockpit':                'fa-sharp fa-thin fa-fire',
+    'liverpool-sound-and-vision': 'fa-sharp fa-thin fa-music',
+    'ringmaster-review':          'fa-sharp fa-thin fa-ring',
+    'overdrive-ie':               'fa-sharp fa-thin fa-gauge-high',
+    'myglobalmind':               'fa-sharp fa-thin fa-globe',
+    'jace-media':                 'fa-sharp fa-thin fa-microphone',
+    'the-indie-scene':            'fa-sharp fa-thin fa-music',
+    'the-sentinel-daily':         'fa-sharp fa-thin fa-shield-halved',
+    'jammerzine':                 'fa-sharp fa-thin fa-headphones',
+    'punktuation':                'fa-sharp fa-thin fa-skull',
+    'rock-news':                  'fa-sharp fa-thin fa-newspaper',
+    'all-about-the-rock':         'fa-sharp fa-thin fa-guitar',
+    'get-ready-to-rock':          'fa-sharp fa-thin fa-rocket'
   };
 
   function reviewIcon(review) {
-    return PUBLICATION_ICONS[review.publication_slug] || 'fa-solid fa-star';
+    return PUBLICATION_ICONS[review.publication_slug] || 'fa-sharp fa-thin fa-star';
   }
 
   function ratingBlock(review) {
@@ -248,7 +248,7 @@
   function renderError(targets) {
     targets.forEach(target => {
       target.innerHTML = `<wa-alert variant="warning" open>
-  <i class="fa-thin fa-triangle-exclamation" slot="icon"></i>
+  <i class="fa-sharp fa-thin fa-triangle-exclamation" slot="icon"></i>
   Reviews currently unavailable.
 </wa-alert>`;
     });

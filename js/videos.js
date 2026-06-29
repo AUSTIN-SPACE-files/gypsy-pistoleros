@@ -61,7 +61,7 @@
     play.className = 'video-card__play';
     play.setAttribute('aria-hidden', 'true');
     /* Font Awesome play icon — loaded site-wide via the FA kit */
-    play.innerHTML = '<i class="fa-solid fa-play"></i>';
+    play.innerHTML = '<i class="fa-sharp fa-thin fa-play"></i>';
 
     facade.appendChild(thumb);
     facade.appendChild(play);

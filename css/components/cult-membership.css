@@ -97,7 +97,7 @@
 
 .cult-benefit wa-icon {
   font-size: 1.25rem;
-  color: #39ff14;
+  color: var(--color-text-secondary);
   flex-shrink: 0;
 }
 
