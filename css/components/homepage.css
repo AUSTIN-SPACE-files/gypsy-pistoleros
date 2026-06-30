@@ -195,6 +195,54 @@
   color: var(--color-accent-pink);
 }
 
+/* Shows: left green (fa-calendar), right pink (fa-guitar) */
+#usersite-container .section-hero--shows i.section-hero__tagline-icon.fa-calendar {
+  color: var(--color-accent-green);
+}
+#usersite-container .section-hero--shows i.section-hero__tagline-icon.fa-guitar {
+  color: var(--color-accent-pink);
+}
+
+/* Videos: left pink (fa-film), right green (fa-circle-play) */
+#usersite-container .section-hero--videos i.section-hero__tagline-icon.fa-film {
+  color: var(--color-accent-pink);
+}
+#usersite-container .section-hero--videos i.section-hero__tagline-icon.fa-circle-play {
+  color: var(--color-accent-green);
+}
+
+/* Store/Merch: left green (fa-shirt), right pink (fa-gem) */
+#usersite-container .section-hero--merch i.section-hero__tagline-icon.fa-shirt {
+  color: var(--color-accent-green);
+}
+#usersite-container .section-hero--merch i.section-hero__tagline-icon.fa-gem {
+  color: var(--color-accent-pink);
+}
+
+/* Contact: left pink (fa-envelope), right green (fa-microphone-lines) */
+#usersite-container .section-hero--contact i.section-hero__tagline-icon.fa-envelope {
+  color: var(--color-accent-pink);
+}
+#usersite-container .section-hero--contact i.section-hero__tagline-icon.fa-microphone-lines {
+  color: var(--color-accent-green);
+}
+
+/* Press Kit: left green (fa-feather), right pink (fa-newspaper) */
+#usersite-container .section-hero--press i.section-hero__tagline-icon.fa-feather {
+  color: var(--color-accent-green);
+}
+#usersite-container .section-hero--press i.section-hero__tagline-icon.fa-newspaper {
+  color: var(--color-accent-pink);
+}
+
+/* Cult: left pink (fa-crown), right green (fa-heart) */
+#usersite-container .section-hero--cult i.section-hero__tagline-icon.fa-crown {
+  color: var(--color-accent-pink);
+}
+#usersite-container .section-hero--cult i.section-hero__tagline-icon.fa-heart {
+  color: var(--color-accent-green);
+}
+
 /* Hero texture treatment — grain + vignette.
    Scoped away from --home; home hero stays clean.
    .section-hero__fx carries NO z-index (stays z:auto) so it does NOT
