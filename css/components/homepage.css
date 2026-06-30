@@ -155,7 +155,7 @@
 }
 
 .section-hero__tagline-icon {
-  color: var(--color-text-secondary);
+  color: #ffffff;
   font-size: 0.875rem;
   flex-shrink: 0;
 }
