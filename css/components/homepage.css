@@ -826,6 +826,6 @@
   }
 }
 
-#usersite-container .page-content > section.section-contacts::before {
+#usersite-container #page-root.website-page-home .page-content > section.section-contacts::before {
   border-top: none;
 }
