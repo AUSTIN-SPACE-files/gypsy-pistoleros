@@ -30,6 +30,18 @@
    The BZ chrome elements are made transparent via the
    section-rhythm.css override rules (see below). */
 
+/* Pull the header out of flow on hero pages so its height (logo-driven) no longer
+   pushes the hero photo down. The :has() guard self-disables on non-hero pages.
+   #container-wrapper is outside #usersite-container so no prefix needed, matching
+   the b37bcaf padding guard. Header bg is already transparent; nav floats over photo. */
+#container-wrapper:has(.section-hero) #page-header {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+}
+
 /* Hero background — Bandzoogle-hosted asset.
    For local preview, swap to url('../../staging/assets/images/Dark-fae.png'). */
 /* display: flex !important — beats Bandzoogle's
@@ -52,12 +64,10 @@
   overflow: hidden;
 
   /* Pull-up: hero extends behind the BZ chrome.
-     -324px = -286px prior + 38px after logo swap so hero box-top reaches 0 and
-     the photo fills behind the transparent nav, eliminating the black strip above
-     the hero. Lever 1: #container-wrapper:has(.section-hero) zeroes BZ's 40px
-     fixed-nav padding (section-rhythm.css). Residual inset absorbed here.
-     Header-height dependent — re-measure if the logo/header height changes. */
-  margin-top: -324px;
+     Header is now absolute (rule above) so logo height no longer pushes the hero.
+     -107px is the fixed masked-inset offset only — logo-independent, won't drift
+     when the logo changes. Verified box-top 0 across logo sizes 60/126/220px. */
+  margin-top: -107px;
   padding-top: calc(286px + var(--space-8));
 
   /* Full-bleed: edge-to-edge breakout from Bandzoogle's content container */
@@ -74,13 +84,12 @@
   display: none !important;
 }
 
-/* Hiding the forced article (rule above) plus zeroing the hero box-top: with the
-   taller logo, -324px lands homepage hero box-top at 0, matching all other hero
-   pages and removing the black strip. (Same value as shared rule now — the earlier
-   -233px divergence is no longer needed for positioning, but keeping the explicit
-   override is harmless and preserves the homepage scoping.) */
+/* Homepage hero margin: same -107px as shared rule. The forced article is hidden
+   above so there is no additional in-flow displacement on the homepage. Explicit
+   override kept for homepage scoping; value matches shared rule and is
+   logo-independent for the same reason. */
 #page-root.website-page-home .section-hero--home {
-  margin-top: -324px !important;
+  margin-top: -107px !important;
 }
 
 /* Per-page hero background images */
