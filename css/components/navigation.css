@@ -192,3 +192,12 @@
 #usersite-container #main-nav.non-mobile li.has-submenu ul li.subpage a {
   text-align: left !important;
 }
+
+/* Submenu dropdown items: kill BZ hover strikethrough, apply neon pink hover.
+   Submenu <a> has no class; descendant combinators only (intermediate <div>).
+   -webkit-text-fill-color required — BZ sets it to snow and it overrides color. */
+#usersite-container #main-nav.non-mobile li.has-submenu ul li.subpage a:hover {
+  text-decoration: none !important;
+  color: var(--color-accent-pink) !important;
+  -webkit-text-fill-color: var(--color-accent-pink) !important;
+}
