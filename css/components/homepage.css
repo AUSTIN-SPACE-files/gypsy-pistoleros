@@ -407,6 +407,17 @@
   border: 1px solid rgb(26, 26, 26);
 }
 
+.section-about__meta {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  margin-top: var(--space-6);
+  margin-bottom: 0;
+}
+
 @media (max-width: 768px) {
   .section-about__inner {
     flex-direction: column;
@@ -657,16 +668,26 @@
    ========================================== */
 
 .section-contacts {
-  padding: var(--space-8) 0;
+  padding: var(--space-4) 0;
   max-width: var(--max-width);
   margin: 0 auto;
+}
+
+#usersite-container .section-contacts h2 {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  margin-bottom: 0;
 }
 
 .section-contacts__grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-8);
-  margin-top: var(--space-8);
+  gap: var(--space-4);
+  margin-top: var(--space-4);
 }
 
 .section-contacts__block {
