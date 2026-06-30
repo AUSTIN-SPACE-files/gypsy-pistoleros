@@ -187,6 +187,14 @@
   flex-shrink: 0;
 }
 
+#usersite-container i.section-hero__tagline-icon.fa-skull {
+  color: var(--color-accent-green);
+}
+
+#usersite-container i.section-hero__tagline-icon.fa-cross {
+  color: var(--color-accent-pink);
+}
+
 /* Hero texture treatment — grain + vignette.
    Scoped away from --home; home hero stays clean.
    .section-hero__fx carries NO z-index (stays z:auto) so it does NOT
