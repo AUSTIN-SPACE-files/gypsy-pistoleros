@@ -165,3 +165,30 @@
     font-size: 1.125rem; /* hold at 18px minimum (literal 1.125rem after token retirement) */
   }
 }
+
+/* ==========================================
+   BZ REMIX OVERRIDES — desktop nav (#main-nav.non-mobile)
+   ==========================================
+   BZ's desktop nav markup: li.top > div (unclassed) > a.top
+   There is an intermediate <div> between <li> and <a> — child combinators
+   (li.top > a.top) do NOT match and fail silently even with !important.
+   Always use descendant combinators here.
+   Double-ID anchor (#usersite-container #main-nav) is required to beat
+   BZ remix specificity. Hover strikethrough and current-page underline are
+   both text-decoration on the same a.top element, so both must be declared.
+   ========================================== */
+
+/* Kill BZ remix strikethrough on hover; re-assert underline on selected page */
+#usersite-container #main-nav.non-mobile a.top:hover {
+  text-decoration: none !important;
+}
+#usersite-container #main-nav.non-mobile li.top.selected a.top {
+  text-decoration: underline !important;
+}
+
+/* Submenu dropdown: left-align (BZ defaults to center) */
+#usersite-container #main-nav.non-mobile li.has-submenu ul,
+#usersite-container #main-nav.non-mobile li.has-submenu ul li.subpage,
+#usersite-container #main-nav.non-mobile li.has-submenu ul li.subpage a {
+  text-align: left !important;
+}
