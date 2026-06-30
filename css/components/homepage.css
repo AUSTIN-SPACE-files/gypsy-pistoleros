@@ -75,13 +75,12 @@
 }
 
 /* The shared .section-hero margin-top:-286px (b37bcaf) was calibrated WITH the
-   forced article in the flow. Hiding it above removes ~270px of in-flow height,
-   so -286px overshoots and clips the hero under the nav. On the homepage the only
-   structure between nav and hero is a fixed 107px (empty site-wide-header-container
-   + masked-section inset) — verified non-proportional via live DOM decomposition —
-   so -107px lands the hero flush. Scoped to --home so all other hero pages keep -286px. */
+   forced article in the flow. Hiding it (rule above) removes ~270px of in-flow
+   height. -233px re-anchors the homepage hero so its centred content sits 321px
+   below nav-bottom — matching the other hero pages (measured against /shows).
+   Scoped to --home so all other hero pages keep the shared -286px. */
 #page-root.website-page-home .section-hero--home {
-  margin-top: -107px !important;
+  margin-top: -233px !important;
 }
 
 /* Per-page hero background images */
