@@ -85,10 +85,10 @@
   gap: 10px;
 }
 
-.review-card__pub-icon {
-  font-size: 0.9em;
-  color: var(--color-text-secondary);
-  opacity: 0.7;
+#usersite-container i.review-card__pub-icon {
+  font-size: 18px;
+  color: #ffffff;
+  opacity: 1;
   flex-shrink: 0;
 }
 
@@ -119,18 +119,18 @@
   align-items: center;
 }
 
-/* Background icon: blown-up, rotated, low-opacity — sits behind quote text.
+/* Background icon: blown-up, rotated, near-invisible watermark — sits behind quote text.
    Positioned against ::part(body) so it spans header hairline → footer hairline.
-   font-size: clamp(120px, 30vw, 200px)
-   color: rgba(255,255,255,0.10)
+   Colour and opacity use a high-specificity selector below to beat i.fa-thin (0,1,1).
    transform composition owned here; JS supplies --review-bg-rotate / --review-bg-scale. */
-.review-card__quote-bg {
+#usersite-container i.review-card__quote-bg {
   position: absolute;
   top: 50%;
   left: 50%;
   font-size: clamp(120px, 30vw, 200px);
   line-height: 1;
-  color: rgba(255, 255, 255, 0.10);
+  color: #ffffff;
+  opacity: 0.04;
   z-index: 0;
   transform: translate(-50%, -50%) rotate(var(--review-bg-rotate, -18deg)) scale(var(--review-bg-scale, 1));
   pointer-events: none;
