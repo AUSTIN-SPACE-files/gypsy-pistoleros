@@ -14,7 +14,7 @@
    ========================================== */
 
 #usersite-container .site-footer {
-  background-color: #151515;
+  background-color: var(--color-bg-secondary);
   padding: var(--space-12) var(--space-6) var(--space-8);
   position: relative;
   width: 100vw;
@@ -345,24 +345,6 @@
 
 
 /* ==========================================
-   COLLAPSE PHANTOM 16px — FOOTER MODA-SECTION
-   The footer moda-section is a flex column container with two
-   .zoogle-columns-inner children: the real nav (376px) and a
-   BZ-injected .injected-footer utility block (0px content).
-   padding/margin/min-height on the moda-section are all 0 — the
-   16px is a flex row-gap consumed between the two children even
-   when child 2 is 0px tall. display:none removes child 2 from
-   the flex algorithm entirely, collapsing the inter-item gap.
-   #page-footer is already display:none; this hides its sibling
-   wrapper that was still participating in layout.
-   ========================================== */
-
-#usersite-container moda-section:has(.site-footer) .zoogle-columns-inner:has(.injected-footer) {
-  display: none !important;
-}
-
-
-/* ==========================================
    ZERO #footer-wrap BORDER-BOTTOM — 1px gap
    BZ injects border-bottom:1px on #footer-wrap (confirmed live).
    #footer-wrap is outside #usersite-container — same chain as
@@ -375,15 +357,13 @@
 
 
 /* ==========================================
-   CLOSE PHANTOM 16px — MODA-SECTION ENFORCED HEIGHT
-   BZ's <moda-section> custom element enforces its own height
-   via JS or shadow-DOM internals — height/min-height CSS
-   overrides (including inline !important) are re-set by the
-   custom element on the next tick. Negative margin-bottom pulls
-   the document bottom up by exactly 16px to match actual content
-   height without contesting the custom element's internal height.
+   COLLAPSE PHANTOM 16px — FOOTER MODA-SECTION
+   BZ sets padding-block: var(--section-block-padding) on every
+   moda-section via @layer moda.blocks (computes to 1rem = 16px).
+   An unlayered !important rule on #usersite-container beats the
+   layered declaration cleanly — no margin hacks needed.
    ========================================== */
 
 #usersite-container moda-section:has(.site-footer) {
-  margin-bottom: -16px !important;
+  padding-block: 0 !important;
 }
