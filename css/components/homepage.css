@@ -52,12 +52,12 @@
   overflow: hidden;
 
   /* Pull-up: hero extends behind the BZ chrome.
-     -286px = -250px baseline + 36px measured m-masked residual (lever 2).
-     Lever 1: #container-wrapper:has(.section-hero) zeroes BZ's 40px fixed-nav padding
-     (section-rhythm.css). After lever 1, the residual 36px comes from the BZ
-     moda-section m-shape m-masked inset — not reachable via padding/margin resets;
-     absorbed here per inner-circle.css:813 precedent. Verified live across all pages. */
-  margin-top: -286px;
+     -324px = -286px prior + 38px after logo swap so hero box-top reaches 0 and
+     the photo fills behind the transparent nav, eliminating the black strip above
+     the hero. Lever 1: #container-wrapper:has(.section-hero) zeroes BZ's 40px
+     fixed-nav padding (section-rhythm.css). Residual inset absorbed here.
+     Header-height dependent — re-measure if the logo/header height changes. */
+  margin-top: -324px;
   padding-top: calc(286px + var(--space-8));
 
   /* Full-bleed: edge-to-edge breakout from Bandzoogle's content container */
@@ -74,13 +74,13 @@
   display: none !important;
 }
 
-/* The shared .section-hero margin-top:-286px (b37bcaf) was calibrated WITH the
-   forced article in the flow. Hiding it (rule above) removes ~270px of in-flow
-   height. -233px re-anchors the homepage hero so its centred content sits 321px
-   below nav-bottom — matching the other hero pages (measured against /shows).
-   Scoped to --home so all other hero pages keep the shared -286px. */
+/* Hiding the forced article (rule above) plus zeroing the hero box-top: with the
+   taller logo, -324px lands homepage hero box-top at 0, matching all other hero
+   pages and removing the black strip. (Same value as shared rule now — the earlier
+   -233px divergence is no longer needed for positioning, but keeping the explicit
+   override is harmless and preserves the homepage scoping.) */
 #page-root.website-page-home .section-hero--home {
-  margin-top: -233px !important;
+  margin-top: -324px !important;
 }
 
 /* Per-page hero background images */
