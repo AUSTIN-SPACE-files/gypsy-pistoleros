@@ -932,7 +932,7 @@
   color: #e8e8e0;
 }
 
-#usersite-container #ic-panel-welcome .ic-perk-list wa-icon {
+#usersite-container #ic-panel-welcome .ic-perk-list i {
   color: var(--color-text-secondary);
   font-size: 1.125rem;
   flex-shrink: 0;
