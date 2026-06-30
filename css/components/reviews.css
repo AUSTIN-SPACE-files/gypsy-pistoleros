@@ -92,6 +92,14 @@
   flex-shrink: 0;
 }
 
+#usersite-container .review-card:nth-child(odd) i.review-card__pub-icon {
+  color: var(--color-accent-green);
+}
+
+#usersite-container .review-card:nth-child(even) i.review-card__pub-icon {
+  color: var(--color-accent-pink);
+}
+
 /* Publication titles use --font-display (Bleeding Cowboys).
    At 14px this is below the design system's 32px floor and may
    render with some flourish collapse — accept this for v0.
