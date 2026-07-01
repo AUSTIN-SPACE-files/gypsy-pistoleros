@@ -212,6 +212,16 @@
   clip-path: inset(0 -100vw 0 -100vw) !important;
 }
 
+/* Hero clip-path exemption — first-of-type first-child only.
+   The band rule above sets clip-path: inset(...) which slices off the hero's
+   negative-margin bleed-up under the nav chrome. Remove the vertical clip on
+   the true hero (seq 1 only) while keeping the black band and box-shadow.
+   Does NOT target container 2 or 3 first-children (seqs 2/10 stay painted). */
+#usersite-container moda-sections.zoogle-content:first-of-type > moda-section:first-child {
+  clip-path: none !important;
+  overflow: visible !important;
+}
+
 /* ── Container 2 (seq 2–9): 8 sections, first is grey ── */
 /* Odd children of C2 → grey (seqs 2, 4, 6, 8) */
 #usersite-container moda-sections.zoogle-content:nth-of-type(2) > moda-section:nth-child(2n+1) {
