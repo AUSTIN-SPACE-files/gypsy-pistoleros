@@ -24,21 +24,6 @@
   gap: var(--space-4);
 }
 
-/* Reserve height for the JS-populated shows grid so it doesn't collapse to 0
-   before shows.js fetches and injects rows (which caused a full-page layout
-   shift / black voids as everything below jumped down on populate).
-   NOTE: content-tuned measured values (4 rows as of 2026-07). If the homepage
-   shows count changes substantially, re-measure. Scoped to .section-tour so the
-   full /shows page grid is unaffected. */
-.section-tour .shows-grid {
-  min-height: 900px; /* mobile stacked layout, measured 945px for 4 rows */
-}
-@media (min-width: 769px) {
-  .section-tour .shows-grid {
-    min-height: 420px; /* table layout, worst tier 769-1050px measured 442px */
-  }
-}
-
 
 /* ==========================================
    SHOWS TABLE — proper <table> element,

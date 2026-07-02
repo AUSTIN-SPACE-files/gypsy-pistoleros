@@ -26,26 +26,6 @@
   }
 }
 
-/* Reserve height for the JS-populated reviews grid so it doesn't collapse to 0
-   before reviews.js fetches and injects wa-cards (same layout-shift cause as
-   shows-grid). Responsive: narrow screens stack cards vertically (tallest),
-   wider screens use more columns (shorter). NOTE: content-tuned measured values
-   (3 reviews as of 2026-07); re-measure if review count changes.
-   :not(.section-press--membership) keeps this off the membership page's grid. */
-.section-press:not(.section-press--membership) .reviews-grid {
-  min-height: 2600px; /* 1-col tier <640px, worst measured 2650px @320px */
-}
-@media (min-width: 640px) {
-  .section-press:not(.section-press--membership) .reviews-grid {
-    min-height: 1400px; /* 2-col tier, worst measured 1430px @640px */
-  }
-}
-@media (min-width: 940px) {
-  .section-press:not(.section-press--membership) .reviews-grid {
-    min-height: 930px; /* 3-col tier, worst measured 963px @940px */
-  }
-}
-
 /* ==========================================
    CARD
    ========================================== */

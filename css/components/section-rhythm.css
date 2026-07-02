@@ -179,88 +179,43 @@
    gutters; the shadow paints colour to the viewport edges and the
    clip-path keeps it to the section's own height — no vertical bleed,
    no horizontal scroll since page overflow is visible).
-   Anchor: #usersite-container moda-sections.zoogle-content (footer also emits
-   moda-sections.zoogle-content but lives in #footer-wrap, outside #usersite-container,
-   so the prefix keeps these rules off the footer).
-
-   Page structure: 3 moda-sections.zoogle-content containers, counts 1 / 8 / 1.
-   :nth-child restarts per container, so parity is set per-container to produce
-   a globally correct alternating sequence. 10-section colour map:
-     1  #000000  C1 s1            no hairline (page top)
-     2  #080808  C2 s1 (odd)      hairline
-     3  #000000  C2 s2 (even)     hairline
-     4  #080808  C2 s3 (odd)      hairline
-     5  #000000  C2 s4 (even)     hairline
-     6  #080808  C2 s5 (odd)      hairline
-     7  #000000  C2 s6 (even)     hairline
-     8  #080808  C2 s7 (odd)      hairline
-     9  #000000  C2 s8 (even)     hairline
-    10  #080808  C3 s1            hairline
+   Scoped to .website-page-v0-merch-store only.
    ============================================================ */
 
 /* BZ puts a 1px solid black L/R/bottom border on every moda-section;
-   it shows as vertical lines on the bands. Zero it; each band rule below
-   adds border-top individually where a hairline is wanted. */
-#usersite-container moda-sections.zoogle-content > moda-section {
+   it shows as vertical lines on the #0f0f0f bands. Remove it. */
+#usersite-container .website-page-v0-merch-store moda-sections.zoogle-content > moda-section {
   border: 0 !important;
 }
 
-/* ── Container 1 (seq 1): single section, pure black, no top hairline ── */
-#usersite-container moda-sections.zoogle-content:nth-of-type(1) > moda-section {
+#usersite-container .website-page-v0-merch-store moda-sections.zoogle-content > moda-section:nth-child(2n+1) {
   background-color: #000000 !important;
   box-shadow: 0 0 0 100vw #000000 !important;
   clip-path: inset(0 -100vw 0 -100vw) !important;
 }
 
-/* Hero clip-path exemption — first-of-type first-child only.
-   The band rule above sets clip-path: inset(...) which slices off the hero's
-   negative-margin bleed-up under the nav chrome. Remove the vertical clip on
-   the true hero (seq 1 only) while keeping the black band and box-shadow.
-   Does NOT target container 2 or 3 first-children (seqs 2/10 stay painted). */
-#usersite-container moda-sections.zoogle-content:first-of-type > moda-section:first-child {
+#usersite-container .website-page-v0-merch-store moda-sections.zoogle-content > moda-section:nth-child(2n) {
+  background-color: #0f0f0f !important;
+  box-shadow: 0 0 0 100vw #0f0f0f !important;
+  clip-path: inset(0 -100vw 0 -100vw) !important;
+}
+
+/* Hero moda-section: exempt from band treatment.
+   clip-path on this element clips the hero's margin-top bleed-up;
+   transparent bg + no shadow let the hero photo show through the nav chrome. */
+#usersite-container .website-page-v0-merch-store moda-sections.zoogle-content > moda-section:first-child {
+  background-color: transparent !important;
+  box-shadow: none !important;
   clip-path: none !important;
   overflow: visible !important;
 }
 
-/* ── Container 2 (seq 2–9): 8 sections, first is grey ── */
-/* Odd children of C2 → grey (seqs 2, 4, 6, 8) */
-#usersite-container moda-sections.zoogle-content:nth-of-type(2) > moda-section:nth-child(2n+1) {
-  background-color: #080808 !important;
-  box-shadow: 0 0 0 100vw #080808 !important;
-  clip-path: inset(0 -100vw 0 -100vw) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
-}
-
-/* Even children of C2 → black (seqs 3, 5, 7, 9) */
-#usersite-container moda-sections.zoogle-content:nth-of-type(2) > moda-section:nth-child(2n) {
-  background-color: #000000 !important;
-  box-shadow: 0 0 0 100vw #000000 !important;
-  clip-path: inset(0 -100vw 0 -100vw) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
-}
-
-/* ── Container 3 (seq 10): single section, grey, hairline ── */
-#usersite-container moda-sections.zoogle-content:nth-of-type(3) > moda-section {
-  background-color: #080808 !important;
-  box-shadow: 0 0 0 100vw #080808 !important;
-  clip-path: inset(0 -100vw 0 -100vw) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
-}
-
 /* Card inversion: card contrasts against its band.
-   Black band → lighter card (#0f0f0f); grey band → darker card (#000000). */
-#usersite-container moda-sections.zoogle-content:nth-of-type(1) > moda-section article.store-item {
+   Black band (odd) -> lighter card; #0f0f0f band (even) -> black card. */
+#usersite-container .website-page-v0-merch-store moda-sections.zoogle-content > moda-section:nth-child(2n+1) article.store-item {
   background-color: #0f0f0f !important;
 }
 
-#usersite-container moda-sections.zoogle-content:nth-of-type(2) > moda-section:nth-child(2n+1) article.store-item {
-  background-color: #000000 !important;
-}
-
-#usersite-container moda-sections.zoogle-content:nth-of-type(2) > moda-section:nth-child(2n) article.store-item {
-  background-color: #0f0f0f !important;
-}
-
-#usersite-container moda-sections.zoogle-content:nth-of-type(3) > moda-section article.store-item {
+#usersite-container .website-page-v0-merch-store moda-sections.zoogle-content > moda-section:nth-child(2n) article.store-item {
   background-color: #000000 !important;
 }
