@@ -829,3 +829,21 @@
 #usersite-container #page-root.website-page-home .page-content > section.section-contacts::before {
   border-top: none;
 }
+
+
+/* ==========================================
+   BZ-NATIVE SHOWS SECTION — content-width constraint
+   ========================================== */
+
+/* BZ sets max-width: none + padding: 0 50px on .zoogle-columns-inner.site-wrap,
+   running the events table ~2416px wide at 2560px viewport. Cap at 1200px to
+   match .section-press. The moda-section's full-bleed band (box-shadow on the
+   element itself) is untouched — only the inner content wrapper is constrained.
+   BZ's existing 50px side padding is kept; it collapses gracefully on narrow
+   viewports without any padding override.
+   Anchored on homepage page class + :has(h2.row-title) — avoids the unstable
+   m-style-feature-row-{instance-ID} class which breaks if the row is re-added. */
+#page-root.website-page-home moda-section.zoogle-columns:has(h2.row-title) .zoogle-columns-inner.site-wrap {
+  max-width: 1200px !important;
+  margin-inline: auto !important;
+}
