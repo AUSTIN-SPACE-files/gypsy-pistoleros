@@ -172,6 +172,15 @@ body {
   display: flow-root;
 }
 
+/* The hero negative margin escapes #usersite-container up into
+   #usersite-container-wrap and body, collapsing body to 615px. Establish the
+   BFC on the OUTER wrap (direct child of body) so the margin is contained
+   before it reaches body's height calculation. flow-root, no fixed-position
+   descendants live at this level so no re-anchoring risk. */
+#usersite-container-wrap:has(.section-hero) {
+  display: flow-root;
+}
+
 #usersite-container header,
 #usersite-container .site-header,
 #usersite-container header.site-header,
