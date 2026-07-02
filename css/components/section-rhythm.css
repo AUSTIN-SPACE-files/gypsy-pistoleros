@@ -172,12 +172,14 @@ body {
   display: flow-root;
 }
 
-/* The hero negative margin escapes #usersite-container up into
-   #usersite-container-wrap and body, collapsing body to 615px. Establish the
-   BFC on the OUTER wrap (direct child of body) so the margin is contained
-   before it reaches body's height calculation. flow-root, no fixed-position
-   descendants live at this level so no re-anchoring risk. */
-#usersite-container-wrap:has(.section-hero) {
+/* The hero negative margin escapes up through .usersite-container-wrap and
+   #usersite-container-inner-wrap into body, collapsing body height and hiding
+   content below the fold. The direct child of body is div.usersite-container-wrap
+   (a CLASS, not an id — the previous #usersite-container-wrap selector matched
+   nothing). Establish the BFC on the outermost wrap so the margin is contained
+   before it reaches body. No fixed-position descendants live at this level. */
+.usersite-container-wrap:has(.section-hero),
+#usersite-container-inner-wrap:has(.section-hero) {
   display: flow-root;
 }
 
