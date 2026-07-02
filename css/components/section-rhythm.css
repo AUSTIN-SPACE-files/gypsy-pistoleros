@@ -205,6 +205,14 @@
   border: 0 !important;
 }
 
+/* BZ's content-width controller stamps descending inline z-index (3,2,1...) on
+   stacked moda-section rows. Each row has an opaque background, so lower rows
+   paint beneath the taller row above them and become invisible. Force auto so
+   rows paint in normal document order. */
+#usersite-container moda-sections.zoogle-content > moda-section {
+  z-index: auto !important;
+}
+
 /* ── Container 1 (seq 1): single section, pure black, no top hairline ── */
 #usersite-container moda-sections.zoogle-content:nth-of-type(1) > moda-section {
   background-color: #000000 !important;
