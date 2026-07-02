@@ -48,6 +48,18 @@
   overflow-x: clip;
 }
 
+/* Bandzoogle/Web Awesome sets html/body to height:100vh, which clamps the root
+   scroll container to one viewport and makes all below-the-fold content
+   unreachable. Force natural height so the page scrolls normally. Verified live:
+   this restores the full scroll range and paints all lower sections. */
+html {
+  height: auto !important;
+}
+body {
+  height: auto !important;
+  min-height: 100% !important;
+}
+
 #usersite-container .page-content > section {
   position: relative;
 }
@@ -145,6 +157,19 @@
 
 #container-wrapper:has(.section-hero) {
   padding-top: 0 !important;
+}
+
+/* Contain the hero's negative margin-top so it can't collapse through the
+   ancestor chain into body and shrink body's auto-height (which hides all
+   content below the fold as page-background black on desktop).
+   overflow: clip establishes a BFC without re-anchoring BZ's fixed-position
+   elements the way overflow: hidden would — same reasoning as the
+   #usersite-container overflow-x: clip rule. Scoped via :has() so it only
+   fires on hero pages; non-hero pages are untouched. */
+#usersite-container:has(.section-hero) {
+  overflow-x: clip;
+  overflow-y: visible;
+  display: flow-root;
 }
 
 #usersite-container header,
