@@ -627,3 +627,20 @@
   max-width: 1200px !important;
   margin-inline: auto !important;
 }
+
+
+/* ==========================================
+   SECTION 14 — ENQUIRIES FORM LABEL COLOUR
+   Brightens the native BZ Enquiries form field
+   labels (Name/Email/Message) from BZ theme's
+   near-black #1b1d26 to --color-text-primary
+   (#e8e8e0) so they read on the black band.
+   #usersite-container double-ID anchor beats BZ's
+   ID-scoped theme rule without !important (2 IDs
+   vs BZ's 1). Colour only — font/size/weight
+   untouched. Scoped to website-page-press-kit-epk.
+   ========================================== */
+
+#usersite-container #page-root.website-page-press-kit-epk form.simple_form .input > label {
+  color: var(--color-text-primary);
+}
