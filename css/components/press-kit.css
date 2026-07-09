@@ -517,3 +517,93 @@
   color: var(--color-text-secondary);
   margin-bottom: var(--space-1);
 }
+
+
+/* ==========================================
+   SECTION 12 — BAND LINE-UP
+   HTML position: between At a Glance and Biography
+   (SECTION 2B in staging/05_press-kit.html) — appended
+   here rather than inline in file order to avoid
+   renumbering every section below it.
+   ========================================== */
+
+.section-lineup {
+  padding: var(--space-16) var(--space-6);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.section-lineup__subhead {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-8);
+}
+
+.section-lineup__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-6);
+  margin-top: var(--space-6);
+}
+
+@media (max-width: 900px) {
+  .section-lineup__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* wa-card has NO ::part(base) — host styling goes directly on the
+   element; parts only exist for media/header/body/footer. Same
+   token-override pattern as .section-downloads__grid wa-card
+   (see SECTION 10 above). */
+#usersite-container .lineup-card {
+  --wa-color-surface-default: var(--color-bg-primary);
+  --wa-color-neutral-fill-quiet: var(--color-bg-primary);
+  --wa-color-text-normal: var(--color-text-primary);
+
+  background-color: var(--color-bg-primary);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-md);
+  box-shadow: none;
+  color: var(--color-text-primary);
+  display: block;
+  overflow: hidden;
+}
+
+#usersite-container .lineup-card::part(media) {
+  margin: 0;
+  padding: 0;
+}
+
+#usersite-container .lineup-card img[slot="media"] {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: center top;
+}
+
+#usersite-container .lineup-card::part(body) {
+  background-color: transparent;
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.lineup-card__name {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: var(--color-text-primary);
+  line-height: 1.2;
+}
+
+.lineup-card__role {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.04em;
+}
