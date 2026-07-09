@@ -607,3 +607,23 @@
   color: var(--color-text-secondary);
   letter-spacing: 0.04em;
 }
+
+
+/* ==========================================
+   SECTION 13 — PAGE-WIDE 1200PX CONTENT CAP
+   Caps all press-kit content sections (custom v0
+   blocks and native BZ widgets alike) to a 1200px
+   centred column. Mirrors the homepage Shows fix
+   (homepage.css, website-page-home rule) minus the
+   :has(h2.row-title) narrowing — here every content
+   section is intentionally capped, not just one row.
+   moda-section itself stays full-bleed (band, shadow,
+   clip-path untouched); only the inner wrapper is
+   constrained. BZ's 50px side padding is left alone
+   so the cap collapses gracefully below it.
+   ========================================== */
+
+#page-root.website-page-press-kit-epk moda-section.zoogle-columns .zoogle-columns-inner.site-wrap {
+  max-width: 1200px !important;
+  margin-inline: auto !important;
+}
