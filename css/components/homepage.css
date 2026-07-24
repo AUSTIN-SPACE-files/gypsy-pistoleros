@@ -606,20 +606,33 @@
   z-index: 2 !important;
 }
 
-/* section-rhythm paints an opaque background-color on ::before at z-index:-1,
-   which sits in front of the section's own background-image and hides the photo.
-   Selector at (1,3,2) beats section-rhythm's nth-child rules at (1,2,2).
-   Background only zeroed here, not border-top: the ::before's border paints
-   as part of its own box, same step as its background, above the section's
-   own background-image (per the comment above) — so with only the
-   background suppressed, the structural border-top still renders visibly
-   over the photo. This gives the photo variant the same full-bleed
-   structural top hairline every other section gets, at the same
-   --rhythm-hairline value, no separate opaque frame needed. */
+/* section-rhythm paints an opaque background-color on ::before at z-index:-1.
+   Selector at (1,3,2) beats section-rhythm's nth-child rules at (1,2,2). */
+/* Perimeter hairlines: zero ::before border-top (section-rhythm base rule at (1,1,2))
+   and section's own border-top/bottom (.section-join at (0,1,0)).
+   Both selectors already win on specificity — no !important needed.
+
+   REVERTED (0719480 -> this commit): that commit un-suppressed border-top
+   here on the theory that ::before's negative z-index paints above the
+   section's own background-image, so the hairline would show over the
+   photo. Measured live on /home: it does not — the section's own
+   background-image occludes the ::before's border-top where their boxes
+   overlap (confirmed via computed z-index/width/left, not assumed), leaving
+   this hairline invisible on .section-watch--photo and broken into
+   fragments on .section-join--photo (visible only in the two 100vw-breakout
+   margins outside the section's own box, where nothing competes with it).
+   Do not re-attempt this by un-suppressing border-top again without first
+   verifying on the live page — see the z-index option considered and
+   deliberately not shipped, reported the same day this was reverted. */
 #usersite-container .page-content > section.section-join.section-join--photo::before {
   background-color: transparent;
+  border-top: none;
 }
 
+/* No border — this is a photo panel and reads as its own block without a
+   frame. A translucent hairline over a photograph composites unevenly along
+   its length (see the Watch section's opaque frame below for why), and this
+   section doesn't get one at all rather than live with that. */
 .section-join.section-join--photo {
   padding-top: var(--space-8);
   padding-bottom: var(--space-8);
@@ -751,13 +764,24 @@
   z-index: 2 !important;
 }
 
-/* Background only zeroed, not border-top — same reasoning as the join panel
-   ::before above: the ::before's border paints above the section's own
-   background-image, so leaving border-top alone gives this photo variant
-   the same structural top hairline as every other section instead of its
-   own opaque frame. */
 #usersite-container .page-content > section.section-watch.section-watch--photo::before {
   background-color: transparent;
+  border-top: none;
+}
+
+/* Opaque frame, not --rhythm-hairline — this section sits over a photograph,
+   and a translucent divider would composite unevenly along its length and
+   read as different weights top to bottom (see variables.css).
+   border-top only: hairlines in this system are drawn top-only, by the
+   section BELOW each boundary. This photo variant zeroes its own ::before
+   (rule above) so it can't draw its own top hairline via the structural
+   mechanism and needs an explicit border-top instead — but its bottom edge
+   is already served by the next section's top hairline, so a border-bottom
+   here always doubles into a 2px line. Exception: a photo section that is
+   LAST in its .page-content block has no following section to supply that
+   line and would need its own border-bottom added back. */
+.section-watch.section-watch--photo {
+  border-top: 1px solid var(--rhythm-hairline-solid);
 }
 
 /* Variant — hairguitar image */
