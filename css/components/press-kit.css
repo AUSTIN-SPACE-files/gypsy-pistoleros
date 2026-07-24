@@ -623,7 +623,7 @@
    so the cap collapses gracefully below it.
    ========================================== */
 
-#page-root.website-page-press-kit-epk moda-section.zoogle-columns .zoogle-columns-inner.site-wrap {
+#page-root.website-page-press-kit-epk #page-content-wrap moda-section.zoogle-columns .zoogle-columns-inner.site-wrap {
   max-width: 1200px !important;
   margin-inline: auto !important;
 }
@@ -641,6 +641,6 @@
    untouched. Scoped to website-page-press-kit-epk.
    ========================================== */
 
-#usersite-container #page-root.website-page-press-kit-epk form.simple_form .input > label {
+#usersite-container #page-root.website-page-press-kit-epk #page-content-wrap form.simple_form .input > label {
   color: var(--color-text-primary);
 }
