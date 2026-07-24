@@ -113,10 +113,12 @@
    (not a pseudo-overlay), so no z-index child-lifting is needed — the header
    and grid paint above their own parent's background as normal.
 
-   #000000/#080808 step matches the site-wide .page-content > section rhythm
-   (section-rhythm.css), not merch's darker #000000/#0f0f0f step — this page
-   uses the ambient rhythm. Hairline is 0.06 to match; merch's 0.2 exists only
-   because merch's larger colour step swallowed the fainter value.
+   --rhythm-band-dark/--rhythm-band-light/--rhythm-hairline (variables.css)
+   are shared with the structural .page-content > section rhythm and the
+   merch moda-section rhythm — same values site-wide, three separate rule
+   sets, since the DOM relationship differs on each (see section-rhythm.css
+   top-of-file comment). Formerly #000000/#080808/0.06 here; unified to the
+   merch values.
 
    Scoped to #page-root.website-page-videos #page-content-wrap (confirmed live
    wrapper class + confirmed present), matching the pattern in ade0ec4/668a67b.
@@ -127,14 +129,14 @@
 }
 
 #page-root.website-page-videos #page-content-wrap .video-album:nth-child(2n+1) {
-  background-color: #000000;
-  box-shadow: 0 0 0 100vw #000000;
+  background-color: var(--rhythm-band-dark);
+  box-shadow: 0 0 0 100vw var(--rhythm-band-dark);
   clip-path: inset(0 -100vw 0 -100vw);
 }
 
 #page-root.website-page-videos #page-content-wrap .video-album:nth-child(2n) {
-  background-color: #080808;
-  box-shadow: 0 0 0 100vw #080808;
+  background-color: var(--rhythm-band-light);
+  box-shadow: 0 0 0 100vw var(--rhythm-band-light);
   clip-path: inset(0 -100vw 0 -100vw);
 }
 
@@ -147,7 +149,7 @@
   left: -100vw;
   right: -100vw;
   height: 1px;
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--rhythm-hairline);
   pointer-events: none;
   z-index: 1;
 }
@@ -363,10 +365,6 @@
 /* ==========================================
    CTA ROW SECTION
    ========================================== */
-
-.section-videos--cta-row {
-  border-top: 1px solid var(--color-border-subtle);
-}
 
 .section-videos__inner--cta-row {
   display: flex;

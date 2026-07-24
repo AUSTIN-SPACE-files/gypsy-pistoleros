@@ -15,16 +15,20 @@
 
    ## Alternation pattern (after hero)
 
-   Section 2 (first content)  primary (#000000) — bg-primary
-   Section 3                  secondary (#080808) — explicit value
-   Section 4                  primary
-   Section 5                  secondary
+   Section 2 (first content)  --rhythm-band-dark  (#000000)
+   Section 3                  --rhythm-band-light (#0f0f0f)
+   Section 4                  --rhythm-band-dark
+   Section 5                  --rhythm-band-light
    ... and so on
 
-   The secondary colour is intentionally very close to primary
-   (#080808 vs #000000 — 8 hex points apart) so the alternation
-   is subtle to the point of subliminal. The hairline divider
-   does the actual work of section separation.
+   --rhythm-band-dark/--rhythm-band-light/--rhythm-hairline
+   (variables.css) are shared with the merch moda-section rhythm and
+   the .video-album rhythm (videos.css) — same values, three separate
+   rule sets, because the three mechanisms sit on incompatible DOM
+   relationships (real static siblings here; BZ-generated moda-section
+   elsewhere; JS-rendered nested blocks on the videos page) and cannot
+   be expressed as one selector. Formerly #080808/0.06, unified to the
+   merch values site-wide.
 
    Hero sections (.section-hero, .section-page-hero) are excluded.
    The first content section after the hero gets the colour but
@@ -60,16 +64,16 @@
   width: 100vw;
   height: 100%;
   z-index: -1;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid var(--rhythm-hairline);
   pointer-events: none;
 }
 
 #usersite-container .page-content > section:nth-child(2n)::before {
-  background-color: var(--color-bg-primary);
+  background-color: var(--rhythm-band-dark);
 }
 
 #usersite-container .page-content > section:nth-child(2n+1)::before {
-  background-color: #080808;
+  background-color: var(--rhythm-band-light);
 }
 
 #usersite-container .page-content > section:not(.section-hero):not(.section-page-hero) > * {
@@ -212,13 +216,10 @@
    band directly beneath it, and a line there would cut the hero's fade-to-black.
    Mirrors the site-wide .section-hero + section hairline suppression. Containers
    0 and 2 hold one child each so this selector never matches there.
-   Deliberately 0.2, not the 0.06 used by the structural ::before hairline on
-   .page-content > section: that site-wide rhythm steps between #000000 and
-   #080808, but merch steps between #000000 and #0f0f0f — a visibly lighter
-   band — and 0.06 was confirmed live to be lost against it. 0.2 is also
-   stronger than the 0.08 --color-border-subtle used by the enumerated
-   per-section layer; verified live that the darker band step needs the extra
-   contrast to read as a divider at all. */
+   --rhythm-hairline (variables.css) — shared with the structural
+   .page-content > section rhythm and the .video-album rhythm, unified
+   to this value (was 0.06 on those two, confirmed live as too faint
+   against merch's #0f0f0f step and now the site-wide value). */
 #usersite-container .website-page-merch-store #page-content-wrap > moda-sections.zoogle-content > moda-section:nth-child(n+3)::after {
   content: '';
   position: absolute;
@@ -226,24 +227,27 @@
   left: -100vw;
   right: -100vw;
   height: 1px;
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--rhythm-hairline);
   pointer-events: none;
   z-index: 1;
 }
 
-/* Band parity: n2 (first content band after the hero) is black, continuing the
+/* Band parity: n2 (first content band after the hero) is dark, continuing the
    hero's fade-to-black with no seam. Odd/even labels below refer to nth-child
-   parity, not visual order — 2n is the even (black) band, 2n+1 is the odd
-   (#0f0f0f) band. */
+   parity, not visual order — 2n is the even (dark) band, 2n+1 is the odd
+   (light) band. --rhythm-band-dark/--rhythm-band-light (variables.css) are
+   shared with the structural .page-content > section rhythm and the
+   .video-album rhythm — merch already sat at these values, so this is a
+   token swap with no visual change here. */
 #usersite-container .website-page-merch-store #page-content-wrap > moda-sections.zoogle-content > moda-section:nth-child(2n) {
-  background-color: #000000 !important;
-  box-shadow: 0 0 0 100vw #000000 !important;
+  background-color: var(--rhythm-band-dark) !important;
+  box-shadow: 0 0 0 100vw var(--rhythm-band-dark) !important;
   clip-path: inset(0 -100vw 0 -100vw) !important;
 }
 
 #usersite-container .website-page-merch-store #page-content-wrap > moda-sections.zoogle-content > moda-section:nth-child(2n+1) {
-  background-color: #0f0f0f !important;
-  box-shadow: 0 0 0 100vw #0f0f0f !important;
+  background-color: var(--rhythm-band-light) !important;
+  box-shadow: 0 0 0 100vw var(--rhythm-band-light) !important;
   clip-path: inset(0 -100vw 0 -100vw) !important;
 }
 
@@ -258,11 +262,66 @@
 }
 
 /* Card inversion: card contrasts against its band.
-   Black band (2n) -> lighter card; #0f0f0f band (2n+1) -> black card. */
+   Dark band (2n) -> light card; light band (2n+1) -> dark card. */
 #usersite-container .website-page-merch-store #page-content-wrap > moda-sections.zoogle-content > moda-section:nth-child(2n) article.store-item {
-  background-color: #0f0f0f !important;
+  background-color: var(--rhythm-band-light) !important;
 }
 
 #usersite-container .website-page-merch-store #page-content-wrap > moda-sections.zoogle-content > moda-section:nth-child(2n+1) article.store-item {
-  background-color: #000000 !important;
+  background-color: var(--rhythm-band-dark) !important;
+}
+
+/* ============================================================
+   SHOWS PAGE — hero-isolation parity correction
+
+   Bandzoogle split /shows' paste so the hero sits alone in its own
+   .page-content block (1 child, no siblings — confirmed live via a
+   div/section-only DOM parse; .section-upcoming exists in staging but
+   is HTML-commented-out on the live page, which is why the hero has no
+   live sibling here). This severs the .section-hero + section
+   relationship the structural base rule depends on (line ~87) both to
+   suppress the hairline and to make nth-child parity land on the dark
+   value immediately after the hero on every other page.
+
+   The page's second .page-content block — section-tba, section-past,
+   section-live, section-booking — restarts its own nth-child count at
+   1, so the whole block is out of phase: section-tba lands on the
+   light value instead of dark, and every section in the block is
+   inverted from where it needs to be, not just the first one. Forcing
+   only section-tba dark would produce two adjacent dark bands
+   (section-tba and section-past would both read dark) — the fix has
+   to flip the whole block's parity, which is why all four sections are
+   overridden below, not one.
+
+   .page-content + .page-content does not match anything on this page —
+   confirmed live that each .page-content sits inside its own
+   div.block-interactions wrapper and neither reports a
+   nextElementSibling. nth-of-type can't distinguish them either, since
+   each .page-content is the only div of its type within its own
+   singleton wrapper — there is no structural selector that can say
+   "the second .page-content block on this page." So this targets the
+   four known section classes by name instead of by position.
+
+   If this page's paste is ever re-split so the hero rejoins the
+   content block (or section-upcoming is re-enabled as a live sibling
+   of the hero), this override becomes wrong and must be removed — the
+   default nth-child rhythm resolves correctly on its own once hero and
+   section-tba's block share a parent again.
+   ============================================================ */
+
+#usersite-container #page-root.website-page-shows #page-content-wrap .section-tba::before,
+#usersite-container #page-root.website-page-shows #page-content-wrap .section-live::before {
+  background-color: var(--rhythm-band-dark);
+}
+
+#usersite-container #page-root.website-page-shows #page-content-wrap .section-past::before,
+#usersite-container #page-root.website-page-shows #page-content-wrap .section-booking::before {
+  background-color: var(--rhythm-band-light);
+}
+
+/* Mirrors the .section-hero + section hairline suppression every other
+   page's hero-adjacent section gets, since section-tba is functionally
+   that section here even though the DOM relationship doesn't hold. */
+#usersite-container #page-root.website-page-shows #page-content-wrap .section-tba::before {
+  border-top: none;
 }

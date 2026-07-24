@@ -12,6 +12,17 @@
   --color-bg-elevated: #0f0f0f;
 
   /* ==========================================
+     SECTION RHYTHM — shared across the three independent band
+     mechanisms (.page-content > section in section-rhythm.css,
+     merch moda-section in section-rhythm.css, .video-album in
+     videos.css). Same DOM relationship does not exist across all
+     three, so the mechanisms stay separate — only the values unify.
+     ========================================== */
+  --rhythm-band-dark: #000000;
+  --rhythm-band-light: #0f0f0f;
+  --rhythm-hairline: rgba(255, 255, 255, 0.2);
+
+  /* ==========================================
      ACCENTS — pulled from Dark Faerie Tales vinyl artwork
      ========================================== */
 
