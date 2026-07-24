@@ -724,3 +724,149 @@ match any current or historical version of this file (`docs/css-quirks.md` has
 never recorded this value at any point in its git history) or of the CSS itself
 past `d51134a` — the wrong value came from an external note, not from drift in
 this file.
+
+---
+
+## 10. A stale Bandzoogle editor session accepts input and discards it on save
+
+Pasting into a BZ HTML Feature Row and saving can silently no-op: the page
+saves with no error, and the live page is unchanged. This presents
+identically to the sanitiser rejecting the markup, which sends debugging
+effort toward the wrong cause entirely.
+
+**Diagnostic:** change a single word of plain text (not markup) in the same
+row and save. If that plain-text change also doesn't appear live, the
+problem is the editor session, not anything about the pasted markup. Confirm
+definitively by fetching the live page with cache defeated and grepping the
+response for the change:
+
+```js
+fetch(url + '?cb=' + Date.now(), { cache: 'no-store' })
+  .then(r => r.text())
+  .then(html => console.log(html.includes('your changed text')));
+```
+
+This distinguishes "not actually saved" from "saved but serving a cached
+copy" definitively.
+
+**Fix:** sign out of Bandzoogle and back in, then redo the edit. Cost this
+session: roughly thirty minutes chasing the sanitiser theory before landing
+on this.
+
+---
+
+## 11. Repo state and live state are independent — verify both
+
+Two separate systems, two separate deploy paths. CSS changes made in this
+repo push to `main` and GitHub Pages picks up the new bundle automatically —
+no manual step. HTML changes made in `staging/*.html` only update the repo;
+Bandzoogle never reads it, so the matching paste into the BZ HTML Feature Row
+(see "BZ HTML feature does not auto-sync with staging files" above) has to
+happen by hand, separately, every time.
+
+This means a CSS change can land and visibly alter a page while the matching
+HTML edit sits unpasted — which looks like a partial success (something
+moved) and isn't. They're two independent systems; one updated, the other
+didn't.
+
+Repo state is checkable directly, without asking whether a change actually
+landed:
+
+```
+https://raw.githubusercontent.com/AUSTIN-SPACE-files/gypsy-pistoleros/main/<path>
+```
+
+Commit history:
+
+```
+https://github.com/AUSTIN-SPACE-files/gypsy-pistoleros/commits/main.atom
+```
+
+---
+
+## 12. Paint order for hairlines on photo-backed sections
+
+Both `.section-watch--photo` and `.section-join--photo` set
+`position: relative` and `z-index: 0`, establishing their own stacking
+context, and both carry `background-image` directly on the element. Their
+structural `::before` (from `section-rhythm.css`) computes `z-index: -1` —
+behind the element's own background-image, not in front of it. A hairline
+drawn on that `::before` (border or background) is occluded by the photo:
+invisible entirely on the full-bleed `.section-watch--photo`, and on the
+inset `.section-join--photo` visible only in the two 100vw-breakout margins
+either side, where nothing competes with it — reading as a broken line.
+
+A `border-top` on the *element itself* paints above the element's own
+`background-image` and is therefore visible. That's why
+`.section-watch--photo` carries an explicit
+`border-top: 1px solid var(--rhythm-hairline-solid)` rather than relying on
+the structural `::before` mechanism.
+
+Commit `07194806f32d44255d869c553b87e225ed60f75b` removed that explicit
+border in favour of re-enabling the `::before` hairline, on the theory that
+the negative z-index wouldn't matter. It broke `/home` (invisible hairline on
+Watch, broken hairline on Join). Commit
+`c0a2d84e5c456efa53a6783f4f3d54c063aebe1c` reverted it the same day. Do not
+repeat this without verifying it live first.
+
+---
+
+## 13. Unsolved: a full-bleed hairline above an inset photo panel
+
+`.section-join--photo` is inset to `max-width: var(--max-width)` (1200px), so
+a `border-top` on the element itself draws a panel-width frame edge, not a
+full-bleed divider — and a visible frame on that panel was explicitly
+rejected (see the "No border" comment in `homepage.css`). `::after` is
+already committed to the scrim gradient. `::before` sits behind the photo per
+entry 12 above, so it can't carry a visible hairline either without
+resolving that occlusion first.
+
+Untested candidate: give the photo variant's `::before` a *positive*
+z-index (above the photo) plus `pointer-events: none`, keeping its own
+`background` transparent so only a `border-top` on it would show. The top 1px
+row should be clear of content, since both photo sections carry 32px
+(`.section-join--photo`) and 64px (`.section-watch`) of `padding-top`, but
+this has never been verified live and must be probed in a browser console
+before it is committed — this is exactly the category of assumption
+("negative z-index won't matter in practice") that broke entry 12.
+
+---
+
+## 14. Collapsing Bandzoogle's block padding had wider consequences than expected
+
+Commits `800cdcc7dcb2f9fa8040ad79527004ff8145c712` and
+`8a16812638041ee150444ff5053aa8315dd82cb2` zeroed `moda-section`'s shadow-DOM
+`::part(content)` block padding and `section.feature`'s own padding, so band
+colours would meet their hairlines cleanly at each `.page-content` seam (see
+"`moda-section` padding lives in the shadow DOM" above). That
+Bandzoogle-supplied padding turned out to be silently doing spacing work well
+beyond the one seam it was zeroed for. Four separate problems surfaced from
+it over the following hours, in four different places: the videos page's
+orphan strip, a black gap below the footer band, the videos CTA panel
+butting directly against the footer, and the contacts strip losing roughly
+64px of breathing room it had never explicitly been given — it was
+Bandzoogle's block padding all along.
+
+**Rule of thumb:** if something looked correctly spaced before those two
+commits and looks tight now, the block-padding collapse is the first
+suspect. Fix it with padding on our own section, not by restoring
+Bandzoogle's padding — that would reopen the seam gap those commits closed.
+
+---
+
+## 15. Divider tokens, updated
+
+`--rhythm-hairline` (`rgba(255, 255, 255, 0.2)`, translucent) is for dividers
+drawn over a flat band. `--rhythm-hairline-solid` (`#333333`, opaque) is for
+dividers drawn over a photograph, because the translucent value composites
+with whatever sits behind it and varies in colour along its own length over
+an image.
+
+`--rhythm-hairline-solid` was briefly deleted from `variables.css` by
+`07194806f32d44255d869c553b87e225ed60f75b` (on the theory it was no longer
+needed) and restored by the same-day revert,
+`c0a2d84e5c456efa53a6783f4f3d54c063aebe1c`. It currently has exactly one
+consumer, by design — `.section-watch.section-watch--photo`'s `border-top`
+(`homepage.css:784`). Do not delete it as orphaned on the strength of that
+single-consumer count alone; one consumer is its expected shape, not a sign
+it's unused.

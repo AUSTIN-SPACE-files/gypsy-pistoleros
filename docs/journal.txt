@@ -306,3 +306,63 @@ photo choice for merch's join panel (currently bluefog as a placeholder);
 whether to convert cult membership's CTA to the photo variant; and an h2
 margin-bottom discrepancy that traced to a stale cached bundle rather than
 a real rule (see docs/css-quirks.md, "Verification discipline").
+
+### Post-unification cleanup: press kit downloads, videos CTA, a failed
+### hairline attempt, and the contacts strip (July 2026)
+
+Follow-on work after the section rhythm unification pass and its journal
+entry (f6c2cffe2a7b5b5b3aefc7066714aace00bc6a67) was committed. SHAs below
+verified against git log, not copied from anything quoted mid-session.
+
+- a8204a6f7899a5d333fa591d06f88ca8a10b5b30 — committed a press kit downloads
+  edit that had been pasted into the live BZ HTML Feature Row but never
+  landed in the repo, so the two stayed in sync.
+- 8a19b0c3a0294f60f769e341d8052149c36ad27b — converted the /videos CTA row
+  to the shared .section-join.section-join--photo panel, the same component
+  already used on /home and /merch-store (and, from the prior pass, the
+  merch closer). Third consumer of the shared panel.
+
+Failed hairline attempt and its same-day revert: an attempt to restore
+full-bleed hairlines on the two photo-backed section variants
+(.section-join--photo, .section-watch--photo) by un-suppressing their
+structural ::before border-top, on the theory that the ::before's
+z-index:-1 wouldn't matter against the section's own background-image.
+Measured live on /home, it did matter — the photo occludes the ::before's
+border where their boxes overlap, leaving the hairline invisible on Watch
+and broken into fragments in Join's breakout margins.
+- 07194806f32d44255d869c553b87e225ed60f75b — un-suppressed the ::before
+  border-top on both photo variants; also fixed genuine /videos issues in
+  the same commit (CTA panel bottom spacing as the page's last section,
+  and .section-videos__inner's bottom padding moved onto the last
+  .video-album so it paints in the album's own band colour instead of the
+  wrapper's).
+- c0a2d84e5c456efa53a6783f4f3d54c063aebe1c — reverted the hairline change
+  after live measurement showed it broken (see docs/css-quirks.md, "Paint
+  order for hairlines on photo-backed sections"), keeping the two genuine
+  /videos padding and CTA-spacing fixes from the same commit.
+
+The revert and its predecessor together document an unsolved case for a
+follow-up session: a full-bleed hairline above the inset .section-join--photo
+panel specifically (docs/css-quirks.md, "Unsolved: a full-bleed hairline
+above an inset photo panel").
+
+Contacts strip spacing:
+- 7033c8ff5f35a1fbab2f131a877508b40d7dbc4d — increased .section-contacts
+  vertical padding from --space-4 (16px) to --space-16 (64px) top and
+  bottom. Traced to the same root cause as the other spacing defects this
+  session: 800cdcc and 8a16812's Bandzoogle block-padding collapse had been
+  silently supplying roughly 64px below this strip that was never replaced
+  once zeroed (docs/css-quirks.md, "Collapsing Bandzoogle's block padding
+  had wider consequences than expected"). Verified live across all three
+  pages that use .section-contacts (/home as a closing strip, /contact-
+  booking as the page's main content, /press-kit-epk as the last section of
+  its second block) before committing, since the class is shared and a
+  single change would apply to all three.
+
+Also logged this session, procedural rather than a commit: a stale
+Bandzoogle editor session accepted a paste and reported a normal save while
+silently discarding it, presenting identically to the sanitiser rejecting
+the markup and costing roughly thirty minutes before the actual cause
+(sign out, sign back in) was found. Diagnostic and fix recorded in
+docs/css-quirks.md, "A stale Bandzoogle editor session accepts input and
+discards it on save."
