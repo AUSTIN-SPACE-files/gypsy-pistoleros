@@ -482,6 +482,14 @@
    outgoing edge of the one before them. Flagging this choice since it
    goes beyond what was asked for; revert to padding-block-end only,
    everywhere, if that fuller scope isn't wanted.
+
+   Follow-up (confirmed live on /home after this landed): the outgoing
+   seam closed, but the incoming seam didn't — section.feature carries
+   its own padding-top: 10px, separate from padding-bottom, and only the
+   bottom was zeroed below. Same hero risk applies to section.feature's
+   padding-top as to padding-block-START (it sits directly above the
+   hero on hero-holding blocks), so it gets the identical
+   :not(:has(.section-hero)):not(:has(.section-page-hero)) exclusion.
    ============================================================ */
 
 #usersite-container moda-section:has(.page-content)::part(content) {
@@ -494,4 +502,8 @@
 
 #usersite-container moda-section:has(.page-content) section.feature {
   padding-bottom: 0 !important;
+}
+
+#usersite-container moda-section:has(.page-content):not(:has(.section-hero)):not(:has(.section-page-hero)) section.feature {
+  padding-top: 0 !important;
 }
