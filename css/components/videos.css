@@ -83,10 +83,17 @@
 }
 
 /* Content section inner wrapper — max-width container */
+/* Bottom padding moved off this wrapper and onto .video-album:last-child
+   below — this padding sat outside every .video-album's own box, so the
+   64px here painted with .section-videos' own band colour rather than the
+   last album's, showing as a colour seam with no divider between them
+   (album 4 is nth-child(2n) = light, .section-videos itself is dark).
+   Moving it onto the last album's own box means the album's own band now
+   covers that space. Top/left/right unchanged. */
 .section-videos__inner {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: var(--space-16) var(--space-6);
+  padding: var(--space-16) var(--space-6) 0;
 }
 
 
@@ -96,6 +103,14 @@
 
 .video-album {
   padding: var(--space-16) 0;
+}
+
+/* Carries .section-videos__inner's former bottom padding in addition to its
+   own — total vertical rhythm below the last album is unchanged (still two
+   --space-16 units' worth), it's just now inside the last album's own box
+   instead of the wrapper's, so it renders in the album's own band colour. */
+.video-album:last-child {
+  padding-bottom: calc(var(--space-16) * 2);
 }
 
 

@@ -22,15 +22,6 @@
   --rhythm-band-light: #0f0f0f;
   --rhythm-hairline: rgba(255, 255, 255, 0.2);
 
-  /* Opaque equivalent of --rhythm-hairline composited over --rhythm-band-dark.
-     --rhythm-hairline is translucent by design so it works over both band
-     values, but that means it composites over whatever sits behind it —
-     fine over a flat band, inconsistent over a photograph, where it varies
-     in colour along its length and reads as different weights top to
-     bottom. Use this opaque value instead anywhere a divider is drawn over
-     a photo section rather than a flat band. */
-  --rhythm-hairline-solid: #333333;
-
   /* ==========================================
      ACCENTS — pulled from Dark Faerie Tales vinyl artwork
      ========================================== */
