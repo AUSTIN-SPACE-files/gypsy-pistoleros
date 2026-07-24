@@ -179,26 +179,54 @@
    gutters; the shadow paints colour to the viewport edges and the
    clip-path keeps it to the section's own height — no vertical bleed,
    no horizontal scroll since page overflow is visible).
-   Scoped to .website-page-merch-store (live) and .website-page-v0-merch-store
-   (draft) only.
+   Scoped to the live page only. /v0-merch-store was the build target but is now
+   stale: 3 moda-section nodes, no hero, no store items. Applying band parity and
+   hairlines there would style unrelated feature-row content. If that page is ever
+   repopulated as a real store, re-add its class as a grouped ancestor.
    ============================================================ */
 
 /* BZ puts a 1px solid black L/R/bottom border on every moda-section;
    it shows as vertical lines on the #0f0f0f bands. Remove it. */
-#usersite-container .website-page-merch-store moda-sections.zoogle-content > moda-section,
-#usersite-container .website-page-v0-merch-store moda-sections.zoogle-content > moda-section {
+#usersite-container .website-page-merch-store moda-sections.zoogle-content > moda-section {
   border: 0 !important;
 }
 
-#usersite-container .website-page-merch-store moda-sections.zoogle-content > moda-section:nth-child(2n+1),
-#usersite-container .website-page-v0-merch-store moda-sections.zoogle-content > moda-section:nth-child(2n+1) {
+/* Full-bleed hairline. moda-section computes width 1382px in a 1455px viewport
+   (left offset 36px) — a border-top would render only that inset width, leaving
+   a 36px gap at each end. box-shadow can't paint a single edge, so the divider
+   goes on ::after instead: absolutely positioned, breakout via -100vw left/right.
+   moda-section is already position:relative + overflow:visible, and ::after is
+   otherwise unused (content: none). ::before is BZ-owned at z-index:-1 — untouched.
+   :nth-child(n+3) starts at the second content band: n1 is the hero, n2 is the
+   band directly beneath it, and a line there would cut the hero's fade-to-black.
+   Mirrors the site-wide .section-hero + section hairline suppression. Containers
+   0 and 2 hold one child each so this selector never matches there.
+   0.06 matches the structural ::before hairline in section-rhythm.css's base
+   rule, not the 0.08 --color-border-subtle used by the enumerated per-section
+   layer — this is the ambient divider, not the emphasis one. */
+#usersite-container .website-page-merch-store moda-sections.zoogle-content > moda-section:nth-child(n+3)::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100vw;
+  right: -100vw;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.06);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Band parity: n2 (first content band after the hero) is black, continuing the
+   hero's fade-to-black with no seam. Odd/even labels below refer to nth-child
+   parity, not visual order — 2n is the even (black) band, 2n+1 is the odd
+   (#0f0f0f) band. */
+#usersite-container .website-page-merch-store moda-sections.zoogle-content > moda-section:nth-child(2n) {
   background-color: #000000 !important;
   box-shadow: 0 0 0 100vw #000000 !important;
   clip-path: inset(0 -100vw 0 -100vw) !important;
 }
 
-#usersite-container .website-page-merch-store moda-sections.zoogle-content > moda-section:nth-child(2n),
-#usersite-container .website-page-v0-merch-store moda-sections.zoogle-content > moda-section:nth-child(2n) {
+#usersite-container .website-page-merch-store moda-sections.zoogle-content > moda-section:nth-child(2n+1) {
   background-color: #0f0f0f !important;
   box-shadow: 0 0 0 100vw #0f0f0f !important;
   clip-path: inset(0 -100vw 0 -100vw) !important;
@@ -207,8 +235,7 @@
 /* Hero moda-section: exempt from band treatment.
    clip-path on this element clips the hero's margin-top bleed-up;
    transparent bg + no shadow let the hero photo show through the nav chrome. */
-#usersite-container .website-page-merch-store moda-sections.zoogle-content > moda-section:first-child,
-#usersite-container .website-page-v0-merch-store moda-sections.zoogle-content > moda-section:first-child {
+#usersite-container .website-page-merch-store moda-sections.zoogle-content > moda-section:first-child {
   background-color: transparent !important;
   box-shadow: none !important;
   clip-path: none !important;
@@ -216,13 +243,11 @@
 }
 
 /* Card inversion: card contrasts against its band.
-   Black band (odd) -> lighter card; #0f0f0f band (even) -> black card. */
-#usersite-container .website-page-merch-store moda-sections.zoogle-content > moda-section:nth-child(2n+1) article.store-item,
-#usersite-container .website-page-v0-merch-store moda-sections.zoogle-content > moda-section:nth-child(2n+1) article.store-item {
+   Black band (2n) -> lighter card; #0f0f0f band (2n+1) -> black card. */
+#usersite-container .website-page-merch-store moda-sections.zoogle-content > moda-section:nth-child(2n) article.store-item {
   background-color: #0f0f0f !important;
 }
 
-#usersite-container .website-page-merch-store moda-sections.zoogle-content > moda-section:nth-child(2n) article.store-item,
-#usersite-container .website-page-v0-merch-store moda-sections.zoogle-content > moda-section:nth-child(2n) article.store-item {
+#usersite-container .website-page-merch-store moda-sections.zoogle-content > moda-section:nth-child(2n+1) article.store-item {
   background-color: #000000 !important;
 }
