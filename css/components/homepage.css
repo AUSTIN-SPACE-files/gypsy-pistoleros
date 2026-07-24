@@ -802,7 +802,7 @@
    ========================================== */
 
 .section-contacts {
-  padding: var(--space-4) 0;
+  padding: var(--space-16) 0;
   max-width: var(--max-width);
   margin: 0 auto;
 }
