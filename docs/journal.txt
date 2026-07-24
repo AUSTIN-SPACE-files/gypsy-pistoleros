@@ -217,3 +217,92 @@ Architectural learnings (now in docs/css-quirks.md):
   it even at equal specificity — always use background-color longhand for buttons
 - CORS-opaque BZ <link> means .cssRules throws — diagnose via getComputedStyle,
   inline style probes, and screenshots
+
+### Section rhythm unification pass (July 2026) — production-ready
+
+Multi-session pass to make the alternating background/hairline rhythm consistent
+site-wide, triggered by an audit that found /videos and /merch-store falling
+outside it. Turned into three page-scope defects, a token unification, retiring
+a whole enumerated divider layer, extending the rhythm to native Bandzoogle
+blocks, collapsing Bandzoogle's own block padding, converting the merch closer
+to the shared join photo panel, and closing a footer padding gap. Commits below
+are in chronological order, oldest first, SHAs verified against git log (not
+copied from anything quoted mid-session).
+
+Three page-scope defects, all the same root cause — a page-class selector
+scoped without also anchoring to #page-content-wrap, so it leaked into the
+site-wide header/footer or, in the third case, targeted the wrong page class
+entirely:
+- ddd26ff9710ace8c9fbe748f1f302e71a9dbb8ef — merch rhythm was scoped to the
+  draft page class (.website-page-v0-merch-store) instead of the live one
+  (.website-page-merch-store); never applied to the live page at all.
+- 95f287193f6cf3e8fd9da1898f4ce9fe6e0d9f81 — corrected to the live class,
+  flipped band parity black-first, added full-bleed hairlines.
+- ade0ec42c5e3d6c93631d5a0f893c7432f25b380 — constrained merch rhythm to
+  #page-content-wrap after confirming it was also styling the site header
+  and footer.
+- 668a67b154015f05c883374ed6400a77916caeaa — same #page-content-wrap fix for
+  press kit's 1200px content cap, which was narrowing the header and footer
+  the same way.
+
+Unification onto shared tokens and retiring the enumerated layer:
+- d4f0608b20679ee33ffaff17c26dc53da68f8b21 — banded the .video-album blocks on
+  /videos to restore rhythm inside a single .section-videos (JS-rendered,
+  nested one level deeper than the page-content mechanism can reach).
+- a7fa3ba1327a6a189c7c0b721ccc2f91cc6e46fe — the big one: introduced
+  --rhythm-band-dark / --rhythm-band-light / --rhythm-hairline in
+  variables.css, pointed all three independent band mechanisms
+  (.page-content > section, merch moda-section, .video-album) at them,
+  retired a 13-rule enumerated border-top divider layer across four files,
+  and corrected /shows' block parity.
+- 98d3e77ff564f288a61e96cecd03449d285f8203 — extended the rhythm to native
+  Bandzoogle blocks sitting in the gaps between .page-content blocks on
+  /home and /press-kit-epk (band + hairline via :not(:has(.page-content))).
+- 3f9a4658df284b816f196723e8d5040591f2e849 — banded press kit's Spotify embed
+  and /shows' native Calendar Feature block; retired the now-unnecessary
+  /shows parity override once the calendar itself became the page's
+  black-first section.
+
+Bandzoogle block padding, discovered mid-pass to be a second Bandzoogle layer
+sitting between our sections and the hairlines they seam against:
+- 800cdcc7dcb2f9fa8040ad79527004ff8145c712 — zeroed moda-section's shadow-DOM
+  ::part(content) padding-block and section.feature's padding-bottom, with a
+  hero-safety exclusion on padding-block-start (the hero's -107px negative
+  margin depends on that padding not being removed).
+- 8a16812638041ee150444ff5053aa8315dd82cb2 — closed the remaining incoming-seam
+  gap (section.feature's padding-top, same hero exclusion).
+- 2f70ee1eeffd36ab716bade4c7a100cd723db714 — same collapse applied to the
+  footer's own moda-section via a separate :has(.site-footer) condition, kept
+  structurally apart from :has(.page-content) so native BZ widgets stay
+  correctly excluded from the content-block version.
+
+Frame/divider cleanup along the way:
+- bec46d4d62d8d6f85345ecfc8571eb1d3b90b4c4 — pointed the photo-variant section
+  frames (.section-join--photo, .section-watch--photo) at --rhythm-hairline
+  instead of a hardcoded #1a1a1a.
+- 01464318ac0117bb98dd033c9a42ce8f85333813 — removed an internal footer
+  divider that duplicated the footer's own top divider.
+- 63102ef8fb3fdce3af12879b0e0bd2db3b412d2d — removed the CTA panel border
+  entirely (photo panels read as their own block, no frame) and introduced
+  --rhythm-hairline-solid (#333333) for the Watch section's opaque frame,
+  since a translucent hairline composites unevenly over a photograph.
+- 2c8b66b6584c8fea1f5b50a4de21ad625dc12c67 — removed a doubled 2px border
+  where the Watch section's own border-bottom stacked against the next
+  section's top hairline; codified the top-only hairline convention.
+
+Merch closer converted to the shared join photo panel:
+- 2b7e2ced68fb4312a5cd585b3222f7868ae73dd1 — replaced staging's
+  div.merch-closer with the same .section-join.section-join--photo structure
+  used on /home and /cult, retired all 7 .merch-closer rules (4 of them had
+  been scoped to the draft page class and were already dead on live).
+- 715de3389fe1acab5c8d14a7d822c9f4e2ce5c89 — caught and fixed the merch join
+  panel rendering its heading uppercase — component pasted outside
+  .page-content, so the one .page-content-scoped text-transform override
+  never reached it; fixed at the component instead of patching the page.
+
+Left open pending the operator's judgement: whether to unify the footer's
+own divider colour (rgba(232,232,224,0.12)) onto the token system; the exact
+photo choice for merch's join panel (currently bluefog as a placeholder);
+whether to convert cult membership's CTA to the photo variant; and an h2
+margin-bottom discrepancy that traced to a stale cached bundle rather than
+a real rule (see docs/css-quirks.md, "Verification discipline").

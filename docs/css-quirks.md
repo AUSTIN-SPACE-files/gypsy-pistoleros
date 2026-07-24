@@ -503,3 +503,224 @@ body #usersite-container section.cart-summary .checkout-action a.button.button-f
 ```
 
 This is (1,5,3) — beats (1,5,0) on the element column. Use `background-color` longhand.
+
+---
+
+## Bandzoogle file IDs ignore the filename slug
+
+File ID `1417814` is referenced in `homepage.css:99` as `04-merch-store.webp` (for
+the now-superseded `.section-hero--merch` rule) but actually serves
+`gp-arches-guitar.webp` (1920×802) — confirmed by opening the live asset. Curling
+the same file ID with a nonsense filename appended returns a byte-identical `303`
+redirect to curling it with the "correct" filename:
+
+```
+curl -sI https://gypsypistoleros.com/files/1417814/04-merch-store.webp
+curl -sI https://gypsypistoleros.com/files/1417814/totally-wrong-name.webp
+```
+
+Both come back `HTTP/2 303`, identical headers. Bandzoogle serves purely by file
+ID and ignores the human-readable slug entirely.
+
+**Implication:** filenames embedded in Bandzoogle file URLs are comments, not
+contracts. A CSS rule can claim a file is one image while BZ actually serves a
+different one at that ID, and this class of drift is undetectable from source
+review or HTTP inspection — the slug never 404s, never redirects differently,
+never reveals itself. The only way to catch it is opening the asset and looking.
+Found once, this ID, this session; there is no way to rule out others without
+doing the same check for every file ID referenced in the codebase.
+
+---
+
+## Content pasted into a BZ HTML Feature Row sits outside `.page-content`
+
+`.page-content` is our own wrapper class, applied only around content we paste as
+an HTML Feature Row. A shared component pasted onto a page like `/merch-store`
+still lives inside a `moda-section`, but not inside a `.page-content` div, unless
+the specific paste target is one of our own HTML Feature Rows.
+
+The only `.page-content`-scoped typography rule anywhere in the codebase is:
+
+```css
+#usersite-container .page-content h1,
+#usersite-container .page-content h2,
+#usersite-container .page-content h3,
+#usersite-container .page-content h4,
+#usersite-container .page-content h5,
+#usersite-container .page-content h6 {
+  text-transform: none;
+}
+```
+
+(`section-rhythm.css:100-105`). `typography.css`'s global `h1, h2 { text-transform:
+uppercase }` sits at specificity (0,0,1) — the rule above is the *only* thing
+standing between a heading and forced uppercase. Any shared component pasted
+somewhere without a `.page-content` ancestor renders uppercase headings unless it
+carries its own `#usersite-container`-scoped override at (1,1,1) or higher.
+
+**Caught on:** the merch join panel (`.section-join__content h2`) — identical
+markup rendered uppercase on `/merch-store` and sentence-case on `/home`, purely
+from `.page-content` ancestor presence or absence. Fixed at the component,
+not the page, by raising `.section-join__content h2` to (1,1,1) and setting
+`text-transform: none` directly (commit `715de3389fe1acab5c8d14a7d822c9f4e2ce5c89`).
+
+Audited the rest of the `.page-content`-scoped rules while tracing this: only one
+other property category is scoped this way anywhere — `background-color`/
+`border-top` on a couple of `::before` pseudo-elements for photo-variant hairline
+suppression (not typography, and not reachable from merch's DOM shape regardless).
+No `.page-content`-scoped rule anywhere sets `font-family`, `font-size`,
+`letter-spacing`, `line-height`, `margin`, or `color`. `text-transform` is
+the only one to watch for in future shared components.
+
+---
+
+## `.page-content` blocks are not siblings
+
+Confirmed live on `/shows`: each `.page-content` div sits inside its own
+`div.block-interactions`, itself sitting in a *different* `moda-section` than the
+one holding the next `.page-content`. Native Bandzoogle widgets (the Shows
+calendar, Spotify embeds, etc.) can and do sit in the gaps between them.
+
+`.page-content + .page-content` matches **nothing** on this site. There is no
+structural CSS selector that can say "the second `.page-content` block on this
+page" — `:nth-of-type` can't either, since each `.page-content` is the only div
+of its type within its own singleton wrapper. Any rule depending on adjacency
+between two `.page-content` blocks — or between a hero in one block and content
+in another — has to target the actual elements by name or by position within
+their own container, not by sibling relationship to another `.page-content`.
+
+---
+
+## Page-class scoping alone leaks into the site header and footer
+
+Live pages carry `website-page-<slug>` on `div#page-root.inner-page`, which wraps
+the site-wide header and footer as well as the page's own content. Any rule
+scoped only by that page class — without also anchoring to `#page-content-wrap`
+— will match `moda-section` elements inside the header and footer too, since
+they share the same page-class ancestor.
+
+This produced three separate defects in one session:
+
+- Merch's band/hairline rhythm styling the site header and footer.
+- Press kit's 1200px content cap narrowing the header and footer.
+- Merch's rhythm rules scoped to `.website-page-v0-merch-store` (the draft page
+  class) instead of `.website-page-merch-store` (the live one) — a related but
+  distinct scoping mistake that meant the rhythm never applied to the live page
+  at all.
+
+**Fix pattern:** pair a page-class selector with `#page-content-wrap` as a
+direct-child ancestor of the relevant `moda-sections.zoogle-content` container:
+
+```css
+#page-root.website-page-X #page-content-wrap > moda-sections.zoogle-content > moda-section
+```
+
+---
+
+## `moda-section` padding lives in the shadow DOM
+
+`moda-section` itself computes `padding: 0`, which is why this doesn't show up
+inspecting the host element directly. The real padding lives on its shadow-DOM
+`div[part="content"]`, driven by Bandzoogle's own `--section-block-padding`
+custom property, plus `section.feature` (BZ's wrapper around each pasted block)
+carrying its own 10px on top. Both are reachable from outside the shadow root via
+`::part(content)`.
+
+This is why band colours did not reach their hairlines at `.page-content` seams
+until zeroed — confirmed live, a 75px gap dropped to 11px (residual = section
+.feature's 10px plus rounding) once `::part(content)`'s `padding-block` was
+zeroed:
+
+```css
+moda-section:has(.page-content)::part(content) {
+  padding-block-end: 0 !important;
+}
+```
+
+`padding-block-start` needs a hero-safety exclusion: the hero's negative-margin
+pull-up (`margin-top: -107px`) is calibrated against the position of this
+padding's inner edge, and removing it shifts the hero out of position. See the
+full reasoning and the `:not(:has(.section-hero)):not(:has(.section-page-hero))`
+guard in `section-rhythm.css`. `padding-block-end` carries no such risk anywhere
+— the hero is always first in its block, never last.
+
+---
+
+## Divider system, current state
+
+Four shared tokens (`variables.css`):
+
+- `--rhythm-band-dark` (`#000000`), `--rhythm-band-light` (`#0f0f0f`) — the two
+  band colours, shared across all three independent band mechanisms
+  (`.page-content > section`, merch `moda-section`, `.video-album`).
+- `--rhythm-hairline` (`rgba(255, 255, 255, 0.2)`) — translucent, for dividers
+  drawn over a flat band.
+- `--rhythm-hairline-solid` (`#333333`) — opaque, for dividers drawn over a
+  photograph. The translucent value composites with whatever sits behind it —
+  fine over a flat band, inconsistent over a photo, where it varies in colour
+  along its length and reads as different weights top to bottom.
+
+Hairlines are drawn **top-only**, by the section below each boundary — never
+`border-bottom`. Photo variants (`.section-join--photo`, `.section-watch--photo`)
+zero their own structural `::before`, so they can't draw their own top hairline
+via the normal mechanism and need an explicit `border-top` instead — but their
+bottom edge is already served by the *next* section's top hairline, so a
+`border-bottom` on a photo variant always doubles into a 2px line. Exception: a
+photo section that is *last* in its `.page-content` block has no following
+section to supply that line, and needs its own `border-bottom` added back.
+
+---
+
+## Two dependencies that live outside the repo and won't announce themselves
+
+- `/shows`' black-first section rhythm depends on Bandzoogle's native Calendar
+  Feature widget existing in the gap between the page's two `.page-content`
+  blocks. If that feature row is ever removed from the live Bandzoogle page, the
+  page loses its black-first section entirely and nothing else picks it up
+  automatically.
+- Five native-block band parities are hand-assigned by `nth-child` position, not
+  computed: `/home` block 2, `/press-kit-epk` blocks 2 through 5. The visual
+  sequence runs across both `.page-content` sections and native Bandzoogle
+  blocks in one continuous alternation, which CSS cannot compute across two
+  structurally different mechanisms. Adding, removing, or reordering a
+  Bandzoogle feature row on either page shifts these positions and requires
+  reassigning the `nth-child` targets and colours by hand.
+
+---
+
+## Verification discipline: always cache-bust before measuring
+
+The deployed bundle is fetched by the live site via a `<link rel="stylesheet"
+href=".../v0-bundle.css">`. Browsers (and some measurement tooling) will happily
+serve a cached copy of that file even after a fresh deploy. Always cache-bust
+before trusting a computed-style measurement:
+
+```js
+const old = document.querySelector('link[rel=stylesheet][href*="v0-bundle.css"]');
+const fresh = old.cloneNode();
+fresh.href += (fresh.href.includes('?') ? '&' : '?') + 'cb=' + Date.now();
+await new Promise(r => fresh.onload = r);
+old.remove();
+```
+
+A measurement taken without this during this session read a stale bundle and
+reported an h2 `margin-bottom` of 20px that had never existed in any version of
+the CSS — full git history of both competing rules was searched with no result,
+and no `--space-*` token even equals 20px. It triggered an extended, ultimately
+fruitless trace before a stale cache became the likely explanation.
+
+---
+
+## Hero lever value: -107px, not -286px
+
+`.section-hero`'s `margin-top` is `-107px` in the current source
+(`homepage.css`), not `-286px`. The value changed three times: `-250px` →
+`-286px` (`b37bcaf`) → `-324px` (`d51134a`, absorbing a taller logo) → `-107px`
+(`50746ce`, "Make header an overlay on hero pages" — once the header became
+`position: absolute`, logo height no longer needed absorbing into the margin at
+all). `homepage.css`'s inline comment has tracked this correctly at every step.
+A `-286px` figure cited from outside this document during this session did not
+match any current or historical version of this file (`docs/css-quirks.md` has
+never recorded this value at any point in its git history) or of the CSS itself
+past `d51134a` — the wrong value came from an external note, not from drift in
+this file.
