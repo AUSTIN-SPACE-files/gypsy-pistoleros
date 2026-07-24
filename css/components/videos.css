@@ -98,6 +98,60 @@
   padding: var(--space-16) 0;
 }
 
+
+/* ==========================================
+   VIDEOS PAGE — album block rhythm
+   videos.js renders four .video-album blocks as siblings inside a single
+   .section-videos, with no page-content > section boundary between them
+   (confirmed: renderAlbums only ever calls mount.appendChild(renderAlbum(...)),
+   nothing interleaved) — so the site-wide alternating band + hairline rhythm
+   never reaches them. Restored here at album granularity.
+
+   Full-bleed technique matches merch (ade0ec4): background-color plus
+   box-shadow 0 0 0 100vw <colour> plus clip-path breakout, since .video-album
+   has no width of its own to bleed with. Set directly on the real element
+   (not a pseudo-overlay), so no z-index child-lifting is needed — the header
+   and grid paint above their own parent's background as normal.
+
+   #000000/#080808 step matches the site-wide .page-content > section rhythm
+   (section-rhythm.css), not merch's darker #000000/#0f0f0f step — this page
+   uses the ambient rhythm. Hairline is 0.06 to match; merch's 0.2 exists only
+   because merch's larger colour step swallowed the fainter value.
+
+   Scoped to #page-root.website-page-videos #page-content-wrap (confirmed live
+   wrapper class + confirmed present), matching the pattern in ade0ec4/668a67b.
+   ========================================== */
+
+#page-root.website-page-videos #page-content-wrap .video-album {
+  position: relative;
+}
+
+#page-root.website-page-videos #page-content-wrap .video-album:nth-child(2n+1) {
+  background-color: #000000;
+  box-shadow: 0 0 0 100vw #000000;
+  clip-path: inset(0 -100vw 0 -100vw);
+}
+
+#page-root.website-page-videos #page-content-wrap .video-album:nth-child(2n) {
+  background-color: #080808;
+  box-shadow: 0 0 0 100vw #080808;
+  clip-path: inset(0 -100vw 0 -100vw);
+}
+
+/* First album carries no line under the hero fade — mirrors the merch
+   pattern and the site-wide .section-hero + section hairline suppression. */
+#page-root.website-page-videos #page-content-wrap .video-album:nth-child(n+2)::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100vw;
+  right: -100vw;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.06);
+  pointer-events: none;
+  z-index: 1;
+}
+
 .video-album__header {
   text-align: left;
   margin-bottom: 2.5rem;
