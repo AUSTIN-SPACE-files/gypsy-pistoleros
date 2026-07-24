@@ -731,10 +731,17 @@
 
 /* Opaque frame, not --rhythm-hairline — this section sits over a photograph,
    and a translucent divider would composite unevenly along its length and
-   read as different weights top to bottom (see variables.css). */
+   read as different weights top to bottom (see variables.css).
+   border-top only: hairlines in this system are drawn top-only, by the
+   section BELOW each boundary. This photo variant zeroes its own ::before
+   (rule above) so it can't draw its own top hairline via the structural
+   mechanism and needs an explicit border-top instead — but its bottom edge
+   is already served by the next section's top hairline, so a border-bottom
+   here always doubles into a 2px line. Exception: a photo section that is
+   LAST in its .page-content block has no following section to supply that
+   line and would need its own border-bottom added back. */
 .section-watch.section-watch--photo {
   border-top: 1px solid var(--rhythm-hairline-solid);
-  border-bottom: 1px solid var(--rhythm-hairline-solid);
 }
 
 /* Variant — hairguitar image */
