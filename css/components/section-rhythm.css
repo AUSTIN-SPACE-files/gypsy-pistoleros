@@ -272,61 +272,6 @@
 }
 
 /* ============================================================
-   SHOWS PAGE — hero-isolation parity correction
-
-   Bandzoogle split /shows' paste so the hero sits alone in its own
-   .page-content block (1 child, no siblings — confirmed live via a
-   div/section-only DOM parse; .section-upcoming exists in staging but
-   is HTML-commented-out on the live page, which is why the hero has no
-   live sibling here). This severs the .section-hero + section
-   relationship the structural base rule depends on (line ~87) both to
-   suppress the hairline and to make nth-child parity land on the dark
-   value immediately after the hero on every other page.
-
-   The page's second .page-content block — section-tba, section-past,
-   section-live, section-booking — restarts its own nth-child count at
-   1, so the whole block is out of phase: section-tba lands on the
-   light value instead of dark, and every section in the block is
-   inverted from where it needs to be, not just the first one. Forcing
-   only section-tba dark would produce two adjacent dark bands
-   (section-tba and section-past would both read dark) — the fix has
-   to flip the whole block's parity, which is why all four sections are
-   overridden below, not one.
-
-   .page-content + .page-content does not match anything on this page —
-   confirmed live that each .page-content sits inside its own
-   div.block-interactions wrapper and neither reports a
-   nextElementSibling. nth-of-type can't distinguish them either, since
-   each .page-content is the only div of its type within its own
-   singleton wrapper — there is no structural selector that can say
-   "the second .page-content block on this page." So this targets the
-   four known section classes by name instead of by position.
-
-   If this page's paste is ever re-split so the hero rejoins the
-   content block (or section-upcoming is re-enabled as a live sibling
-   of the hero), this override becomes wrong and must be removed — the
-   default nth-child rhythm resolves correctly on its own once hero and
-   section-tba's block share a parent again.
-   ============================================================ */
-
-#usersite-container #page-root.website-page-shows #page-content-wrap .section-tba::before,
-#usersite-container #page-root.website-page-shows #page-content-wrap .section-live::before {
-  background-color: var(--rhythm-band-dark);
-}
-
-#usersite-container #page-root.website-page-shows #page-content-wrap .section-past::before,
-#usersite-container #page-root.website-page-shows #page-content-wrap .section-booking::before {
-  background-color: var(--rhythm-band-light);
-}
-
-/* Mirrors the .section-hero + section hairline suppression every other
-   page's hero-adjacent section gets, since section-tba is functionally
-   that section here even though the DOM relationship doesn't hold. */
-#usersite-container #page-root.website-page-shows #page-content-wrap .section-tba::before {
-  border-top: none;
-}
-
-/* ============================================================
    NATIVE BANDZOOGLE BLOCKS — extending the rhythm into the gaps
 
    The .page-content > section rhythm only reaches sections we paste.
@@ -362,11 +307,19 @@
    nth-child targets and colours by hand — nothing here recalculates
    itself.
 
-   Press-kit's block 4 (a Spotify artist embed, ~508px, feature-row
-   24435821) is deliberately left unbanded pending confirmation — see
-   audit report. Block 5 is assigned dark independent of block 4's
-   eventual colour, per instruction: the sequence still alternates
-   either way once block 4 is resolved.
+   Press-kit's block 4 (a Spotify artist embed, feature-row 24435821)
+   is banded light, completing the block 2-5 sequence light/dark/
+   light/dark — .section-downloads (the .page-content block that
+   follows) stays on light, unchanged.
+
+   /shows' native Calendar Feature block gets no hairline and is
+   banded dark, not by the sequence above but because it is this
+   page's true first content block after the hero (the hero sits
+   alone in its own .page-content block — see that rule below for
+   why) — it now carries the black-first treatment that a hero-
+   adjacent section gets everywhere else, and the page's second
+   .page-content block (section-tba onward) reverts to its natural,
+   un-overridden nth-child parity as a result.
    ============================================================ */
 
 #usersite-container #page-root.website-page-home #page-content-wrap moda-sections.zoogle-content > moda-section:nth-child(2):not(:has(.page-content)) {
@@ -423,7 +376,23 @@
   z-index: 1;
 }
 
-/* Block 4 (Spotify embed, feature-row 24435821) intentionally omitted — held pending confirmation. */
+#usersite-container #page-root.website-page-press-kit-epk #page-content-wrap moda-sections.zoogle-content > moda-section:nth-child(4):not(:has(.page-content)) {
+  background-color: var(--rhythm-band-light) !important;
+  box-shadow: 0 0 0 100vw var(--rhythm-band-light) !important;
+  clip-path: inset(0 -100vw 0 -100vw) !important;
+}
+
+#usersite-container #page-root.website-page-press-kit-epk #page-content-wrap moda-sections.zoogle-content > moda-section:nth-child(4):not(:has(.page-content))::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100vw;
+  right: -100vw;
+  height: 1px;
+  background: var(--rhythm-hairline);
+  pointer-events: none;
+  z-index: 1;
+}
 
 #usersite-container #page-root.website-page-press-kit-epk #page-content-wrap moda-sections.zoogle-content > moda-section:nth-child(5):not(:has(.page-content)) {
   background-color: var(--rhythm-band-dark) !important;
@@ -441,4 +410,22 @@
   background: var(--rhythm-hairline);
   pointer-events: none;
   z-index: 1;
+}
+
+/* /shows' native Calendar Feature block (moda-section child 2 of the content
+   container — child 1 is the .page-content block holding the isolated hero,
+   child 3 is the .page-content block holding section-tba onward). This block
+   is what makes /shows satisfy black-first at all: the hero has no live
+   .page-content sibling (section-upcoming is commented out — see the
+   .section-tba::before rule removed from this file), so without banding this
+   calendar dark, nothing on the page continues the hero's fade-to-black. No
+   hairline, matching the hero-adjacent treatment every other page's true
+   first content section gets. If this feature row is ever removed from the
+   Bandzoogle page, /shows loses its black-first section entirely and this
+   parity will need revisiting — nothing else on the page will pick it up
+   automatically. */
+#usersite-container #page-root.website-page-shows #page-content-wrap moda-sections.zoogle-content > moda-section:nth-child(2):not(:has(.page-content)) {
+  background-color: var(--rhythm-band-dark) !important;
+  box-shadow: 0 0 0 100vw var(--rhythm-band-dark) !important;
+  clip-path: inset(0 -100vw 0 -100vw) !important;
 }
