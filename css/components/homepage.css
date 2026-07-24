@@ -617,15 +617,11 @@
   border-top: none;
 }
 
-/* Expanded from a single `border` shorthand to four sides so top/bottom and
-   left/right can be split later without a refactor — flagged: the left/right
-   edges run over the photo itself rather than a flat band, so --rhythm-hairline
-   may read differently there than top/bottom do over the section-rhythm bands. */
+/* No border — this is a photo panel and reads as its own block without a
+   frame. A translucent hairline over a photograph composites unevenly along
+   its length (see the Watch section's opaque frame below for why), and this
+   section doesn't get one at all rather than live with that. */
 .section-join.section-join--photo {
-  border-top: 1px solid var(--rhythm-hairline);
-  border-right: 1px solid var(--rhythm-hairline);
-  border-bottom: 1px solid var(--rhythm-hairline);
-  border-left: 1px solid var(--rhythm-hairline);
   padding-top: var(--space-8);
   padding-bottom: var(--space-8);
 }
@@ -733,9 +729,12 @@
   border-top: none;
 }
 
+/* Opaque frame, not --rhythm-hairline — this section sits over a photograph,
+   and a translucent divider would composite unevenly along its length and
+   read as different weights top to bottom (see variables.css). */
 .section-watch.section-watch--photo {
-  border-top: 1px solid var(--rhythm-hairline);
-  border-bottom: 1px solid var(--rhythm-hairline);
+  border-top: 1px solid var(--rhythm-hairline-solid);
+  border-bottom: 1px solid var(--rhythm-hairline-solid);
 }
 
 /* Variant — hairguitar image */
