@@ -674,9 +674,15 @@
   margin-top: var(--space-2);
 }
 
-/* Actions column — right flex child */
+/* Actions column — right flex child.
+   gap + flex-wrap: wrap — this has only ever held one button (home, merch);
+   videos is the first consumer to put two side by side, and with no gap
+   they'd sit flush together, with no wrap they'd overflow at narrow widths
+   before the @media 768px column-stack below ever kicks in. */
 .section-join__actions {
   display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
   flex-shrink: 0;
 }
 
