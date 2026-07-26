@@ -4054,6 +4054,19 @@ wa-button[disabled]:active::part(base) {
    wrapper class + confirmed present), matching the pattern in ade0ec4/668a67b.
    ========================================== */
 
+/* isolation: isolate — UNVERIFIED WHETHER STILL NEEDED. Added when the hatch
+   shipped on the theory that .video-album needed its own stacking context
+   for the z-index: -1 pseudo below to land above the box-shadow instead of
+   behind it. But every album already gets clip-path from the nth-child
+   rules below, and clip-path: <anything but none> independently creates a
+   stacking context per spec — so this may be fully redundant with that.
+   Not removed: I have no live browser access this session to test it (only
+   this repo/build tooling), and this project has twice shipped regressions
+   from stacking-context changes on band elements without a live check
+   first (css-quirks.md — the reverted moda-section z-index: auto fix, and
+   the photo-occlusion hairline revert). Toggle this off in DevTools next
+   time you're on the live page; if the hatch still renders, remove it here
+   as a one-line follow-up. */
 #page-root.website-page-videos #page-content-wrap .video-album {
   position: relative;
   isolation: isolate;
