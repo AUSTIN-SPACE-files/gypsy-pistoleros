@@ -671,6 +671,26 @@ section to supply that line, and needs its own `border-bottom` added back.
 
 ---
 
+## Unclassed wrapper divs break child combinators — repeat offender
+
+Same trap as `li.top > div > a.top` in `bandzoogle-injected-markup.md` (Bandzoogle
+wraps each nav anchor in an unclassed `<div>`), but this instance is self-inflicted
+rather than Bandzoogle-injected: on `/videos`, `.video-album` elements are not direct
+children of `.section-videos__inner`. `js/videos.js` renders them into
+`<div id="gp-videos">` (`staging/03_videos.html`), which sits between the two:
+
+```
+.section-videos__inner > div#gp-videos > .video-album
+```
+
+`#gp-videos` has an id but no class, so it's easy to overlook when skimming for
+child-combinator selectors — a `.section-videos__inner > .video-album` rule would
+silently match nothing. All `.video-album` selectors in `videos.css` use descendant
+combinators (`#page-content-wrap .video-album`) for exactly this reason; do not
+tighten them to child combinators without re-checking the live DOM first.
+
+---
+
 ## Two dependencies that live outside the repo and won't announce themselves
 
 - `/shows`' black-first section rhythm depends on Bandzoogle's native Calendar

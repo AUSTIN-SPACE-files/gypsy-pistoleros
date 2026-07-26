@@ -142,18 +142,34 @@
   clip-path: inset(0 -100vw 0 -100vw);
 }
 
-/* First album carries no line under the hero fade — mirrors the merch
-   pattern and the site-wide .section-hero + section hairline suppression. */
-#page-root.website-page-videos #page-content-wrap .video-album:nth-child(n+2)::after {
+/* First album carries no top line under the hero fade — mirrors the merch
+   pattern and the site-wide .section-hero + section hairline suppression.
+   Last album additionally carries a bottom line via ::before (::after is
+   already the top-edge hairline above), closing the gap before the
+   .section-join banner — every other band boundary on the page has one,
+   this one didn't. Shared declarations combined into one rule; only the
+   edge offset (top vs. bottom) differs per selector.
+   Bottom selector uses :not(:has(~ .video-album)) rather than :last-child
+   so it keeps resolving to the final album even if a non-album node (e.g.
+   a future load-more control) is ever appended after it in the DOM. */
+#page-root.website-page-videos #page-content-wrap .video-album:nth-child(n+2)::after,
+#page-root.website-page-videos #page-content-wrap .video-album:not(:has(~ .video-album))::before {
   content: '';
   position: absolute;
-  top: 0;
   left: -100vw;
   right: -100vw;
   height: 1px;
   background: var(--rhythm-hairline);
   pointer-events: none;
   z-index: 1;
+}
+
+#page-root.website-page-videos #page-content-wrap .video-album:nth-child(n+2)::after {
+  top: 0;
+}
+
+#page-root.website-page-videos #page-content-wrap .video-album:not(:has(~ .video-album))::before {
+  bottom: 0;
 }
 
 .video-album__header {
