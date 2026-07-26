@@ -647,14 +647,15 @@
   padding-bottom: var(--space-8);
 }
 
-/* Bottom spacing for a photo panel that is the last section in its
+/* Top/bottom spacing for a photo panel that is the last section in its
    .page-content block (currently /videos only) — nothing follows it there
    to provide spacing via the next section's own top padding, so it would
-   otherwise butt directly against the footer. Scoped by :last-child, not
-   added to the component generally: on /home and /merch this panel sits
-   mid-page and already gets its spacing from its neighbours; a blanket
-   margin here would push those apart instead. */
+   otherwise butt directly against the preceding band and the footer.
+   Scoped by :last-child, not added to the component generally: on /home
+   and /merch this panel sits mid-page and already gets its spacing from
+   its neighbours; a blanket margin here would push those apart instead. */
 #usersite-container .page-content > section.section-join.section-join--photo:last-child {
+  margin-top: var(--space-16);
   margin-bottom: var(--space-16);
 }
 
