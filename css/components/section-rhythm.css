@@ -224,30 +224,60 @@
   border: 0 !important;
 }
 
-/* Full-bleed hairline. moda-section computes width 1382px in a 1455px viewport
-   (left offset 36px) — a border-top would render only that inset width, leaving
-   a 36px gap at each end. box-shadow can't paint a single edge, so the divider
-   goes on ::after instead: absolutely positioned, breakout via -100vw left/right.
-   moda-section is already position:relative + overflow:visible, and ::after is
-   otherwise unused (content: none). ::before is BZ-owned at z-index:-1 — untouched.
-   :nth-child(n+3) starts at the second content band: n1 is the hero, n2 is the
-   band directly beneath it, and a line there would cut the hero's fade-to-black.
-   Mirrors the site-wide .section-hero + section hairline suppression. Containers
-   0 and 2 hold one child each so this selector never matches there.
-   --rhythm-hairline (variables.css) — shared with the structural
-   .page-content > section rhythm and the .video-album rhythm, unified
-   to this value (was 0.06 on those two, confirmed live as too faint
-   against merch's #0f0f0f step and now the site-wide value). */
-#usersite-container .website-page-merch-store #page-content-wrap > moda-sections.zoogle-content > moda-section:nth-child(n+3)::after {
+/* ::after is now the full-band cross-hatch texture (variables.css,
+   --rhythm-hatch-*) for every banded merch section — n+2, i.e. every
+   section after the hero at :first-child — with the hairline folded back
+   in as a border-top on the same pseudo for the subset that carries one
+   (n+3; see the rule below). Visible effect: n2, n4, n6, n8 are dark
+   (--rhythm-band-dark, pure black) so the hatch is dormant there by
+   design; n3, n5, n7 are the light band and show it.
+
+   moda-section computes width 1382px in a 1455px viewport (left offset
+   36px) — a border-top on the HOST would render only that inset width,
+   leaving a 36px gap at each end, so both the hatch and the hairline stay
+   on this absolutely-positioned, -100vw-breakout ::after rather than
+   moving to the real element.
+
+   Live-measured (2560px viewport, cache-busted): every banded
+   moda-section already computes position:relative with its own explicit
+   z-index (8, 7, 6, 5, 4 descending across merch's sections) and
+   clip-path: inset(0px -2560px). Either alone establishes the stacking
+   context this needs — no isolation: isolate required.
+
+   ::before is BZ's own — measured live as a 1px-tall top-border line at
+   z-index:-1, not a background layer as previously described here; it
+   occupies none of the band's own area, so there's nothing to collide
+   with. Untouched.
+
+   z-index: -1 (was 1 on the hairline-only version) puts this behind the
+   section's own slotted content — store-item cards, product images —
+   same requirement as the videos hatch. clip-path already clips this
+   pseudo to the band's own height, so no vertical bleed. */
+#usersite-container .website-page-merch-store #page-content-wrap > moda-sections.zoogle-content > moda-section:nth-child(n+2)::after {
   content: '';
   position: absolute;
   top: 0;
+  bottom: 0;
   left: -100vw;
   right: -100vw;
-  height: 1px;
-  background: var(--rhythm-hairline);
+  background-image:
+    repeating-linear-gradient(45deg, var(--rhythm-hatch-color) 0 var(--rhythm-hatch-width), transparent var(--rhythm-hatch-width) var(--rhythm-hatch-pitch)),
+    repeating-linear-gradient(135deg, var(--rhythm-hatch-color) 0 var(--rhythm-hatch-width), transparent var(--rhythm-hatch-width) var(--rhythm-hatch-pitch));
+  z-index: -1;
   pointer-events: none;
-  z-index: 1;
+}
+
+/* Hairline subset — n+3 starts at the second content band; n2 (directly
+   beneath the hero) stays line-free so it doesn't cut the hero's
+   fade-to-black, unchanged from before. Mirrors the site-wide
+   .section-hero + section hairline suppression. Containers 0 and 2 hold
+   one child each so this selector never matches there.
+   --rhythm-hairline (variables.css) — shared with the structural
+   .page-content > section rhythm and the .video-album rhythm, unified to
+   this value (was 0.06 on those two, confirmed live as too faint against
+   merch's earlier #0f0f0f step and now the site-wide value). */
+#usersite-container .website-page-merch-store #page-content-wrap > moda-sections.zoogle-content > moda-section:nth-child(n+3)::after {
+  border-top: 1px solid var(--rhythm-hairline);
 }
 
 /* Band parity: n2 (first content band after the hero) is dark, continuing the
@@ -346,16 +376,23 @@
   clip-path: inset(0 -100vw 0 -100vw) !important;
 }
 
+/* Band here computes rgb(0,0,0) (--rhythm-band-dark) — the hatch is pure
+   black by design, so it is currently dormant on this section. Not broken;
+   kept for structural consistency with the other native blocks below, and
+   would activate on its own if this block's band value ever changed. */
 #usersite-container #page-root.website-page-home #page-content-wrap moda-sections.zoogle-content > moda-section:nth-child(2):not(:has(.page-content))::after {
   content: '';
   position: absolute;
   top: 0;
+  bottom: 0;
   left: -100vw;
   right: -100vw;
-  height: 1px;
-  background: var(--rhythm-hairline);
+  background-image:
+    repeating-linear-gradient(45deg, var(--rhythm-hatch-color) 0 var(--rhythm-hatch-width), transparent var(--rhythm-hatch-width) var(--rhythm-hatch-pitch)),
+    repeating-linear-gradient(135deg, var(--rhythm-hatch-color) 0 var(--rhythm-hatch-width), transparent var(--rhythm-hatch-width) var(--rhythm-hatch-pitch));
+  border-top: 1px solid var(--rhythm-hairline);
   pointer-events: none;
-  z-index: 1;
+  z-index: -1;
 }
 
 #usersite-container #page-root.website-page-press-kit-epk #page-content-wrap moda-sections.zoogle-content > moda-section:nth-child(2):not(:has(.page-content)) {
@@ -368,12 +405,15 @@
   content: '';
   position: absolute;
   top: 0;
+  bottom: 0;
   left: -100vw;
   right: -100vw;
-  height: 1px;
-  background: var(--rhythm-hairline);
+  background-image:
+    repeating-linear-gradient(45deg, var(--rhythm-hatch-color) 0 var(--rhythm-hatch-width), transparent var(--rhythm-hatch-width) var(--rhythm-hatch-pitch)),
+    repeating-linear-gradient(135deg, var(--rhythm-hatch-color) 0 var(--rhythm-hatch-width), transparent var(--rhythm-hatch-width) var(--rhythm-hatch-pitch));
+  border-top: 1px solid var(--rhythm-hairline);
   pointer-events: none;
-  z-index: 1;
+  z-index: -1;
 }
 
 #usersite-container #page-root.website-page-press-kit-epk #page-content-wrap moda-sections.zoogle-content > moda-section:nth-child(3):not(:has(.page-content)) {
@@ -386,12 +426,15 @@
   content: '';
   position: absolute;
   top: 0;
+  bottom: 0;
   left: -100vw;
   right: -100vw;
-  height: 1px;
-  background: var(--rhythm-hairline);
+  background-image:
+    repeating-linear-gradient(45deg, var(--rhythm-hatch-color) 0 var(--rhythm-hatch-width), transparent var(--rhythm-hatch-width) var(--rhythm-hatch-pitch)),
+    repeating-linear-gradient(135deg, var(--rhythm-hatch-color) 0 var(--rhythm-hatch-width), transparent var(--rhythm-hatch-width) var(--rhythm-hatch-pitch));
+  border-top: 1px solid var(--rhythm-hairline);
   pointer-events: none;
-  z-index: 1;
+  z-index: -1;
 }
 
 #usersite-container #page-root.website-page-press-kit-epk #page-content-wrap moda-sections.zoogle-content > moda-section:nth-child(4):not(:has(.page-content)) {
@@ -404,12 +447,15 @@
   content: '';
   position: absolute;
   top: 0;
+  bottom: 0;
   left: -100vw;
   right: -100vw;
-  height: 1px;
-  background: var(--rhythm-hairline);
+  background-image:
+    repeating-linear-gradient(45deg, var(--rhythm-hatch-color) 0 var(--rhythm-hatch-width), transparent var(--rhythm-hatch-width) var(--rhythm-hatch-pitch)),
+    repeating-linear-gradient(135deg, var(--rhythm-hatch-color) 0 var(--rhythm-hatch-width), transparent var(--rhythm-hatch-width) var(--rhythm-hatch-pitch));
+  border-top: 1px solid var(--rhythm-hairline);
   pointer-events: none;
-  z-index: 1;
+  z-index: -1;
 }
 
 #usersite-container #page-root.website-page-press-kit-epk #page-content-wrap moda-sections.zoogle-content > moda-section:nth-child(5):not(:has(.page-content)) {
@@ -422,12 +468,15 @@
   content: '';
   position: absolute;
   top: 0;
+  bottom: 0;
   left: -100vw;
   right: -100vw;
-  height: 1px;
-  background: var(--rhythm-hairline);
+  background-image:
+    repeating-linear-gradient(45deg, var(--rhythm-hatch-color) 0 var(--rhythm-hatch-width), transparent var(--rhythm-hatch-width) var(--rhythm-hatch-pitch)),
+    repeating-linear-gradient(135deg, var(--rhythm-hatch-color) 0 var(--rhythm-hatch-width), transparent var(--rhythm-hatch-width) var(--rhythm-hatch-pitch));
+  border-top: 1px solid var(--rhythm-hairline);
   pointer-events: none;
-  z-index: 1;
+  z-index: -1;
 }
 
 /* /shows' native Calendar Feature block (moda-section child 2 of the content
