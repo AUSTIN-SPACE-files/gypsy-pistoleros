@@ -29,6 +29,24 @@
   --rhythm-band-light: #0a0a0a;
   --rhythm-hairline: rgba(255, 255, 255, 0.2);
 
+  /* Cross-hatch texture, layered onto a band host's own hairline pseudo as a
+     background-image alongside its background-color. Pure black by design:
+     invisible over --rhythm-band-dark, visible only over --rhythm-band-light.
+     Two consumers as of this pass — the structural .page-content > section
+     rhythm (section-rhythm.css) and .video-album (videos.css) — so this is a
+     genuine shared token, not a single-consumer abstraction. Scalars only,
+     matching every other token in this file: each consumer writes its own
+     repeating-linear-gradient() pair rather than storing the gradients
+     themselves as one composite value, since there's no precedent here for a
+     token holding a full background-image list. --rhythm-hatch-width is the
+     solid line thickness; --rhythm-hatch-pitch is the repeat spacing between
+     lines — kept as two separate, unambiguously-named tokens rather than one
+     "size" token so a future reader isn't left guessing which dimension it
+     controls. */
+  --rhythm-hatch-color: rgba(0, 0, 0, 0.6);
+  --rhythm-hatch-width: 1px;
+  --rhythm-hatch-pitch: 6px;
+
   /* Opaque equivalent of --rhythm-hairline composited over --rhythm-band-dark.
      --rhythm-hairline is translucent by design so it works over both band
      values, but that means it composites over whatever sits behind it —

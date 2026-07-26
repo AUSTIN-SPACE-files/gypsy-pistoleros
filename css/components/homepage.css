@@ -633,8 +633,15 @@
    Do not re-attempt this by un-suppressing border-top again without first
    verifying on the live page — see the z-index option considered and
    deliberately not shipped, reported the same day this was reverted. */
+/* background-image: none added alongside the existing suppression — this
+   panel is inset to max-width (unlike .section-watch--photo, which is
+   genuinely full-bleed), so its ::before's 100vw breakout margins extend
+   past the photo on both sides. The hairline already shows through there as
+   a broken fragment (comment above); a hatch would do the same as a stray
+   decorative strip beside the photo if not explicitly zeroed here. */
 #usersite-container .page-content > section.section-join.section-join--photo::before {
   background-color: transparent;
+  background-image: none;
   border-top: none;
 }
 
@@ -774,8 +781,14 @@
   z-index: 2 !important;
 }
 
+/* background-image: none added for symmetry with .section-join--photo above.
+   Not strictly required here — this variant is genuinely full-bleed
+   (width: 100vw, no breakout gap), so the photo already fully occludes this
+   pseudo regardless — but explicit is safer than relying on that occlusion
+   incidentally. */
 #usersite-container .page-content > section.section-watch.section-watch--photo::before {
   background-color: transparent;
+  background-image: none;
   border-top: none;
 }
 

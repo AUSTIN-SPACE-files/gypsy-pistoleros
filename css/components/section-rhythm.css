@@ -56,6 +56,11 @@
   position: relative;
 }
 
+/* background-image is the cross-hatch texture (variables.css,
+   --rhythm-hatch-*) — pure black by design, invisible over
+   --rhythm-band-dark, visible only over --rhythm-band-light. This pseudo
+   is a real box (not a box-shadow full-bleed), so it can carry it directly
+   alongside its own background-color with no restructuring needed. */
 #usersite-container .page-content > section::before {
   content: '';
   position: absolute;
@@ -65,6 +70,9 @@
   height: 100%;
   z-index: -1;
   border-top: 1px solid var(--rhythm-hairline);
+  background-image:
+    repeating-linear-gradient(45deg, var(--rhythm-hatch-color) 0 var(--rhythm-hatch-width), transparent var(--rhythm-hatch-width) var(--rhythm-hatch-pitch)),
+    repeating-linear-gradient(135deg, var(--rhythm-hatch-color) 0 var(--rhythm-hatch-width), transparent var(--rhythm-hatch-width) var(--rhythm-hatch-pitch));
   pointer-events: none;
 }
 
@@ -82,10 +90,20 @@
 }
 
 /* Hero sections (across all pages) are excluded from the alternating
-   section rhythm. They handle their own backgrounds. */
+   section rhythm. They handle their own backgrounds. display: none should
+   already suppress this pseudo's box entirely (specificity here is (1,2,2),
+   equal to the nth-child parity rules but later in source order, and no
+   other rule in the bundle sets display on this selector at equal or higher
+   specificity) — but background-image: none is added explicitly rather
+   than relying on that alone, matching the same belt-and-braces pattern as
+   the .section-join--photo/.section-watch--photo suppressions below
+   (homepage.css), since this is the one rule covering every hero on every
+   page and a leaked hatch here would be a full-bleed line across the top of
+   the site's own hero photos. */
 #usersite-container .page-content > section.section-hero::before,
 #usersite-container .page-content > section.section-page-hero::before {
   display: none;
+  background-image: none;
 }
 
 #usersite-container .page-content > section.section-hero + section::before,

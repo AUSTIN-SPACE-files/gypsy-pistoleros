@@ -148,7 +148,10 @@
    above gives .video-album its own stacking context so z-index: -1 here
    lands there instead of falling behind the box-shadow entirely. Pure
    black by design: invisible over --rhythm-band-dark, visible only over
-   --rhythm-band-light. Applies to every album, including the first. */
+   --rhythm-band-light. Applies to every album, including the first.
+   Geometry/colour now shared with the structural rhythm host
+   (section-rhythm.css) via --rhythm-hatch-* (variables.css) — this page
+   became the second real consumer, promoting it from a one-off value. */
 #page-root.website-page-videos #page-content-wrap .video-album::after {
   content: '';
   position: absolute;
@@ -159,8 +162,8 @@
   height: auto;
   background-color: transparent;
   background-image:
-    repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.6) 0 1px, transparent 1px 6px),
-    repeating-linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0 1px, transparent 1px 6px);
+    repeating-linear-gradient(45deg, var(--rhythm-hatch-color) 0 var(--rhythm-hatch-width), transparent var(--rhythm-hatch-width) var(--rhythm-hatch-pitch)),
+    repeating-linear-gradient(135deg, var(--rhythm-hatch-color) 0 var(--rhythm-hatch-width), transparent var(--rhythm-hatch-width) var(--rhythm-hatch-pitch));
   z-index: -1;
   pointer-events: none;
 }
