@@ -17,9 +17,16 @@
      merch moda-section in section-rhythm.css, .video-album in
      videos.css). Same DOM relationship does not exist across all
      three, so the mechanisms stay separate — only the values unify.
+
+     --rhythm-band-light was #0f0f0f until the videos cross-hatch
+     work: #0f0f0f was explicitly rejected as too light on videos
+     (darkened to a literal #0a0a0a there), and the hatch alpha was
+     then tuned by eye against #0a0a0a. Unifying upward back to
+     #0f0f0f would revert that approved change and invalidate the
+     tuning, so #0a0a0a is now the one site-wide value instead.
      ========================================== */
   --rhythm-band-dark: #000000;
-  --rhythm-band-light: #0f0f0f;
+  --rhythm-band-light: #0a0a0a;
   --rhythm-hairline: rgba(255, 255, 255, 0.2);
 
   /* Opaque equivalent of --rhythm-hairline composited over --rhythm-band-dark.

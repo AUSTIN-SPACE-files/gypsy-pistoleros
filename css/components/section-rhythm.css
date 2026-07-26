@@ -16,7 +16,7 @@
    ## Alternation pattern (after hero)
 
    Section 2 (first content)  --rhythm-band-dark  (#000000)
-   Section 3                  --rhythm-band-light (#0f0f0f)
+   Section 3                  --rhythm-band-light (#0a0a0a)
    Section 4                  --rhythm-band-dark
    Section 5                  --rhythm-band-light
    ... and so on
@@ -201,7 +201,7 @@
    ============================================================ */
 
 /* BZ puts a 1px solid black L/R/bottom border on every moda-section;
-   it shows as vertical lines on the #0f0f0f bands. Remove it. */
+   it shows as vertical lines on the --rhythm-band-light bands. Remove it. */
 #usersite-container .website-page-merch-store #page-content-wrap > moda-sections.zoogle-content > moda-section {
   border: 0 !important;
 }

@@ -138,8 +138,8 @@
 }
 
 #page-root.website-page-videos #page-content-wrap .video-album:nth-child(2n) {
-  background-color: #0a0a0a;
-  box-shadow: 0 0 0 100vw #0a0a0a;
+  background-color: var(--rhythm-band-light);
+  box-shadow: 0 0 0 100vw var(--rhythm-band-light);
   clip-path: inset(0 -100vw 0 -100vw);
 }
 
@@ -147,8 +147,8 @@
    the album's own box-shadow but below its content — isolation: isolate
    above gives .video-album its own stacking context so z-index: -1 here
    lands there instead of falling behind the box-shadow entirely. Pure
-   black by design: invisible over the #000 bands, visible only over the
-   #0a0a0a ones. Applies to every album, including the first. */
+   black by design: invisible over --rhythm-band-dark, visible only over
+   --rhythm-band-light. Applies to every album, including the first. */
 #page-root.website-page-videos #page-content-wrap .video-album::after {
   content: '';
   position: absolute;
