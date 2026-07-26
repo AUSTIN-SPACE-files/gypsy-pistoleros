@@ -1,0 +1,75 @@
+<!--
+  ═══════════════════════════════════════════════════════════════
+  _inner-circle-welcome-feature-row.html
+  Gypsy Pistoleros — The Inner Circle: members-area welcome block
+  AUSTIN_SPACE build — July 2026
+  ═══════════════════════════════════════════════════════════════
+
+  THIS IS NOT A STANDALONE PAGE.
+
+  Paste the contents of this file into the Bandzoogle content block
+  at the top of the members area (gypsypistoleros.com/blog), using
+  Bandzoogle's "Custom HTML" feature type.
+
+  This REPLACES the block currently live there — it is not an
+  addition alongside it. js/inner-circle.js's identifySources()
+  only ever captures the FIRST non-gallery/non-blog section as the
+  Welcome source; a second, separate section here would be silently
+  dropped and never reach the Welcome tab. Paste as one block.
+
+  PLACEMENT:
+  Top of the members-area page content, above the image gallery and
+  blog feature rows, exactly where the current welcome content sits.
+
+  STYLING:
+  Styled entirely by css/components/inner-circle.css, scoped under
+  #ic-panel-welcome. That wrapper ID is NOT present in this file —
+  js/inner-circle.js moves this content into it at runtime, so the
+  block will render unstyled/plain until the script has run.
+  Do NOT paste CSS into BZ Customize CSS.
+
+  CSS CLASSES USED BY THIS BLOCK:
+    .ic-welcome-intro       — heading + lead wrapper (inner-circle.css)
+    .ic-welcome-heading     — h2 (inner-circle.css)
+    .ic-welcome-lead        — intro paragraph (inner-circle.css)
+    .ic-welcome-video       — 16:9 iframe wrapper (inner-circle.css)
+    .ic-welcome-body-wrap   — band-note + perk-card wrapper (inner-circle.css)
+    .ic-welcome-body        — band-note paragraphs (inner-circle.css)
+    .ic-perk-card           — "What you get" card (inner-circle.css)
+    .ic-welcome-subheading  — card subheading (inner-circle.css)
+    .ic-perk-list           — perk list (inner-circle.css)
+    .ic-perk-list__tier     — NEW, tier-marker label on High-Order-only
+                              items. NOT YET STYLED — needs a follow-up
+                              CSS pass. See report for what it needs.
+  ═══════════════════════════════════════════════════════════════
+-->
+
+<div class="ic-welcome-intro">
+  <h2 class="ic-welcome-heading">Welcome to The Inner Circle</h2>
+  <p class="ic-welcome-lead">This is where we keep you up to date with all things Pistolero. Watch the monthly videos, get the updates, grab early access to music and videos, and who knows what else. It's going to be fun.</p>
+</div>
+<div class="ic-welcome-video">
+  <iframe src="https://www.youtube.com/embed/nAt2U0XheM0" title="Welcome to The Inner Circle" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+  </iframe>
+</div>
+<div class="ic-welcome-body-wrap">
+  <p class="ic-welcome-body">Thank you to all you lovely lot for signing up to The Inner Circle. It's so lovely to have you with us. As always, we're busy behind the scenes getting ready for tour and the album release.</p>
+  <p class="ic-welcome-body">Thank you so much for being on board. If you've got ideas for what you'd like to see on here, merch ideas, or anything really, drop it in the FB group or messenger, or message us direct. Hope you're all well, and we'll update you again soon. x</p>
+  <div class="ic-perk-card">
+    <p class="ic-welcome-subheading">What you get</p>
+    <ul class="ic-perk-list">
+      <li><i class="fa-sharp fa-thin fa-circle-play"></i>Monthly update video from the band</li>
+      <li><i class="fa-sharp fa-thin fa-eye"></i>Behind-the-scenes footage</li>
+      <li><i class="fa-sharp fa-thin fa-music"></i>Early access to new music <span class="ic-perk-list__tier">The High Order</span></li>
+      <li><i class="fa-sharp fa-thin fa-comments"></i>Private Facebook group</li>
+      <li><i class="fa-sharp fa-thin fa-comments"></i>Direct messenger access to the band <span class="ic-perk-list__tier">The High Order</span></li>
+      <li><i class="fa-sharp fa-thin fa-tag"></i>10% off all merch <span class="ic-perk-list__tier">The High Order</span></li>
+      <!-- REMOVED: "Private members-only livestream" — appears nowhere on
+           staging/06_cult-membership.html (no comparison-table row, no body
+           copy, no FAQ mention). Restore here, and add a row to the
+           comparison table at whatever tier it's actually delivered at,
+           only once the band confirms the livestream is real. -->
+      <li><i class="fa-sharp fa-thin fa-calendar"></i>New albums before release <span class="ic-perk-list__tier">The High Order</span></li>
+    </ul>
+  </div>
+</div>

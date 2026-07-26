@@ -46,22 +46,51 @@
   /* =====================================================
      PAGE GUARD — URL (primary discriminator)
 
-     Run ONLY on the blog index page. Post-detail pages share the
-     same #page-content-wrap + moda-sections structure so the DOM
+     Run ONLY on the members-area index page. Post-detail pages share
+     the same #page-content-wrap + moda-sections structure so the DOM
      guard below is not enough on its own.
 
-     INDEX_PATHS: exact index slugs (trailing slash stripped).
-     *** UPDATE THIS LIST at production cutover ***
-     e.g. add '/inner-circle', '/members', or whatever the live slug is.
+     INDEX_PATHS: exact index slugs (trailing slash stripped), in
+     priority order. Rename-tolerant by design: add a new slug ahead
+     of an old one during a migration and both keep working.
+       '/the-high-order-of-the-cultof-the-pistoleros-area' — live now
+       '/the-inner-circle'                                 — post-rename slug
+       '/v0-blog-draft'                                     — local/staging
+     Drop the first (typo'd) entry once the 301 to /the-inner-circle
+     is confirmed in place — it only exists for the migration window.
 
-     isPostDetail: /blog/<numeric-id>/... — matches post URLs even
-     when the index slug is '/blog', blocking those before indexOf().
+     isPostDetail: defensive and currently redundant — see inline note
+     below. Real post-detail protection is the "Back to all posts" DOM
+     check further down.
   ===================================================== */
 
-  var _path         = location.pathname.replace(/\/+$/, '');
-  var _isPostDetail = /\/blog\/\d+\//.test(location.pathname);
-  /* NOTE: one-place update for production cutover — add the live slug here */
-  var _INDEX_PATHS  = ['/v0-blog-draft', '/blog'];
+  var _path = location.pathname.replace(/\/+$/, '');
+
+  var _INDEX_PATHS = [
+    '/the-high-order-of-the-cultof-the-pistoleros-area',
+    '/the-inner-circle',
+    '/v0-blog-draft'
+  ];
+
+  /* Post-detail URL shape confirmed live via sitemap + a real post URL:
+       /the-high-order-of-the-cultof-the-pistoleros-area/blog/<word-slug>
+     — nested one level below the index path, word slugs, not numeric
+     IDs. The structural check below matches this shape correctly.
+     The old /\/blog\/\d+\// regex could never have matched these
+     slugs (it required a numeric ID), so this is a genuine fix, not
+     just a rewrite.
+
+     Any path this matches is already caught by the indexOf(_path) === -1
+     test two lines down: a match here means _path is longer than any
+     known index path, so it can never equal one, and that indexOf test
+     alone already returns -1 for it. This check is purely defensive —
+     it can only ever add an early return, never something the indexOf
+     test wasn't already going to catch. The "Back to all posts" DOM
+     check further down remains the belt-and-braces guard. */
+  var _isPostDetail = _INDEX_PATHS.some(function (base) {
+    return _path !== base && _path.indexOf(base + '/') === 0;
+  });
+
   if (_isPostDetail || _INDEX_PATHS.indexOf(_path) === -1) {
     console.log('[inner-circle] not blog index, skipping');
     return;
@@ -291,9 +320,11 @@
 
   /* =====================================================
      WIRE — blog pagination
-     Rewrites BZ's pagination hrefs (/v0-blog-draft/blog_posts?display_format=grid&p=N)
-     to the bare index path + ?p=N, which BZ serves as the styled v0 page.
-     Uses _INDEX_PATHS[0] so cutover is a one-place update.
+     Rewrites BZ's pagination hrefs (e.g. /the-inner-circle/blog_posts?display_format=grid&p=N)
+     to the bare current index path + ?p=N, which BZ serves as the styled v0 page.
+     Uses _path (the page's own current path) rather than a fixed
+     _INDEX_PATHS entry, so this works on whichever of the three index
+     slugs is actually being served — no manual update needed at cutover.
   ===================================================== */
 
   function rewritePagination() {
@@ -303,7 +334,7 @@
       try { u = new URL(a.href); } catch (e) { return; }
       var p = u.searchParams.get('p');
       if (!p) return;
-      a.setAttribute('href', _INDEX_PATHS[0] + '?p=' + p);
+      a.setAttribute('href', _path + '?p=' + p);
     });
   }
 
