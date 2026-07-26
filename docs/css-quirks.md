@@ -870,3 +870,15 @@ consumer, by design — `.section-watch.section-watch--photo`'s `border-top`
 (`homepage.css:784`). Do not delete it as orphaned on the strength of that
 single-consumer count alone; one consumer is its expected shape, not a sign
 it's unused.
+
+---
+
+## 16. `page-hero.css` is a naming footgun, not a live hero system
+
+`css/components/page-hero.css` defines a parallel hero system named
+`.section-page-hero--*`, and it is included in the v0 bundle's `SOURCES`
+array — but no live page uses those classes; the real heroes are
+`.section-hero` + `.section-hero--<page>` in `homepage.css`. Anyone grepping
+for a hero rule to edit will hit `page-hero.css` first and may edit a block
+that cannot match anything — check the class actually on the element before
+editing.
