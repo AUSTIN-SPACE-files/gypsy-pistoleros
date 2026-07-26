@@ -128,6 +128,7 @@
 
 #page-root.website-page-videos #page-content-wrap .video-album {
   position: relative;
+  isolation: isolate;
 }
 
 #page-root.website-page-videos #page-content-wrap .video-album:nth-child(2n+1) {
@@ -142,34 +143,50 @@
   clip-path: inset(0 -100vw 0 -100vw);
 }
 
-/* First album carries no top line under the hero fade — mirrors the merch
-   pattern and the site-wide .section-hero + section hairline suppression.
-   Last album additionally carries a bottom line via ::before (::after is
-   already the top-edge hairline above), closing the gap before the
-   .section-join banner — every other band boundary on the page has one,
-   this one didn't. Shared declarations combined into one rule; only the
-   edge offset (top vs. bottom) differs per selector.
-   Bottom selector uses :not(:has(~ .video-album)) rather than :last-child
-   so it keeps resolving to the final album even if a non-album node (e.g.
-   a future load-more control) is ever appended after it in the DOM. */
-#page-root.website-page-videos #page-content-wrap .video-album:nth-child(n+2)::after,
+/* ::after is the cross-hatch texture layer, full band height, sitting above
+   the album's own box-shadow but below its content — isolation: isolate
+   above gives .video-album its own stacking context so z-index: -1 here
+   lands there instead of falling behind the box-shadow entirely. Pure
+   black by design: invisible over the #000 bands, visible only over the
+   #0a0a0a ones. Applies to every album, including the first. */
+#page-root.website-page-videos #page-content-wrap .video-album::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -100vw;
+  right: -100vw;
+  height: auto;
+  background-color: transparent;
+  background-image:
+    repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.6) 0 1px, transparent 1px 6px),
+    repeating-linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0 1px, transparent 1px 6px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Top hairline, folded into the same pseudo as a border rather than a
+   separate filled box. First album carries no top line under the hero
+   fade — mirrors the merch pattern and the site-wide .section-hero +
+   section hairline suppression. */
+#page-root.website-page-videos #page-content-wrap .video-album:nth-child(n+2)::after {
+  border-top: 1px solid var(--rhythm-hairline);
+}
+
+/* Bottom line on the last album, closing the gap before the .section-join
+   banner — unchanged from 78742d2. :not(:has(~ .video-album)) rather than
+   :last-child so it keeps resolving to the final album even if a non-album
+   node is ever appended after it in the DOM. */
 #page-root.website-page-videos #page-content-wrap .video-album:not(:has(~ .video-album))::before {
   content: '';
   position: absolute;
   left: -100vw;
   right: -100vw;
+  bottom: 0;
   height: 1px;
   background: var(--rhythm-hairline);
   pointer-events: none;
   z-index: 1;
-}
-
-#page-root.website-page-videos #page-content-wrap .video-album:nth-child(n+2)::after {
-  top: 0;
-}
-
-#page-root.website-page-videos #page-content-wrap .video-album:not(:has(~ .video-album))::before {
-  bottom: 0;
 }
 
 .video-album__header {
