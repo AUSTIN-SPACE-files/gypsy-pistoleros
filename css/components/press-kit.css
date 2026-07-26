@@ -629,9 +629,12 @@
    #usersite-container double-ID anchor beats BZ's
    ID-scoped theme rule without !important (2 IDs
    vs BZ's 1). Colour only — font/size/weight
-   untouched. Scoped to website-page-press-kit-epk.
+   untouched. Shared fix — scoped to both
+   website-page-press-kit-epk and
+   website-page-contact-booking.
    ========================================== */
 
-#usersite-container #page-root.website-page-press-kit-epk #page-content-wrap form.simple_form .input > label {
+#usersite-container #page-root.website-page-press-kit-epk #page-content-wrap form.simple_form .input > label,
+#usersite-container #page-root.website-page-contact-booking #page-content-wrap form.simple_form .input > label {
   color: var(--color-text-primary);
 }
