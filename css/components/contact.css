@@ -5,75 +5,184 @@
    v0 baseline only. No v2 styling flourishes.
    Reuses .section-page-hero (page-hero.css) and
    .section-contacts (homepage.css) as-is.
-   Adds stacked block layout and partner logo sizing.
+   Adds the 2x2 wa-card contact grid and the
+   Contacts heading override, both specific to
+   this page.
    ========================================== */
 
 
 /* ==========================================
-   STACKED BLOCK LAYOUT
-   Used on the Contact & Booking page in place of
-   .section-contacts__grid (4-col equal cells).
-   The existing grid class is untouched — index and
-   press-kit continue to use it unchanged.
+   CONTACTS HEADING OVERRIDE
+   #contacts-heading is referenced by this section's own
+   aria-labelledby (staging/08_contact-booking.html) — kept as-is,
+   styling only. The rule it would otherwise inherit,
+   #usersite-container .section-contacts h2 (homepage.css), is a small
+   grey label shared across three pages (home, contact-booking,
+   press-kit-epk all use .section-contacts) — not edited here, since
+   home's and press-kit's headings (where rendered) should keep it.
+   #usersite-container #contacts-heading uses two IDs to beat that
+   one-ID-plus-class rule outright, regardless of source order, scoping
+   the change to this page's element only.
+   Values match every other v0 section heading (home, videos): Georgia,
+   the same clamp() as the sitewide h1/h2 rule (40px at desktop widths),
+   weight 600 (matching .video-album__title), var(--color-text-primary)
+   and var(--space-4) rather than literal #fff/20px — no v0 heading
+   anywhere uses those literals; the tokens are the actual source of
+   truth this is matching.
+
+   text-transform: none here is belt-and-braces, not the thing actually
+   winning live: .section-contacts h2's own uppercase already loses the
+   cascade to #usersite-container .page-content h1..h6 { text-transform:
+   none } (section-rhythm.css) — same (1,1,1) specificity as
+   .section-contacts h2, but section-rhythm.css loads later in the
+   build, so it wins that property on source order (confirmed live: the
+   heading already renders "Contacts", not "CONTACTS", before this rule
+   was even added). Repo and deployed bundle agree; there was no
+   mismatch, just an extra rule I hadn't accounted for when first
+   describing this. Kept explicit here anyway so this rule doesn't
+   silently depend on that other cascade outcome to read correctly.
    ========================================== */
 
-.section-contacts__stack {
+#usersite-container #contacts-heading {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  letter-spacing: 0.03em;
+  text-transform: none;
+  margin-bottom: var(--space-4);
+}
+
+
+/* ==========================================
+   CONTACTS — 2x2 wa-card grid
+   Replaces the former stacked-block layout. Host styling matches
+   .review-card (reviews.css): background, border, radius, flex column
+   so the email pins to the bottom via margin-top: auto. Slot structure
+   matches .lineup-card (press-kit.css): slot="media" for the lead
+   visual, plain children for the text stack. wa-card 3.7.0 has no
+   ::part(base) — host styling goes directly on the element, as both
+   precedents already do.
+   New class names throughout (.contact-card*) rather than reusing
+   .section-contacts__block/__role/__name/__desc/__partner-logo — those
+   are shared with home's and press-kit's .section-contacts__grid layout
+   (untouched, confirmed via their staging markup) and this is a
+   structurally different component (wa-card vs plain div), not a
+   restyle of the same one.
+   Breakpoint (600px) matches homepage .reviews-grid rather than
+   inventing a new one.
+   ========================================== */
+
+.contact-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-6);
   margin-top: var(--space-8);
 }
 
-.section-contacts__stack .section-contacts__block {
-  padding: var(--space-8) 0;
-  border-top: 1px solid var(--color-border-subtle);
+@media (max-width: 600px) {
+  .contact-cards {
+    grid-template-columns: 1fr;
+  }
 }
 
-.section-contacts__stack .section-contacts__block:last-child {
-  border-bottom: 1px solid var(--color-border-subtle);
+#usersite-container .contact-card {
+  background-color: #000;
+  border: 1px solid var(--rhythm-hairline);
+  border-radius: 12px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
-.section-contacts__stack .section-contacts__desc {
-  max-width: 52ch;
+/* part="media" is a <slot>, confirmed live to compute display: flex
+   (row) when it has content — and display: none, NOT overridable from
+   ::part(), when it doesn't. Every card here always has media (logo or
+   icon fallback), so the empty case never applies, but don't rely on
+   styling this part when a card might have no media content. */
+#usersite-container .contact-card::part(media) {
+  margin: 0;
+  padding: var(--space-6) var(--space-6) 0;
 }
 
-
-/* ==========================================
-   PARTNER LOGOS
-   Logo images inside .section-contacts__block,
-   between the contact name and blurb.
-
-   Root cause of stretching: .section-contacts__block is
-   display:flex / flex-direction:column (homepage.css:402),
-   which applies align-self:stretch to every child by default.
-   That overrides width:auto at layout level — specificity
-   cannot fix it. align-self:flex-start on the img is the
-   correct escape: it tells flex to size the box to the
-   element's content rather than stretching it.
-   ========================================== */
-
-.section-contacts__partner-logo {
+/* height: 44px is LOAD-BEARING, not cosmetic — confirmed live. The
+   media slot is a flex row with no cross-axis constraint of its own, so
+   any child image with no explicit height stretches to fill it. Without
+   this height, the BJF PR plate (an intrinsically small logo) measured
+   350x352px instead of the intended ~52x44px. The old
+   .section-contacts__partner-logo used align-self: flex-start to escape
+   the same stretch on a flex-column parent; this rewrite uses a flex-ROW
+   parent instead (the media slot itself), so the escape has to be an
+   explicit height, not align-self. Do not remove this height. */
+.contact-card__logo {
   display: block;
-  align-self: flex-start;    /* escape flex column stretch — see note above */
-  height: 56px;              /* fallback / SLL Artists badge height */
+  height: 44px;
   width: auto;
-  max-width: 100%;           /* safety cap for very wide intrinsic sizes */
-  border-radius: 0;          /* reset Web Awesome native.css img border-radius */
-  margin-top: var(--space-4);
-  margin-bottom: var(--space-2);
+  object-fit: contain;
 }
 
-/* The New Church Records — square seal with fine detail;
-   needs more height than a badge to be legible. */
-.section-contacts__partner-logo--seal {
-  height: 72px;
-}
-
-/* BJF PR — wide wordmark on white background.
-   White padded plate so the logo reads on the black section.
-   align-self:flex-start (inherited from base) keeps the plate
-   box-sized to the logo's natural width — it will not stretch
-   to a full-width white bar. */
-.section-contacts__partner-logo--plate {
+/* BJF PR — wide wordmark on white background; needs a white plate to
+   read against the card's black body. Carried forward from the former
+   .section-contacts__partner-logo--plate treatment — dropping it would
+   make this logo illegible here. */
+.contact-card__logo--plate {
+  display: inline-block;
   background: #fff;
   padding: var(--space-2) var(--space-3);
   border-radius: 3px;
-  height: 32px;
+}
+
+/* General Enquiries has no partner logo — falls back to a plain icon
+   in the same media position. Colour comes from the sitewide
+   i.fa-thin default (icons.css, var(--color-text-secondary)) — this is
+   exactly that value already, so no colour override is written here. */
+#usersite-container i.contact-card__icon-fallback {
+  display: block;
+  font-size: 26px;
+}
+
+#usersite-container .contact-card::part(body) {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-6);
+}
+
+.contact-card__role {
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.contact-card__name {
+  font-family: var(--font-display);
+  font-size: 22px;
+  color: var(--color-text-primary);
+}
+
+.contact-card__desc {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: 1.65;
+  color: var(--color-text-secondary);
+}
+
+/* Two classes (.contact-card .contact-card__email) so this beats the
+   generic .section-contacts a / a:hover rules (homepage.css) on
+   specificity alone — those would otherwise apply too, since this card
+   still sits inside the shared .section-contacts wrapper. */
+.contact-card .contact-card__email {
+  margin-top: auto;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: #fff;
+  text-decoration: none;
+}
+
+.contact-card .contact-card__email:hover {
+  text-decoration: underline;
 }

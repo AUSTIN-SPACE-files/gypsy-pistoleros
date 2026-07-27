@@ -266,6 +266,31 @@ section.
 }
 ```
 
+**"No `part="base"`" does not mean "no styleable parts" — easy to
+over-read that way.** The other four parts (`media`, `header`, `body`,
+`footer`) are real and confirmed live-styleable: `::part(media) {
+padding: ... }` and `::part(body) { display: flex; padding: ... }` both
+applied as written (contact page card grid, `contact.css`).
+
+Two gotchas found while confirming that, both live-verified:
+
+- `part="media"` is a `<slot>`, and it computes `display: flex` (row)
+  when it has slotted content, but `display: none` when it doesn't —
+  and that `none` is **not overridable from `::part()`**; forcing
+  `display: block` on an empty media slot did not take. Only style this
+  part on cards that always have media content.
+- Because it's a flex row, any media child with no explicit height is a
+  stretch candidate — an intrinsically small image (a logo wordmark)
+  with only `width: auto` stretched to fill the row's cross axis and
+  measured 350×352px instead of its intended ~52×44px. An explicit
+  `height` on the child is what constrains it (confirmed: with the
+  height removed, the stretch reproduced exactly). This is the same
+  failure `.section-contacts__partner-logo`'s old `align-self:
+  flex-start` comment documented for a flex-*column* parent — the fix
+  shape differs because the media slot is a flex row, but the
+  underlying trap (unconstrained image dimension inside a flex
+  container stretches) is the same one.
+
 ---
 
 ### BZ HTML feature does not auto-sync with staging files
