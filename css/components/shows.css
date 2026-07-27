@@ -352,3 +352,24 @@
 .section-booking__grid a:hover {
   color: var(--color-text-primary);
 }
+
+
+/* ==========================================
+   NATIVE BZ SHOWS WIDGET OVERRIDES
+   ========================================== */
+
+/* Source titles are already sentence case (measured live: "Gypsy
+   Pistoleros", "Wednesday 13 & Gypsy Pistoleros") — BZ's own
+   .event-title/.heading-tertiary theme class applies uppercase, not
+   ours (grepped the whole bundle, no match). .heading-tertiary alone
+   is shared with merch's product titles (merch-store.css), so
+   .event-title must stay in the selector to avoid touching those too.
+   Scoped to /shows only — confirmed live that /home has zero
+   .event-title and zero .heading-tertiary elements, so whatever native
+   widget sits in that page's block doesn't render event titles with
+   this markup; no extension needed there. #usersite-container prefix
+   per project convention rather than !important; escalate only if this
+   doesn't win live. */
+#usersite-container #page-root.website-page-shows .event-title {
+  text-transform: none;
+}
