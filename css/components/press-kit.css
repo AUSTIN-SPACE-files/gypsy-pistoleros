@@ -645,3 +645,30 @@
 #usersite-container #page-root.website-page-contact-booking #page-content-wrap form.simple_form .input > label {
   color: var(--color-text-primary);
 }
+
+
+/* ==========================================
+   SECTION 15 — ENQUIRIES FORM SUBMIT BUTTON TYPOGRAPHY
+   Matches the native BZ submit button's label typography to the v0
+   wa-button label (measured live from /videos): Inter 600, 0.7px
+   tracking, sentence case. Font-size (14px) already matched BZ's own
+   value, left alone. Selector is form-scoped rather than page-scoped
+   (form.simple_form is unique to the Enquiries form — verified live:
+   zero .simple_form instances on /merch-store despite its 30 <form>
+   elements, a product detail page, the cult membership page, /home, or
+   a 404 route), so one rule already covers both /press-kit-epk and
+   /contact-booking without a comma list — verified live on both pages,
+   no !important needed.
+
+   TYPOGRAPHY ONLY. Colour is set deliberately in the BZ editor and is
+   NOT overridable from here regardless of specificity — see "native BZ
+   form button" in css-quirks.md. Do not add background-color, color,
+   or border-color to this rule.
+   ========================================== */
+
+#usersite-container form.simple_form button[type="submit"] {
+  font-family: var(--font-body);
+  font-weight: 600;
+  letter-spacing: 0.7px;
+  text-transform: none;
+}

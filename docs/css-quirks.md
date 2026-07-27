@@ -927,3 +927,32 @@ array — but no live page uses those classes; the real heroes are
 for a hero rule to edit will hit `page-hero.css` first and may edit a block
 that cannot match anything — check the class actually on the element before
 editing.
+
+---
+
+## 17. Native BZ form button: typography is author-overridable, colour is not
+
+`form.simple_form button[type="submit"]` (the native Enquiries form's
+submit button, present on /press-kit-epk and /contact-booking) accepts
+author `font-family`/`font-weight`/`letter-spacing`/`text-transform` at
+plain single-ID specificity (`#usersite-container form.simple_form
+button[type="submit"]`), no `!important` needed — verified live on both
+pages.
+
+`background-color`, `color`, and `border-color` on the same element do
+**not** behave the same way: they resist override even at two-ID
+specificity with `!important`. The winning declaration lives in one of
+nine cross-origin BZ CDN stylesheets and can't be read via
+`document.styleSheets`/`cssRules` (cross-origin blocked). Don't chase this
+with escalating specificity or `!important` — colour on this button has to
+be set in the Bandzoogle editor directly, not in this repo.
+
+Also: this button has `transition: background 0.2s, border-color 0.2s,
+color 0.25s`. More generally, any computed-style read taken sooner than
+~300ms after a change (a class toggle, a hover, a live edit) on a
+BZ-themed element can return stale mid-transition values and produce a
+false negative for whether an override took — wait out the transition
+before measuring. [Cross-reference pending: could not locate an existing
+"MCP browser patterns" doc or hover-state delay note anywhere in this
+repo to link against — if one exists outside this repo, point me at it
+and this note should link to it instead of standing alone.]
