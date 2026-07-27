@@ -948,11 +948,12 @@ with escalating specificity or `!important` — colour on this button has to
 be set in the Bandzoogle editor directly, not in this repo.
 
 Also: this button has `transition: background 0.2s, border-color 0.2s,
-color 0.25s`. More generally, any computed-style read taken sooner than
-~300ms after a change (a class toggle, a hover, a live edit) on a
-BZ-themed element can return stale mid-transition values and produce a
-false negative for whether an override took — wait out the transition
-before measuring. [Cross-reference pending: could not locate an existing
-"MCP browser patterns" doc or hover-state delay note anywhere in this
-repo to link against — if one exists outside this repo, point me at it
-and this note should link to it instead of standing alone.]
+color 0.25s`. More generally, when verifying whether a CSS override took
+effect on a BZ-themed element, read computed styles only after any
+transition on the property has finished. BZ applies transitions to colour
+properties on several themed elements, so a read taken too soon returns a
+mid-transition value and looks like the override failed when it
+succeeded. Allow at least ~300ms, longer if the element's own
+`transition-duration` says so. The same applies to reading hover-state
+styles after triggering a hover — give the hover transition time to
+complete before reading.
