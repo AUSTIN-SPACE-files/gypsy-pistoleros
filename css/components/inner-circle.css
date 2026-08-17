@@ -646,44 +646,10 @@
      the content below it. --space-4 rather than --space-6 because this
      STACKS on wa-tab-panel::part(base)'s own top padding, which already
      contributes 32px here, 24px at <=720px and 16px at <=440px — 24px on
-     top of that read too loose at every step. On its own this gap would
-     not reach the Welcome heading; the companion rule below is what lets
-     it land there. */
+     top of that read too loose at every step. */
   #usersite-container #ic-tabs::part(body) {
     padding-left: 0;
     padding-top: var(--space-4);
-  }
-
-  /* Release the Welcome intro's negative pull so the gap above actually
-     applies to this panel.
-
-     The -64px lives at .ic-welcome-intro (~line 844, unconditional, no
-     media bound). It is a DESKTOP-ONLY compensation for BZ's moda-section
-     'm-shape m-masked' spacing, which isn't reachable via padding/margin
-     resets on the wrapper chain — and it was never re-examined for the
-     mobile placement="top" layout. Left in place it swallows both
-     ::part(body)'s new top padding and wa-tab-panel::part(base)'s own,
-     landing net negative at every mobile breakpoint (-16px at 899px,
-     -24px at 720px, -32px at 440px), which is why the heading sat hard
-     against the tab strip.
-
-     !important is load-bearing here, not decoration. The selector is
-     character-identical to the base rule, so specificity ties at (0,2,1)
-     — and a media query adds none. The base rule sits LATER in the file
-     (~line 877) than this block, so on source order alone it would win
-     and this override would be a silent no-op. Every @media block in this
-     file precedes that rule, so no placement inside the existing
-     structure fixes it; !important is the minimal lever. The alternative
-     — bounding the base rule in @media (min-width: 900px) — is arguably
-     cleaner but rewrites a working desktop rule to fix a mobile bug.
-
-     PROVISIONAL — needs a real-device check. How much spacing BZ's
-     wrapper actually contributes at mobile widths is not verifiable from
-     source alone, so 0 may prove slightly tight or slightly loose here.
-     If the heading now sits too far down, a small negative (-16px to
-     -24px) rather than a return to -64px is the likely correction. */
-  #usersite-container #ic-panel-welcome .ic-welcome-intro {
-    margin-top: 0 !important;
   }
 }
 
