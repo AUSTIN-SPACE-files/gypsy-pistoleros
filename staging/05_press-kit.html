@@ -208,7 +208,7 @@
          (inserted between Latest Release and Press;
          not renumbered to avoid touching every section
          below — same convention as SECTION 2B above.
-         See css/components/press-kit.css SECTION 13
+         See css/components/press-kit.css SECTION 16
          for the matching CSS block)
          ========================================== -->
     <section class="section-recent-live" aria-labelledby="recent-live-heading">
@@ -220,6 +220,25 @@
       <p>At Rebellion Punk Music Festival, the band stormed the iconic Opera House stage at Blackpool Winter Gardens, delivering a triumphant set to a crowd approaching 1,000. The reaction was explosive.</p>
 
       <p>One day later they were in completely different territory — supporting Wednesday 13 in Newport to a younger, predominantly goth crowd. And they went absolutely wild.</p>
+
+      <!-- PLACEHOLDER IMAGES — swap both src and alt when the real Rebellion /
+           Wednesday 13 photos land. Layout is intentionally source-agnostic:
+           object-fit: cover against a fixed aspect-ratio means portrait,
+           landscape or mixed source files all render as matched columns. -->
+      <div class="section-recent-live__gallery">
+        <figure class="section-recent-live__figure">
+          <img src="https://gypsypistoleros.com/files/1417812/02-shows-london-gp-dft.webp"
+               alt="Gypsy Pistoleros performing on the Opera House stage at Blackpool Winter Gardens"
+               loading="lazy">
+          <figcaption class="section-recent-live__caption">Rebellion Punk Music Festival — Opera House, Blackpool Winter Gardens</figcaption>
+        </figure>
+        <figure class="section-recent-live__figure">
+          <img src="https://gypsypistoleros.com/files/1417814/04-merch-store.webp"
+               alt="Gypsy Pistoleros performing live under red and green stage lighting"
+               loading="lazy">
+          <figcaption class="section-recent-live__caption">Supporting Wednesday 13 — Newport</figcaption>
+        </figure>
+      </div>
 
       <!-- Pull-quote uses the same left-border structure as
            .section-at-a-glance__pull-quote, in gold rather than silver, to mark

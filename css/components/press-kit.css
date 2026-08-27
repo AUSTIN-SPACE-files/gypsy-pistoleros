@@ -675,11 +675,14 @@
 
 
 /* ==========================================
-   SECTION 13 — RECENT LIVE
+   SECTION 16 — RECENT LIVE
    HTML position: between Latest Release and Press
    (SECTION 4B in staging/05_press-kit.html) — appended
    here rather than inline in file order to avoid
    renumbering every section below it, same as SECTION 12.
+   Numbered 16 because 13 (content cap), 14 (enquiries form
+   labels) and 15 (enquiries submit button) were already taken
+   further up this file.
    ========================================== */
 
 /* Outer rhythm and width match the neighbouring --latest-release and
@@ -732,8 +735,62 @@
 }
 
 
+/* Gallery: two equal columns, collapsing to one at 700px.
+   Deliberately NOT capped at --content-width like the prose above it —
+   the gallery takes the section's full content container width, so its
+   left edge stays flush with the text while the right edge runs past it.
+   That wider crop is the approved mockup, not an oversight: do not add a
+   max-width here to "line it up" with the paragraphs. */
+.section-recent-live__gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+  margin: var(--space-8) 0;
+}
+
+/* margin !important — beats Bandzoogle's
+   #usersite-container figure { margin: 1em 0; } override (1,0,1), the same
+   reset and the same fix as .section-at-a-glance__pull-quote's blockquote.
+   Verified against the live BZ application stylesheet. */
+.section-recent-live__figure {
+  margin: 0 !important;
+}
+
+/* Fixed aspect-ratio + cover is what makes the two columns match regardless
+   of what the source files are — see the placeholder note in the HTML. */
+.section-recent-live__figure img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border: 1px solid rgba(201, 168, 76, 0.28);
+  border-radius: var(--radius-lg);
+}
+
+/* Cinzel tracked uppercase, matching the small-label treatment used by
+   .section-live__group-heading below. Scoped through the section class:
+   a bare class selector here is (0,1,0) and would lose to any
+   `.section-recent-live <element>` rule, the trap that silently reset
+   __lede to --text-base. */
+.section-recent-live .section-recent-live__caption {
+  font-family: var(--font-display-secondary);
+  font-size: var(--text-xs);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+  margin-top: var(--space-3);
+}
+
+@media (max-width: 700px) {
+  .section-recent-live__gallery {
+    grid-template-columns: 1fr;
+  }
+}
+
+
 /* ==========================================
-   SECTION 13B — LIVE (autumn dates additions)
+   SECTION 16B — LIVE (autumn dates additions)
    Extends SECTION 9 above. NOTE: .section-live is shared with the
    shows page (see SECTION 9 note), but every selector below is scoped
    to a class that only the EPK markup carries, so nothing here reaches
