@@ -978,25 +978,6 @@
   text-align: center;
 }
 
-/* Tier marker — small pill flagging a High-Order-only perk.
-   flex-wrap on the li lets this drop to its own line at narrow
-   widths instead of overflowing; the li's existing gap applies as
-   row-gap automatically when it wraps. */
-#usersite-container #ic-panel-welcome .ic-perk-list__tier {
-  display: inline-block;
-  vertical-align: middle;
-  font-family: var(--font-body);
-  font-size: 11px;
-  letter-spacing: 0.04em;
-  color: var(--color-accent-pink);
-  border: 1px solid rgba(255, 45, 146, 0.4);
-  background: transparent;
-  padding: 2px 8px;
-  border-radius: 2px;
-  white-space: nowrap;
-}
-
-
 /* ==========================================
    SECTION HEADER — shared across Images and Videos panels
    Injected by JS; mirrors .ic-welcome-intro so all three panels read as one family.
