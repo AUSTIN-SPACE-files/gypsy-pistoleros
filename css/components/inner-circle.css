@@ -898,7 +898,8 @@
 /* Green hairline accent shared by Welcome heading and panel section titles */
 #usersite-container #ic-panel-welcome .ic-welcome-heading::after,
 #usersite-container #ic-panel-images .ic-section-title::after,
-#usersite-container #ic-panel-videos .ic-section-title::after {
+#usersite-container #ic-panel-videos .ic-section-title::after,
+#usersite-container #ic-panel-presale .ic-section-title::after {
   content: '';
   display: block;
   position: absolute;
@@ -984,13 +985,15 @@
    ========================================== */
 
 #usersite-container #ic-panel-images .ic-section-header,
-#usersite-container #ic-panel-videos .ic-section-header {
+#usersite-container #ic-panel-videos .ic-section-header,
+#usersite-container #ic-panel-presale .ic-section-header {
   margin-bottom: 2rem;
 }
 
 /* Section title — matches .ic-welcome-heading geometry for hairline positioning */
 #usersite-container #ic-panel-images .ic-section-title,
-#usersite-container #ic-panel-videos .ic-section-title {
+#usersite-container #ic-panel-videos .ic-section-title,
+#usersite-container #ic-panel-presale .ic-section-title {
   font-family: 'Georgia', serif !important;
   font-size: clamp(1.5rem, 3vw, 2rem);
   font-weight: 700;
@@ -1006,10 +1009,59 @@
 
 /* Section blurb — matches .ic-welcome-lead */
 #usersite-container #ic-panel-images .ic-section-blurb,
-#usersite-container #ic-panel-videos .ic-section-blurb {
+#usersite-container #ic-panel-videos .ic-section-blurb,
+#usersite-container #ic-panel-presale .ic-section-blurb {
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
   font-size: 1.0625rem;
   line-height: 1.7;
   color: #e8e8e0;
   margin: var(--space-4) 0 0;
+}
+
+/* ==========================================
+   PRE-SALE PANEL
+   Hosts a native BZ Store feature row (section.feature.store_feature),
+   adopted by js/inner-circle.js — not our own HTML. Card-level styling
+   (article.store-item, price, add-to-cart) comes from merch-store.css,
+   which is unscoped by page and already covers this markup wherever it
+   renders. Only the wrapper-level rules below are specific to this panel.
+
+   Gating is presentational only: the Inner Circle page is restricted at
+   the BZ page level to The High Order (tier_id=16804), the only tier
+   left. Everyone who can reach this page is entitled to see the
+   pre-sale — no JS tier check here, by design.
+   ========================================== */
+
+/* Pre-hydration hide — this native row sits in normal document flow as a
+   moda-section sibling of Welcome/Images/Videos' sources until JS moves
+   it into #ic-panel-presale in populate(). Without this, an unstyled
+   Add-to-Cart row flashes above the tab scaffold between first paint and
+   window.load. Structural match (:has(section.feature.store_feature)),
+   not a feature-row id — ids are not stable across BZ edits.
+
+   Trade-off accepted: this makes the row fail-closed rather than
+   fail-open (see docs/journal.txt, "Pre-sale tab: fail-closed trade-off").
+
+   Both page-slug classes are listed so this survives the pending
+   _INDEX_PATHS rename in either direction without a follow-up edit —
+   mirrors the rename-tolerant list already used in js/inner-circle.js.
+   VERIFY LIVE: confirm these are the actual .website-page-* classes BZ
+   renders on this page before shipping. */
+#usersite-container #page-root.website-page-the-high-order-of-the-cultof-the-pistoleros-area #page-content-wrap moda-sections.zoogle-content > moda-section:has(section.feature.store_feature),
+#usersite-container #page-root.website-page-the-inner-circle #page-content-wrap moda-sections.zoogle-content > moda-section:has(section.feature.store_feature) {
+  display: none;
+}
+
+/* Once reparented into the panel, undo the hide (it's now a descendant of
+   #ic-tabs, whose own visibility is owned by JS/WA, not this rule) and
+   strip the moda-section padding — same flush treatment already applied
+   to the Welcome panel above. */
+#usersite-container #ic-panel-presale moda-section {
+  display: block;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+#usersite-container #ic-panel-presale section.feature.store_feature {
+  padding: 0;
 }

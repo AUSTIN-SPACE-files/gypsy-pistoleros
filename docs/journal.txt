@@ -366,3 +366,44 @@ the markup and costing roughly thirty minutes before the actual cause
 (sign out, sign back in) was found. Diagnostic and fix recorded in
 docs/css-quirks.md, "A stale Bandzoogle editor session accepts input and
 discards it on save."
+
+### Pre-sale tab: fail-closed trade-off (September 2026) — accepted, not a bug
+
+js/inner-circle.js gained a fourth, conditional Pre-sale tab that adopts a
+native BZ Store feature row (section.feature.store_feature) into the
+existing wa-tab-group, reparenting it exactly the way Welcome and Video
+Updates already are. identifySources()/buildScaffold() build the tab only
+when the row is present, so pulling the products from Bandzoogle makes the
+tab disappear entirely rather than leaving an empty panel.
+
+Deliberate trade-off recorded here so it isn't rediscovered later as a
+regression: css/components/inner-circle.css hides the native row via CSS
+(display: none on the moda-section, matched structurally by
+:has(section.feature.store_feature), not by feature-row id) from first
+paint, so an unstyled Add-to-Cart block never flashes above the tab
+scaffold during the gap between initial render and window.load — the same
+gap Welcome/Images/Videos already have, but a live cart control flashing
+in it reads as broken in a way a flashed blog card doesn't.
+
+This flips that one row from fail-open to fail-closed. Every other panel's
+source stays in the page (ugly, untabbed, but visible) if inner-circle.js
+throws or is blocked before populate() runs. The pre-sale row does not: if
+the script never reaches populate(), the row is invisible with nothing to
+reveal it. Accepted rather than engineered around, given the script's
+existing try/catch and bounded WA-definition timeout already make that
+failure path unlikely — but a real, new trade-off this feature introduces,
+not a wash with the status quo.
+
+Gating note, not a code change: The Chosen tier was retired, so the Inner
+Circle page is now restricted at the Bandzoogle page level to The High
+Order (tier_id=16804) only. The CSS hide above is presentational — it is
+not, and was never intended to be, an access control. No JS tier check was
+added; everyone who can reach the page is entitled to see the pre-sale.
+
+Also outstanding: the page-slug CSS selector for the hide lists both
+.website-page-the-high-order-of-the-cultof-the-pistoleros-area and
+.website-page-the-inner-circle (mirroring the rename-tolerant _INDEX_PATHS
+list already in js/inner-circle.js) because the live .website-page-* class
+has not yet been confirmed via a DOM capture on this specific page — see
+the VERIFY LIVE comment at the rule. Prune to the confirmed class in a
+follow-up once checked.

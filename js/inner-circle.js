@@ -3,10 +3,15 @@
  * AUSTIN_SPACE build — June 2026
  *
  * Injects a <wa-tab-group placement="start"> scaffold over BZ's
- * native gallery and blog feature rows. Three panels:
+ * native gallery, blog, and (when present) store feature rows.
+ * Three permanent panels, plus a fourth that only appears when its
+ * source exists:
  *   Welcome       — BZ welcome hero moda-section (user-added)
  *   Images        — per-album preview grid + wa-dialog full gallery
  *   Video updates — BZ blog_feature moda-section (existing posts)
+ *   Pre-sale      — BZ store_feature moda-section (conditional — see
+ *                   identifySources()/buildScaffold(); absent entirely
+ *                   when no store feature row is on the page)
  *
  * THREE-STEP BOOT:
  *
@@ -143,18 +148,23 @@
   ===================================================== */
 
   function identifySources(sections) {
-    var gallery = null, blog = null, welcome = null;
+    var gallery = null, blog = null, welcome = null, presale = null;
     for (var i = 0; i < sections.length; i++) {
       var sec = sections[i];
       if (sec.querySelector('section.feature.gallery_feature')) {
         if (!gallery) gallery = sec;
       } else if (sec.querySelector('section.blog_feature')) {
         if (!blog) blog = sec;
+      } else if (sec.querySelector('section.feature.store_feature')) {
+        /* Native BZ Store feature row — the Pre-sale drop. Checked ahead
+           of the welcome catch-all below so a store row can never be
+           mistaken for the welcome source if it happens to sit first. */
+        if (!presale) presale = sec;
       } else if (!welcome) {
         welcome = sec;
       }
     }
-    return { gallery: gallery, blog: blog, welcome: welcome };
+    return { gallery: gallery, blog: blog, welcome: welcome, presale: presale };
   }
 
   /* =====================================================
@@ -352,17 +362,27 @@
 
   window.addEventListener('resize', setTabPlacement);
 
-  function buildScaffold() {
+  function buildScaffold(sources) {
     var g = document.createElement('wa-tab-group');
     g.setAttribute('placement', window.innerWidth < 900 ? 'top' : 'start');
     g.id        = 'ic-tabs';
     g.className = 'ic-tab-group';
 
-    [
+    var descriptors = [
       { panel: 'welcome', label: 'Welcome'      },
       { panel: 'images',  label: 'Images'        },
       { panel: 'videos',  label: 'Video updates' }
-    ].forEach(function (d) {
+    ];
+
+    /* Pre-sale tab only exists when a native BZ store feature row is
+       actually present (sources snapshotted in Step 1, before this runs).
+       Gating by tier is handled entirely at the BZ page level (The High
+       Order only) — this is presence-only, no tier check here. */
+    if (sources.presale) {
+      descriptors.push({ panel: 'presale', label: 'Pre-sale' });
+    }
+
+    descriptors.forEach(function (d) {
       var tab = document.createElement('wa-tab');
       tab.setAttribute('slot',  'nav');
       tab.setAttribute('panel', d.panel);
@@ -409,6 +429,7 @@
     var welcomePanel = group.querySelector('wa-tab-panel[name="welcome"]');
     var imagesPanel  = group.querySelector('wa-tab-panel[name="images"]');
     var videosPanel  = group.querySelector('wa-tab-panel[name="videos"]');
+    var presalePanel = group.querySelector('wa-tab-panel[name="presale"]');
 
     /* Welcome */
     if (sources.welcome) {
@@ -462,6 +483,22 @@
       console.log('[inner-circle] populate: blog moved, pagination rewritten');
     } else {
       console.warn('[inner-circle] Blog source not found — Video Updates panel empty.');
+    }
+
+    /* Pre-sale
+       Reparent the whole native store feature row, same technique as
+       Welcome/Video Updates above. No presence check needed beyond the
+       one already in buildScaffold() — if sources.presale is falsy the
+       tab/panel pair was never created, so presalePanel is null here. */
+    if (sources.presale && presalePanel) {
+      if (!presalePanel.querySelector('.ic-section-header')) {
+        presalePanel.appendChild(buildSectionHeader(
+          'The Drop',
+          'First look, first pick.'
+        ));
+      }
+      presalePanel.appendChild(sources.presale);
+      console.log('[inner-circle] populate: presale moved');
     }
 
     /* Reveal scaffold — was hidden during load gap */
@@ -533,7 +570,7 @@
       }
 
       /* ---- Step 2: build + inject scaffold (autoloader trigger) ---- */
-      group = buildScaffold();
+      group = buildScaffold(sources);
       group.style.display = 'none'; /* hidden until populate() reveals it */
       console.log('[inner-circle] about to append scaffold');
       contentWrap.appendChild(group);
