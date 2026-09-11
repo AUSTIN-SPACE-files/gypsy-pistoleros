@@ -400,10 +400,28 @@ Order (tier_id=16804) only. The CSS hide above is presentational — it is
 not, and was never intended to be, an access control. No JS tier check was
 added; everyone who can reach the page is entitled to see the pre-sale.
 
-Also outstanding: the page-slug CSS selector for the hide lists both
-.website-page-the-high-order-of-the-cultof-the-pistoleros-area and
-.website-page-the-inner-circle (mirroring the rename-tolerant _INDEX_PATHS
-list already in js/inner-circle.js) because the live .website-page-* class
-has not yet been confirmed via a DOM capture on this specific page — see
-the VERIFY LIVE comment at the rule. Prune to the confirmed class in a
-follow-up once checked.
+Resolved: the page-slug class was confirmed live on 11 Sep 2026 as
+.website-page-the-high-order-of-the-cultof-the-pistoleros-area. The
+speculative .website-page-the-inner-circle half of the selector (added
+against the pending _INDEX_PATHS rename before the live class was known)
+matched nothing and has been pruned.
+
+Second failure surface for the same pre-hydration hide, not anticipated
+when the fail-closed trade-off above was accepted: the Bandzoogle page
+editor. The editor renders the site inside iframe#usersite_frame, loading
+the same v0-bundle.css, and #page-root inside that iframe carries the
+identical .website-page-* class — so the hide rule matched there too.
+js/inner-circle.js never builds #ic-tabs inside the editor iframe (no
+window.load-driven populate() runs there), so nothing ever un-hid the
+row, leaving Charles unable to see or click the native store feature row
+to configure it from the back end. Live site was unaffected throughout —
+this only ever broke the editor.
+
+Fix: BZ sets class="iframed" on <html> only inside the editor's preview
+iframe, never on the live page (confirmed live in both contexts). The
+hide selector in css/components/inner-circle.css is now prefixed
+html:not(.iframed) to scope it to the live site only. Any future
+pre-hydration hide added to this site needs the same guard — the editor
+loads the same bundle as production and does not run our JS, so any
+CSS-only hide keyed to page-root classes will reach into it too unless
+explicitly excluded.

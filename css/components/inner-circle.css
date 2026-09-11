@@ -1042,13 +1042,26 @@
    Trade-off accepted: this makes the row fail-closed rather than
    fail-open (see docs/journal.txt, "Pre-sale tab: fail-closed trade-off").
 
-   Both page-slug classes are listed so this survives the pending
-   _INDEX_PATHS rename in either direction without a follow-up edit —
-   mirrors the rename-tolerant list already used in js/inner-circle.js.
-   VERIFY LIVE: confirm these are the actual .website-page-* classes BZ
-   renders on this page before shipping. */
-#usersite-container #page-root.website-page-the-high-order-of-the-cultof-the-pistoleros-area #page-content-wrap moda-sections.zoogle-content > moda-section:has(section.feature.store_feature),
-#usersite-container #page-root.website-page-the-inner-circle #page-content-wrap moda-sections.zoogle-content > moda-section:has(section.feature.store_feature) {
+   Page-slug class verified live 11 Sep 2026 as
+   .website-page-the-high-order-of-the-cultof-the-pistoleros-area — the
+   .website-page-the-inner-circle half of this selector was speculative
+   (guarding against the pending _INDEX_PATHS rename before the live
+   class was confirmed) and has been dropped since it matches nothing.
+   Re-add it if/when that rename actually lands and the page-root class
+   changes.
+
+   html:not(.iframed) guard — DO NOT REMOVE as dead weight. Bandzoogle's
+   page editor renders the site inside iframe#usersite_frame, loading
+   this same bundle, and #page-root in that iframe carries the identical
+   .website-page-* class. Without this guard the rule fires there too,
+   hiding the row — but js/inner-circle.js never builds #ic-tabs inside
+   the editor iframe, so populate() never runs and nothing ever
+   un-hides it, leaving Charles unable to see or click the store row to
+   configure it in the back end. BZ sets class="iframed" on <html> only
+   inside that editor preview iframe, never on the live page — confirmed
+   live in both contexts — so this guard scopes the hide to the live
+   site only. */
+html:not(.iframed) #usersite-container #page-root.website-page-the-high-order-of-the-cultof-the-pistoleros-area #page-content-wrap moda-sections.zoogle-content > moda-section:has(section.feature.store_feature) {
   display: none;
 }
 
