@@ -872,3 +872,26 @@
     gap: var(--space-1);
   }
 }
+
+
+/* ==========================================
+   Press photos gallery - hide BZ thumbnail hover caption (credit lives in lightbox + credit row below)
+   BZ gallery_feature shows div.caption on hover; the text is too long for the
+   thumbnail and clips. Lightbox caption reads a.dnt[title], so it is unaffected.
+   Two IDs beat BZ theme rules without !important. Page-scoped so the Inner
+   Circle gallery keeps its own behaviour.
+   ========================================== */
+
+#usersite-container #page-root.website-page-press-kit-epk .gallery-wrapper .gallery-item .caption,
+#usersite-container #page-root.website-page-press-kit-epk .gallery-wrapper .gallery-item:hover .caption,
+#usersite-container #page-root.website-page-press-kit-epk .gallery-wrapper .gallery-item:focus-within .caption {
+  display: none;
+}
+
+/* Credit row: staging/_press-photos-credit-feature-row.html, pasted into the
+   HTML Feature Row directly below the gallery. Type and link styles come from
+   the shared .photo-credit rule in typography.css. */
+#usersite-container .press-photos-credit {
+  text-align: center;
+  margin-top: var(--space-4);
+}

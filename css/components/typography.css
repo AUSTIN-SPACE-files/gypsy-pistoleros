@@ -305,3 +305,8 @@ blockquote cite,
 #usersite-container .photo-credit__link wa-icon {
   font-size: 1em;
 }
+
+#usersite-container .photo-credit__sep {
+  margin: 0 0.5em;
+  opacity: 0.5;
+}
