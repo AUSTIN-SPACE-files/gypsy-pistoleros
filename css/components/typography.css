@@ -262,3 +262,46 @@ blockquote cite,
   margin-bottom: var(--space-2);
 }
 
+
+/* ==========================================
+   Photo credits - shared
+   Matches .footer-credit-link (footer.css): secondary colour at rest,
+   primary on hover, -webkit-text-fill-color set alongside color because
+   BZ sets it on anchors and it overrides color. #usersite-container
+   prefix beats BZ theme ID-scoped link rules without !important.
+   ========================================== */
+
+#usersite-container .photo-credit {
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+#usersite-container .photo-credit__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  color: inherit;
+  -webkit-text-fill-color: currentColor;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+#usersite-container .photo-credit__link:hover,
+#usersite-container .photo-credit__link:focus-visible {
+  color: var(--color-text-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+#usersite-container .photo-credit__link:focus-visible {
+  outline: 1px solid currentColor;
+  outline-offset: 2px;
+}
+
+#usersite-container .photo-credit__link wa-icon {
+  font-size: 1em;
+}

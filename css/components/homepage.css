@@ -12,7 +12,7 @@
    Resolved relative to this CSS file for local
    staging. For Bandzoogle deployment, replace
    with the absolute hosted URL, e.g.:
-   url('https://gypsypistoleros.com/files/1413423/gp-arches-promo.jpeg')
+   url('https://gypsypistoleros.com/files/1438633/gp-promo-blue-bricks.webp')
    ========================================== */
 
 
@@ -92,8 +92,28 @@
   margin-top: -107px !important;
 }
 
+/* Hero photo credit: pinned bottom-right over the photo. z-index 2 clears the
+   ::after dimmer (z:1). .section-hero is already position: relative. Prefixed so
+   the 11px mobile size beats the shared #usersite-container .photo-credit rule
+   in typography.css. */
+#usersite-container .photo-credit--hero {
+  position: absolute;
+  right: 16px;
+  bottom: 12px;
+  z-index: 2;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+@media (max-width: 768px) {
+  #usersite-container .photo-credit--hero {
+    right: 12px;
+    bottom: 8px;
+    font-size: 11px;
+  }
+}
+
 /* Per-page hero background images */
-.section-hero--home    { background-image: url('https://gypsypistoleros.com/files/1413423/gp-arches-promo.jpeg'); }
+.section-hero--home    { background-image: url('https://gypsypistoleros.com/files/1438633/gp-promo-blue-bricks.webp'); }
 .section-hero--shows   { background-image: url('https://gypsypistoleros.com/files/1417812/02-shows-london-gp-dft.webp'); }
 .section-hero--merch   { background-image: url('https://gypsypistoleros.com/files/1417814/04-merch-store.webp'); }
 .section-hero--cult    { background-image: url('https://gypsypistoleros.com/files/1417815/05-cult-sign-up.webp'); }
